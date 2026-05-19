@@ -1,0 +1,21 @@
+<nav class="max-w-7xl mx-auto px-6 lg:px-20 py-4 flex items-center justify-between">
+
+            <div class="flex items-center gap-12">
+                <a href="{{  route('home')}}" class="text-2xl font-bold tracking-tight text-black">
+                    QuickStay
+                </a>
+
+                <div class="hidden md:flex items-center gap-8 text-sm font-semibold uppercase tracking-wide">
+                    <a href="{{ route('home') }}" class="text-gray-600 hover:text-black">Home</a>
+                    <a href="{{ route('rooms')}}" class="border-b border-black text-black">Hotels</a>
+                    <a href="#" class="text-gray-600 hover:text-black">Experiences</a>
+                    <a href="#" class="text-gray-600 hover:text-black">About</a>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-6">
+                <a href="{{ route('login') }}" class="px-4 py-2 rounded bg-black text-white text-sm font-semibold hover:text-gray-200">
+                    Login
+                </a>
+            </div>
+        </nav>

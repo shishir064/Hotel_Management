@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\StoreUserRequest;
+use App\Models\Users;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
+class AuthController extends Controller
+{
+    public function create()
+    {
+        return view('auth.register');
+    }
+
+    public function login(LoginRequest $request){
+        $credentials = $request->only('email','password');
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->route('home');
+        }
+        return back()->withErrors(['email' => 'Email or Password is incorrect']);
+    }
+
+    public function store(StoreUserRequest $request)
+    {
+        $validated = $request->validated();
+        $validated['password'] = Hash::make($validated['password']);
+        
+        $user = Users::create($validated);
+        return redirect()->route('home');
+    }
+}
