@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,15 +20,27 @@ Route::get('/hotelbook', function () {
     return view('pages.hotelbook');
 })->name('hotelbook');
 
-//auth routes
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login.form');
-
-Route::post('/login', [AuthController::class, 'login'])
+//auth routes   
+Route::controller(AuthController::class)->group(function () {
+    
+    Route::get('/login/user', 'showLoginForm')
+    ->name('login.form');
+    
+    Route::post('/login/user','login')
     ->name('login');
-
-Route::get('/register', [AuthController::class, 'create'])
+    
+    Route::get('/register/user','create')
     ->name('register.form');
-Route::post('/register', [AuthController::class, 'store'])
+
+    Route::post('/register/user','store')
     ->name('register');
+    
+    Route::post('/logout','logout')
+    ->name('logout');
+});
+
+
+//admin routes
+
+Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+

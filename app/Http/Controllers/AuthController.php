@@ -16,11 +16,16 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
+    public function showLoginForm()
+    {
+        return view('auth.login');
+    }
+
     public function login(LoginRequest $request){
         $credentials = $request->only('email','password');
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->route('home');
+            return redirect()->route('hotelview');
         }
         return back()->withErrors(['email' => 'Email or Password is incorrect']);
     }
@@ -31,6 +36,15 @@ class AuthController extends Controller
         $validated['password'] = Hash::make($validated['password']);
         
         $user = Users::create($validated);
+        return redirect()->route('hotelview');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         return redirect()->route('home');
     }
+    
 }

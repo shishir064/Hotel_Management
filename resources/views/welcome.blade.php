@@ -17,7 +17,7 @@
             </h1>
 
             <!-- Search Box -->
-            <div class="bg-white/95 editorial-shadow max-w-5xl mx-auto flex flex-col md:flex-row gap-2 p-2 text-left">
+            <div class="bg-white/95 editorial-shadow max-w-5xl mx-auto flex items-center gap-2 p-2 text-left">
 
                 <div class="flex-1 grid grid-cols-1 md:grid-cols-3 divide-x divide-gray-300">
 
@@ -50,7 +50,7 @@
                     </div>
                 </div>
 
-                <button class="bg-black text-white px-10 py-4 flex items-center justify-center gap-2 hover:opacity-90">
+                <button class="bg-black  text-white px-10 py-4 rounded flex items-center justify-center  hover:opacity-90">
                     <span class="material-symbols-outlined">
                         search
                     </span>
