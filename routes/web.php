@@ -40,7 +40,10 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 
-//admin routes
+//dashboard routes
 
 Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+Route::post('/list-hotel', [AdminController::class, 'addHotel'])->name('list_hotel')->middleware('auth');
+Route::get('/add-rooms', [AdminController::class, 'showRoomsForm'])->name('add_rooms');
+
 

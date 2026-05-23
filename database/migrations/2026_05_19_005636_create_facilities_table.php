@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('facilities', function (Blueprint $table) {
             $table->id();
+            $table->string('free_wifi');
+            $table->string('free_breakfast');
+            $table->string('swimming_pool');
+            $table->string('gym');
             $table->timestamps();
         });
     }
