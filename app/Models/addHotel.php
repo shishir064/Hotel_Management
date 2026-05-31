@@ -6,13 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class addHotel extends Model
 {
-    protected $table = 'hotel';
+    protected $table = 'hotels';
 
     protected $fillable = [
-        'user_id',
         'hotel_name',
+        'email',
+        'description',
         'phone',
-        'hotel_address',
+        'address',
         'city',
+        'country',
+        'star_rating',
+        'cover_image',
     ];
 }

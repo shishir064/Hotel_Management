@@ -50,8 +50,8 @@
             </div>
           <!-- Footer Link -->
           <p class="font-body-md pt-4 text-secondary text-center">
-            Don't have an account?
-            <a class="text-black font-bold decoration-1 underline-offset-4 hover:underline" href="{{ route('register.form') }}">Create Account</a>
+            Already have an account?
+            <a class="text-black font-bold decoration-1 underline-offset-4 hover:underline" href="{{ route('login.form') }}">Login Account</a>
           </p>
         </div>
         <!-- Legal Footer -->

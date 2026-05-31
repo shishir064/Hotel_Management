@@ -11,13 +11,28 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('hotel', function (Blueprint $table) {
+        Schema::create('hotels', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+
             $table->string('hotel_name');
-            $table->string('phone');
-            $table->text('hotel_address');
+            $table->text('description')->nullable();
+
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
+
+            $table->string('address');
             $table->string('city');
+            $table->string('country');
+
+            $table->integer('star_rating')->default(0);
+
+            $table->string('cover_image')->nullable();
+
+            $table->time('check_in_time')->nullable();
+            $table->time('check_out_time')->nullable();
+
+            $table->boolean('is_active')->default(true);
+
             $table->timestamps();
         });
     }

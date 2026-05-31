@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    
+    
     public function create()
     {
         return view('auth.register');
@@ -25,7 +27,7 @@ class AuthController extends Controller
         $credentials = $request->only('email','password');
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->route('hotelview');
+            return redirect()->route('hotel.check');
         }
         return back()->withErrors(['email' => 'Email or Password is incorrect']);
     }
@@ -36,7 +38,7 @@ class AuthController extends Controller
         $validated['password'] = Hash::make($validated['password']);
         
         $user = Users::create($validated);
-        return redirect()->route('hotelview');
+        return redirect()->route('hotel.check');
     }
 
     public function logout(Request $request)

@@ -10,11 +10,14 @@
             <a href="{{ route('rooms') }}" class="text-gray-600 hover:text-black">Hotels</a>
             <a href="#" class="text-gray-600 hover:text-black">Experiences</a>
             <a href="#" class="text-gray-600 hover:text-black">About</a>
+            @auth
+                <a href="{{ route('dashboard') }}" class="text-gray-600 hover:text-black">Dashboard</a>
+            @endauth
         </div>
 
         <div class="">
             <!-- Open the modal using ID.showModal() method -->
-            <x-hotel-list-form></x-hotel-list-form>
+            <x-hotel-list-form  ></x-hotel-list-form>
        </div>
     </div>
 

@@ -16,6 +16,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
         .glass-card {
             background: rgba(255, 255, 255, 0.7);
@@ -44,7 +45,7 @@
 
 <body class="bg-surface font-body-md text-on-surface selection:bg-tertiary-fixed selection:text-on-tertiary-fixed">
     <!-- SideNavBar -->
-    <aside class="fixed left-0 top-0 h-full w-64 shadow-sm  flex flex-col border-r border-outline-variant z-50">
+    <aside class="fixed left-0 top-0 h-full w-64 shadow-sm  flex flex-col border-r  z-50">
         <div class="px-8 py-10">
             <h1 class="font-headline-md text-headline-md text-primary dark:text-on-surface tracking-tight">
                 QuickStay </h1>
@@ -58,11 +59,35 @@
                 <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
                 <span class="">Overview</span>
             </a>
-            <a class="flex items-center gap-4 px-4 py-3 text-primary  hover:text-gray-600  transition-colors duration-200"
-                href="{{ route('add_rooms') }}">
-                <span class="material-symbols-outlined" data-icon="">add_box</span>
-                <span class="font-body-md text-body-md">Add Room</span>
-            </a>
+            <li x-data="{ open: false }">
+                <button @click="open = !open" class="w-full flex justify-between items-center  gap-4 px-4 py-2">
+                    <div class="flex items-center gap-4">
+                        <span class="material-symbols-outlined test-black" data-icon="">add_box</span>
+                        <span>Add</span>
+                    </div>
+                    <span>▼</span>
+                </button>
+
+                <ul x-show="open" class="pl-6">
+                    <li>
+                        <a href="{{ route('add_hotel') }}" class="block py-2">
+                            Add Hotel
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('add_rooms') }}" class="block py-2">
+                            Add Room
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="" class="block py-2">
+                            Hotel Images
+                        </a>
+                    </li>
+                </ul>
+            </li>
             <a class="flex items-center gap-4 px-4 py-3 text-primary  hover:text-gray-600  transition-colors duration-200"
                 href="#">
                 <span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
@@ -70,8 +95,18 @@
             </a>
             <a class="flex items-center gap-4 px-4 py-3 text-primary  hover:text-gray-600 transition-colors duration-200"
                 href="#">
-                <span class="material-symbols-outlined" data-icon="group">group</span>
-                <span class="font-body-md text-body-md">Guests</span>
+                <span class="material-symbols-outlined text-black" data-icon="group">group</span>
+                <span class="font-body-md text-black">Guests</span>
+            </a>
+            <a class="flex items-center gap-4 px-4 py-3 text-primary  hover:text-gray-600 transition-colors duration-200"
+                href="{{ route('add_category') }}">
+                <span class="material-symbols-outlined" data-icon="category">category</span>
+                <span class="font-body-md text-body-md">Add Room Type</span>
+            </a>
+            <a class="flex items-center gap-4 px-4 py-3 text-primary  hover:text-gray-600 transition-colors duration-200"
+                href="{{ route('add_room_amenities') }}">
+                <span class="material-symbols-outlined" data-icon="category">category</span>
+                <span class="font-body-md text-body-md">Add Room Amenities</span>
             </a>
             {{-- <a class="flex items-center gap-4 px-4 py-3 text-primary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-on-primary-fixed transition-colors duration-200"
                 href="#">
@@ -94,38 +129,8 @@
             </a>
         </div>
     </aside>
-    <!-- TopNavBar -->
-    <header
-        class="fixed top-0 right-0 w-[calc(100%-256px)] h-16   backdrop-blur-md flex justify-between items-center px-8 z-40 shadow-sm transition-all">
-        <div class="flex items-center gap-8">
-            <nav class="flex gap-6 items-center">
-                <a class="text-primary dark:text-on-surface font-bold border-b-2 border-tertiary-fixed-dim pb-1 font-label-md text-label-md"
-                    href="#">Dashboard</a>
-                <a class="text-on-surface-variant dark:text-on-secondary-fixed-variant hover:text-primary transition-all font-label-md text-label-md"
-                    href="#">Staff</a>
-            </nav>
-        </div>
-        <div class="flex items-center gap-6">
-            <div class="flex items-center gap-4 border-l border-outline-variant pl-6">
-                {{-- <button class="relative text-on-surface-variant hover:text-primary transition-colors">
-                    <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
-                    <span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
-                </button>
-                <button class="text-on-surface-variant hover:text-primary transition-colors">
-                    <span class="material-symbols-outlined" data-icon="mail">mail</span>
-                </button> --}}
-                <div class="flex items-center gap-3 ml-2">
-                    <div class="text-right">
-                        <p class="font-label-md text-label-md leading-none">Shishir</p>
-                        <p class="font-label-sm text-label-sm text-on-surface-variant">General Manager</p>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </header>
     <!-- Main Content Area -->
-    <main class="ml-64 pt-24 px-8 pb-12 min-h-screen">
+    <main class="ml-64 pt-14 px-8 pb-12 min-h-screen bg-gray-100 ">
         <!-- Bento Grid: Key Metrics -->
         @yield('content')
     </main>

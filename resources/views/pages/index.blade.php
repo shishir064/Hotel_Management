@@ -24,12 +24,13 @@
                     <div class="px-6 py-4">
                         <label class="block text-sm uppercase text-gray-500 mb-1" for="location">Choose a Location:</label>
 
-                        <select name="location" id="location" class="border rounded border-gray-300 text-gray-500 px-4 py-2">
-                        <option value="" selected disabled hidden class="text-gray-400">Type here</option>
-                        <option value="Nepal">Nepal</option>
-                        <option value="New York">New York</option>
-                        <option value="singapore">Singapore</option>
-                        <option value="london">London</option>
+                        <select name="location" id="location"
+                            class="border rounded border-gray-300 text-gray-500 px-4 py-2">
+                            <option value="" selected disabled hidden class="text-gray-400">Type here</option>
+                            <option value="Nepal">Pokhara</option>
+                            <option value="New York">Kathmandu</option>
+                            <option value="singapore">Chitwan</option>
+                            <option value="london">Lumbini</option>
                         </select>
                     </div>
 
@@ -37,16 +38,20 @@
                         <label class="block text-sm uppercase text-gray-500 mb-1">
                             Check-in
                         </label>
-                        
-                        <input class="w-full border-none outline-none bg-transparent  text-gray-400 placeholder:text-gray-400" type="date" name="check-in" id="">
+
+                        <input
+                            class="w-full border-none outline-none bg-transparent  text-gray-400 placeholder:text-gray-400"
+                            type="date" name="check-in" id="">
                     </div>
 
                     <div class="px-6 py-4">
                         <label class="block text-sm uppercase text-gray-500 mb-1">
                             Check-out
                         </label>
-                        
-                        <input class="w-full border-none outline-none bg-transparent  text-gray-400 placeholder:text-gray-400" type="date" name="check-out" id="">
+
+                        <input
+                            class="w-full border-none outline-none bg-transparent  text-gray-400 placeholder:text-gray-400"
+                            type="date" name="check-out" id="">
                     </div>
                 </div>
 
@@ -59,8 +64,11 @@
             </div>
         </div>
     </section>
-
+    
+    
     <x-hotelfeed></x-hotelfeed>
+
+
 
     <!-- Collections -->
     <section class="py-24 max-w-7xl mx-auto px-6 lg:px-20">
