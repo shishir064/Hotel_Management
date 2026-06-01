@@ -10,8 +10,10 @@ class HotelController extends Controller
 {
     public function index()
     {
-        return view('pages.listhotel');
+        $hotels = AddHotel::all();
+        return view('pages.addhotel', compact('hotels'));
     }
+
 
     public function store(StoreHotel $request)
     {
@@ -26,6 +28,24 @@ class HotelController extends Controller
 
         AddHotel::create($validated);
 
-        return view('pages.listhotel')->with('success', 'Hotel added successfully');
+        return view('pages.addhotel')->with('success', 'Hotel added successfully');
+    }
+
+    public function edit($id){
+        $hotel = AddHotel::find($id);
+        return view('pages.editHotel', compact('hotel'));
+       
+    }
+
+    public function update(Request $request, $id){
+        $hotel = AddHotel::find($id);
+        $hotel->update($request->all());
+        return redirect()->route('add_hotel')->with('success', 'Hotel updated successfully');
+    }
+
+    public function delete($id){
+        $hotel = AddHotel::find($id);
+        $hotel->delete();
+        return redirect()->route('add_hotel')->with('success', 'Hotel deleted successfully');
     }
 }

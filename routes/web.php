@@ -64,3 +64,6 @@ Route::delete('/delete/{id}', [RoomAmenitiesController::class, 'delete'])->name(
 
 Route::get('/add_hotel', [HotelController::class, 'index'])->name('add_hotel');
 Route::post('/add_hotel', [HotelController::class, 'store'])->name('store_hotel');
+Route::get('/hotel/edit/{id}', [HotelController::class, 'edit'])->name('edit_hotel');
+Route::put('/hotel/update/{id}', [HotelController::class, 'update'])->name('update.hotel');
+Route::delete('/hotel/delete/{id}', [HotelController::class, 'delete'])->name('hotel.delete');

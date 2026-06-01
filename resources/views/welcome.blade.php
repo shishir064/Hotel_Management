@@ -84,12 +84,12 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
             <!-- Large -->
-            <div class="relative overflow-hidden group h-[650px]">
+            <div class="relative overflow-hidden group h-162">
 
                 <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSCS1aqB5MsTG-9SlgeTvtJ2xSxO1c8VjaMSVPIc2xb34HT3JsQ28qWUgc0fds9Unk9piqk3IKsLw_FkegsbLPPTvVXZ2rG5Xlc-OYKG0yAqNwu44eC6o_chmv2155fGfIOEPAo9DJoUwgDPN7gFSB_KaAoEjUNQFtDOPNt-qPtHJ8qxNwAJXh7_TURH_P7AaDQtVjFCXsdkSBx6IsfQnsXhPqY5r8nAl6hmcMUIW5o-DYps_6XHQucWfp865jps5ou5UNjm2ZzkFX"
                     class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="">
 
-                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-10">
+                <div class="absolute inset-0 bg-linear-to-t from-black/70 to-transparent flex flex-col justify-end p-10">
 
                     <h3 class="text-3xl text-white mb-2">
                         Coastal Retreats
@@ -110,7 +110,7 @@
                         class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="">
 
                     <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-8">
+                        class="absolute inset-0 bg-linear-to-t from-black/70 to-transparent flex flex-col justify-end p-8">
 
                         <h3 class="text-2xl text-white mb-2">
                             Urban Sanctuaries
