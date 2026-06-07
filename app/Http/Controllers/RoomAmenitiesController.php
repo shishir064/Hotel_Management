@@ -18,7 +18,6 @@ class RoomAmenitiesController extends Controller
         $validated = $request->validate([
             'amenity_name' => 'required',
         ]);
-        $validated['user_id'] = Auth::id();
         RoomAmenity::create($validated);
         return redirect()->route('add_room_amenities')->with('success', 'Amenity added successfully');
     }

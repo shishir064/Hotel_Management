@@ -1,4 +1,4 @@
-<nav class="max-w-7xl mx-auto px-6 lg:px-20 py-4 flex items-center justify-between">
+<nav class="w-full mx-auto px-6 lg:px-20 py-4 flex items-center justify-between border-b  bg-white">
 
     <div class="flex items-center gap-12">
         <a href="{{ route('home') }}" class="text-2xl font-bold tracking-tight text-black">
@@ -7,7 +7,7 @@
 
         <div class="hidden md:flex items-center gap-8 text-sm font-semibold uppercase tracking-wide">
             <a href="{{ route('home') }}" class="text-gray-600 hover:text-black">Home</a>
-            <a href="{{ route('rooms') }}" class="text-gray-600 hover:text-black">Hotels</a>
+            {{-- <a href="{{ route('show.hotel') }}" class="text-gray-600 hover:text-black">Hotels</a> --}}
             <a href="#" class="text-gray-600 hover:text-black">Experiences</a>
             <a href="#" class="text-gray-600 hover:text-black">About</a>
             @auth

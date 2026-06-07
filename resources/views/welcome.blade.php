@@ -26,10 +26,10 @@
 
                         <select name="location" id="location" class="border rounded border-gray-300 text-gray-500 px-4 py-2">
                         <option value="" selected disabled hidden class="text-gray-400">Type here</option>
-                        <option value="Nepal">Nepal</option>
-                        <option value="New York">New York</option>
-                        <option value="singapore">Singapore</option>
-                        <option value="london">London</option>
+                        <option value="Nepal">Kathmandu</option>
+                        <option value="New York">Chitwan</option>
+                        <option value="singapore">Lumbini</option>
+                        <option value="london">Pokhara</option>
                         </select>
                     </div>
 

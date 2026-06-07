@@ -74,11 +74,35 @@
                             Add Hotel
                         </a>
                     </li>
-
                     <li>
-                        <a href="{{ route('add_rooms') }}" class="block py-2">
+                        <a href="{{ route('show.hotel.list') }}" class="block py-2">
                             Hotel List
                         </a>
+                    </li>
+
+                    
+                </ul>
+            </li>
+            <li x-data="{ open: false }">
+                <button @click="open = !open" class="w-full flex justify-between items-center  gap-4 px-4 py-2">
+                    <div class="flex items-center gap-4">
+                        <span class="material-symbols-outlined test-black" data-icon="">add_box</span>
+                        <span>Room</span>
+                    </div>
+                    <span>▼</span>
+                </button>
+
+                <ul x-show="open" class="pl-6">
+                    <li>
+                        <a href="{{ route('add_rooms') }}" class="block py-2">
+                            Add Room
+                        </a>
+                    </li>
+
+                    <li>
+                        {{-- <a href="{{ route('show.hotel') }}" class="block py-2">
+                            Room List
+                        </a> --}}
                     </li>
                     <li>
                         <a href="{{ route('add_category') }}" class="block py-2">
@@ -88,12 +112,6 @@
                     <li>
                         <a href="{{ route('add_room_amenities') }}" class="block py-2">
                             Add Room Facilities
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="" class="block py-2">
-                           Add Hotel Images
                         </a>
                     </li>
                 </ul>

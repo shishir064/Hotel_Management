@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreHotel;
-use App\Models\AddHotel;
+use App\Models\Hotel;
+use App\Models\HotelFacility;
 use Illuminate\Http\Request;
 
 class HotelController extends Controller
 {
     public function index()
     {
-        $hotels = AddHotel::all();
+        $hotels = Hotel::all();
         return view('pages.addhotel', compact('hotels'));
     }
 
@@ -26,26 +27,105 @@ class HotelController extends Controller
             $validated['cover_image'] = $path;
         }
 
-        AddHotel::create($validated);
+        Hotel::create($validated);
 
-        return view('pages.addhotel')->with('success', 'Hotel added successfully');
+
+        return redirect()->route('add_hotel')->with('success', 'Hotel Added successfully');
     }
 
-    public function edit($id){
-        $hotel = AddHotel::find($id);
+
+    public function edit($id)
+    {
+        $hotel = Hotel::find($id);
         return view('pages.editHotel', compact('hotel'));
-       
     }
 
-    public function update(Request $request, $id){
-        $hotel = AddHotel::find($id);
+    public function update(Request $request, $id)
+    {
+        $hotel = Hotel::find($id);
         $hotel->update($request->all());
         return redirect()->route('add_hotel')->with('success', 'Hotel updated successfully');
     }
 
-    public function delete($id){
-        $hotel = AddHotel::find($id);
+    public function delete($id)
+    {
+        $hotel = Hotel::find($id);
         $hotel->delete();
         return redirect()->route('add_hotel')->with('success', 'Hotel deleted successfully');
     }
+    public function showHotelList()
+    {
+        $hotels = Hotel::latest()->get();
+        // dd($hotels);
+        return view('pages.list_Hotel', compact('hotels'));
+    }
+
+    public function showHotel()
+    {
+        $hotels = Hotel::all();
+        return view('pages.hotelview', compact('hotels'));
+    }
+
+    public function showHotelProflie($id)
+    {
+        $facilities = HotelFacility::all();
+        $hotel = Hotel::with('facilities')->findOrFail($id);
+        $hotel = Hotel::findorfail($id);
+        return view('pages.hotelProfile', compact('hotel', 'facilities'));
+    }
+
+    public function hotelImage($id)
+    {
+        $hotel = Hotel::findorfail($id);
+        return view('pages.hotelImageCreate', compact('hotel'));
+    }
+
+    public function hotelImageStore(Request $request, $id)
+    {
+        $request->validate([
+            'images.*' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048'
+        ]);
+
+        $hotel = Hotel::findOrFail($id);
+        // dd($request->all(), $request->file('images'));
+
+        foreach ($request->file('images') as $image) {
+
+            $path = $image->store('hotel_images', 'public');
+
+            $hotel->images()->create([
+                'image' => $path,
+            ]);
+        }
+
+        return back()->with('success', 'Images uploaded successfully.');
+    }
+
+    public function hotelAvailability($id)
+    {
+        $facilities = HotelFacility::all();
+        $hotel = Hotel::with('facilities')->findOrFail($id);
+        // dd($facilities);
+        // $hotel = Hotel::findorfail($id);
+        return view('pages.hotelAvailability', compact('hotel', 'facilities'));
+    }
+
+    public function searchHotel(Request $request)
+    {
+        $query = Hotel::query();
+        if ($request->city) {
+            $query->where('city', 'like', '%' . $request->city . '%');
+        }
+
+        if ($request->star) {
+            $query->where('star_rating', 'like', '%' . $request->star . '%');
+        }
+        $hotels = $query->get();
+        // $hotels = Hotel::where('hotel_name', 'like', '%' . $request->search . '%')->get();
+        return view('pages.hotelview', compact('hotels'));
+    }
+
+   
 }
+
+

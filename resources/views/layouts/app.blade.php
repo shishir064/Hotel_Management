@@ -64,7 +64,7 @@
 <body>
 
     <!-- Navbar -->
-    <header class="fixed top-0 left-0 w-full z-50 bg-white/80 glass-nav">
+    <header class="sticky top-0 z-50 left-0 w-full  bg-white/80 glass-nav">
         @include('partials.nav')
     </header>
 
