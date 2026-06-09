@@ -3,62 +3,22 @@
 @section('content')
     <!-- Hero -->
     <section class="relative h-screen flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0">
+        <img
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwMjjzfQVXXAGeDeXoaX49lygj3xgbRrB8DIx4qryQvqiRBcmpTFBeOcH87m-8XSAA4sRJJUXdlijtQDsObXKv7ITCRLf3h_qPAA6BsAhOfePAiLlhtdIBzTJrgcHONCOSlQzkevPDceCcpXHMQTEZPEi4UVI6aBMqOw2iKWE7B2A_SVT8m4_L659r-ImGgYLW8-zTHojezk5F7JkAEivm1ekTdFuUF7T3xqQZB-B6YNfxCqgqraMEB7DowjojTjqRMwICHP0Xdxsw"
+            class="w-full h-full object-cover"
+            alt=""
+        >
 
-        <div class="absolute inset-0">
-            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwMjjzfQVXXAGeDeXoaX49lygj3xgbRrB8DIx4qryQvqiRBcmpTFBeOcH87m-8XSAA4sRJJUXdlijtQDsObXKv7ITCRLf3h_qPAA6BsAhOfePAiLlhtdIBzTJrgcHONCOSlQzkevPDceCcpXHMQTEZPEi4UVI6aBMqOw2iKWE7B2A_SVT8m4_L659r-ImGgYLW8-zTHojezk5F7JkAEivm1ekTdFuUF7T3xqQZB-B6YNfxCqgqraMEB7DowjojTjqRMwICHP0Xdxsw"
-                class="w-full h-full object-cover" alt="">
-            <div class="absolute inset-0 hero-gradient"></div>
-        </div>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/10 to-black/20"></div>
+    </div>
 
-        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-20 text-center text-white">
-
-            <h1 class="text-5xl md:text-7xl leading-tight max-w-4xl mx-auto mb-12">
-                Discover Your Perfect Gateway Destination
-            </h1>
-
-            <!-- Search Box -->
-            <div class="bg-white/95 editorial-shadow max-w-5xl mx-auto flex items-center gap-2 p-2 text-left">
-
-                <div class="flex-1 grid grid-cols-1 md:grid-cols-3 divide-x divide-gray-300">
-
-                    <div class="px-6 py-4">
-                        <label class="block text-sm uppercase text-gray-500 mb-1" for="location">Choose a Location:</label>
-
-                        <select name="location" id="location" class="border rounded border-gray-300 text-gray-500 px-4 py-2">
-                        <option value="" selected disabled hidden class="text-gray-400">Type here</option>
-                        <option value="Nepal">Kathmandu</option>
-                        <option value="New York">Chitwan</option>
-                        <option value="singapore">Lumbini</option>
-                        <option value="london">Pokhara</option>
-                        </select>
-                    </div>
-
-                    <div class="px-6 py-4">
-                        <label class="block text-sm uppercase text-gray-500 mb-1">
-                            Check-in
-                        </label>
-                        
-                        <input class="w-full border-none outline-none bg-transparent  text-gray-400 placeholder:text-gray-400" type="date" name="check-in" id="">
-                    </div>
-
-                    <div class="px-6 py-4">
-                        <label class="block text-sm uppercase text-gray-500 mb-1">
-                            Check-out
-                        </label>
-                        
-                        <input class="w-full border-none outline-none bg-transparent  text-gray-400 placeholder:text-gray-400" type="date" name="check-out" id="">
-                    </div>
-                </div>
-
-                <button class="bg-black  text-white px-10 py-4 rounded flex items-center justify-center  hover:opacity-90">
-                    <span class="material-symbols-outlined">
-                        search
-                    </span>
-                    Search
-                </button>
-            </div>
-        </div>
-    </section>
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-20 text-center text-white">
+        <h1 class="text-5xl md:text-7xl leading-tight max-w-4xl mx-auto mb-12 ">
+            Discover Your Perfect Gateway Destination
+        </h1>
+    </div>
+</section>
 
     <x-hotelfeed></x-hotelfeed>
 

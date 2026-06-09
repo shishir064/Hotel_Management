@@ -62,7 +62,7 @@ class HotelController extends Controller
 
     public function showHotel()
     {
-        $hotels = Hotel::all();
+        $hotels = Hotel::latest()->paginate(6);
         return view('pages.hotelview', compact('hotels'));
     }
 
@@ -113,6 +113,7 @@ class HotelController extends Controller
     public function searchHotel(Request $request)
     {
         $query = Hotel::query();
+
         if ($request->city) {
             $query->where('city', 'like', '%' . $request->city . '%');
         }
@@ -120,7 +121,7 @@ class HotelController extends Controller
         if ($request->star) {
             $query->where('star_rating', 'like', '%' . $request->star . '%');
         }
-        $hotels = $query->get();
+        $hotels = $query->paginate(6);
         // $hotels = Hotel::where('hotel_name', 'like', '%' . $request->search . '%')->get();
         return view('pages.hotelview', compact('hotels'));
     }

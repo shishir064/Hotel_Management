@@ -3,84 +3,161 @@
 @section('title', 'Add Room')
 
 @section('content')
-    <form action="">
-        <div>
-            <h1 class="text-4xl md:text-[40px] outfit">Add Room</h1>
-            <p class="text-sm md:text-base text-gray-500/90 mt-2 max-w-174">Fill in the details carefully and accurate room
-                details, pricing, and amenities, to enhance the user booking experience.</p>
+    <div class="w-full mx-auto">
+
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold text-gray-800">
+                Add Room
+            </h1>
+            
+
+            <p class="text-gray-500 mt-2">
+                Create a new room by providing room type, pricing, and available amenities.
+            </p>
         </div>
 
+        <!-- Form Card -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
 
-        <div class="">
-            <h2 class="text-gray-800 mt-10">Images</h2>
-            <div class="grid grid-cols-2 sm:flex gap-4 flex-wrap my-2 ">
-                <label for="roomImg1">
-                    <img class="max-h-13 cursor-pointer opacity-80" src="{{ asset('images/imgUpload.svg') }}" alt="">
-                    <input type="file" hidden id="roomImg1">
-                </label>
-                <label for="roomImg2">
-                    <img class="max-h-13 cursor-pointer opacity-80" src="{{ asset('images/imgUpload.svg') }}"
-                        alt="">
-                    <input type="file" id="roomImg2" hidden>
-                </label>
-                <label for="roomImg3">
-                    <img class="max-h-13 cursor-pointer opencity-80" src="{{ asset('images/imgUpload.svg') }}"
-                        alt="">
-                    <input type="file" id="roomImg3" hidden>
-                </label>
-                <label for="roomImg4">
-                    <img class="max-h-13 cursor-pointer opacity-80" src="{{ asset('images/imgUpload.svg') }}"
-                        alt="">
-                    <input type="file" id="roomImg4" hidden>
-                </label>
-            </div>
+            <form action="" method="POST">
+                @csrf
 
-            <div class="flex mt-4 gap-x-2">
-                <div>
-                    <h2 class="mb-2">Room Type</h2>
-                    {{-- <select class="border border-gray-300 text-gray-500 py-2 px-2 rounded" name="" id="">
-                        <option value="Single Bed">Select Room Type</option>
-                        <option value="Single Bed">Single Bed</option>
-                        <option value="Double Bed">Double Bed</option>
-                        <option value="Luxury Bed">Luxury Room</option>
-                    </select> --}}
-                    <select name="category_id" class="border border-gray-300 text-gray-500 py-2 px-2 rounded">
-                        <option value="">Select Room Type</option>
-                        @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">
-                                {{ $category->category_name }}
-                            </option>
+                <!-- Room Type & Price -->
+                <div class="grid md:grid-cols-2 gap-6">
+
+                    <!-- Room Type -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Room Type
+                        </label>
+
+                        <select name="category_id"
+                            class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+
+                            <option value="">Select Room Type</option>
+
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">
+                                    {{ $category->category_name }}
+                                </option>
+                            @endforeach
+
+                        </select>
+                    </div>
+
+                    <!-- Price -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Price Per Night
+                        </label>
+
+                        <input type="number" name="price" placeholder="Enter room price"
+                            class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+                    </div>
+
+                </div>
+
+                <!-- Room Main Facilities -->
+                <div class="mt-8">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">
+                        Room Main Facilities
+                    </h2>
+
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 peer-checked:ring-2 peer-checked:bg-blue-500 peer-checked:ring-blue-500">
+
+                        @foreach ($main_facilities as $facility)
+                            {{-- <label class="flex items-center gap-3 p-3 border rounded-xl hover:bg-gray-50 cursor-pointer peer-checked:bg-primary/20">
+                                <input  type="checkbox" class="hidden" name="amenities[]" value="{{ $amenity->id }}">
+                                <span>{{ $amenity->amenity_name }}</span>
+                            </label> --}}
+                            <label for="facility{{ $facility->id }}" class="group cursor-pointer">
+                            <input type="checkbox" name="amenities[]" value="{{ $facility->id }}"
+                                id="facility{{ $facility->id }}" class="peer hidden">
+
+                            <div
+                                class="border-2 border-gray-200 rounded-xl p-4 transition-all duration-200
+                                   hover:border-primary hover:shadow-md
+                                   peer-checked:border-primary
+                                   peer-checked:bg-primary/10
+                                   peer-checked:shadow-lg">
+                                <div class="flex items-center justify-between">
+
+                                    <div class="flex items-center gap-3">
+
+                                        <div>
+                                            <h3 class="font-semibold text-gray-800">
+                                                {{ $facility->name }}
+                                            </h3>
+                                            <p class="text-sm text-gray-500">
+                                                Room Main Facilities
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </div>  
+                            </div>
+                        </label>
                         @endforeach
-                    </select>
+
+                    </div>
                 </div>
-                <div>
-                    <h2 class="mb-2">Price</h2>
-                    <input type="number" placeholder="0"
-                        class="py-2 px-2 rounded border border-gray-300 text-gray-500 max-w-22">
-                </div>
-            </div>
-            <div class="text-gray-400">
-                <h2 class="mt-4 text-black">Amenities</h2>
-                <div class="">
-                    <input class="" type="checkbox" name="" id="Wifi" value="Wifi">
-                    <label for="Wifi">Wifi</label>
-                </div>
-                <div>
-                    <input type="checkbox" name="" id="Breakfast" value="Breakfast">
-                    <label for="Breakfast">Breakfast</label>
-                </div>
-                <div>
-                    <input type="checkbox" name="" id="SwimmingPool" value="SwimmingPool">
-                    <label for="SwimmingPool">Swimming Pool</label>
-                </div>
-                <div >
-                    <input type="checkbox" class="">
-                    <label for="Gym">Gym</label>
+                <!-- Amenities -->
+                <div class="mt-8">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">
+                        Room Amenities
+                    </h2>
+
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 peer-checked:ring-2 peer-checked:bg-blue-500 peer-checked:ring-blue-500">
+
+                        @foreach ($amenities as $amenity)
+                            {{-- <label class="flex items-center gap-3 p-3 border rounded-xl hover:bg-gray-50 cursor-pointer peer-checked:bg-primary/20">
+                                <input  type="checkbox" class="hidden" name="amenities[]" value="{{ $amenity->id }}">
+                                <span>{{ $amenity->amenity_name }}</span>
+                            </label> --}}
+                            <label for="facility{{ $amenity->id }}" class="group cursor-pointer">
+                            <input type="checkbox" name="amenities[]" value="{{ $amenity->id }}"
+                                id="facility{{ $amenity->id }}" class="peer hidden">
+
+                            <div
+                                class="border-2 border-gray-200 rounded-xl p-4 transition-all duration-200
+                                   hover:border-primary hover:shadow-md
+                                   peer-checked:border-primary
+                                   peer-checked:bg-primary/10
+                                   peer-checked:shadow-lg">
+                                <div class="flex items-center justify-between">
+
+                                    <div class="flex items-center gap-3">
+
+                                        <div>
+                                            <h3 class="font-semibold text-gray-800">
+                                                {{ $amenity->amenity_name }}
+                                            </h3>
+                                            <p class="text-sm text-gray-500">
+                                                Room Facility
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </div>  
+                            </div>
+                        </label>
+                        @endforeach
+
+                    </div>
                 </div>
 
-            </div>
+                <!-- Submit Button -->
+                <div class="mt-8 flex justify-end">
+                    <button type="submit"
+                        class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-medium transition">
+                        Add Room
+                    </button>
+                </div>
 
-            <button class="bg-primary text-white px-8 py-2 rounded mt-8 cursor-pointer">Add Room</button>
+            </form>
+
         </div>
-    </form>
+
+    </div>
 @endsection

@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreHotel;
 use App\Models\addHotel;
+use App\Models\Hotel;
+use App\Models\RoomAmenity;
 use App\Models\RoomCategory;
+use App\Models\RoomMainFacility;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,8 +22,11 @@ class DashboardController extends Controller
     public function showRoomsForm()
     {
         $categories = RoomCategory::all();
+        $amenities = RoomAmenity::all();
+        $main_facilities = RoomMainFacility::all();
+        $hotels = Hotel::all();
 
-        return view('pages.addroom', compact('categories'));
+        return view('pages.addroom', compact('categories', 'amenities', 'main_facilities'));
     }
 
     public function showCategoryForm()

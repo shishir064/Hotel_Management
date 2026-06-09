@@ -100,7 +100,7 @@
                                 <h2 class="text-2xl font-bold mb-6">
                                     Facilities
                                 </h2>
-                                
+
                                 <a href="{{ route('show.hotel.facilities.select', $hotel->id) }}"
                                     class="block w-fit text-center bg-blue-600 text-white px-4 py-2  rounded-xl font-semibold hover:bg-blue-700 transition">
                                     Add Hotel Facilities
@@ -114,6 +114,88 @@
                                     <div>No facilities found</div>
                                 @endforelse
 
+                            </div>
+
+                        </div>
+                        <!-- Rooms Section -->
+                        <div class="bg-white rounded-2xl shadow p-6 mt-8">
+
+                            <div class="flex justify-between items-center mb-6">
+                                <h2 class="text-2xl font-bold">
+                                    Rooms
+                                </h2>
+
+                                <a href=""
+                                    class="bg-green-600 text-white px-4 py-2 rounded-xl font-semibold hover:bg-green-700 transition">
+                                    Add Room
+                                </a>
+                            </div>
+
+                            <!-- Room Stats -->
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+
+                                <div class="bg-blue-50 p-4 rounded-xl">
+                                    <h3 class="text-sm text-gray-500">Total Rooms</h3>
+                                    <p class="text-3xl font-bold">
+                                        {{-- {{ $hotel->rooms->count() }} --}}
+                                    </p>
+                                </div>
+
+                                <div class="bg-green-50 p-4 rounded-xl">
+                                    <h3 class="text-sm text-gray-500">Available Rooms</h3>
+                                    <p class="text-3xl font-bold">
+                                        {{-- {{ $hotel->rooms->where('status', 'available')->count() }} --}}
+                                    </p>
+                                </div>
+
+                                <div class="bg-red-50 p-4 rounded-xl">
+                                    <h3 class="text-sm text-gray-500">Occupied Rooms</h3>
+                                    <p class="text-3xl font-bold">
+                                        {{-- {{ $hotel->rooms->where('status', 'occupied')->count() }} --}}
+                                    </p>
+                                </div>
+
+                            </div>
+
+                            <!-- Room List -->
+                            <div class="overflow-x-auto">
+                                <table class="w-full border-collapse">
+                                    <thead>
+                                        <tr class="bg-gray-100">
+                                            <th class="text-left p-3">Room No</th>
+                                            <th class="text-left p-3">Type</th>
+                                            <th class="text-left p-3">Price</th>
+                                            <th class="text-left p-3">Status</th>
+                                        </tr>
+                                    </thead>
+
+                                    {{-- <tbody>
+                                        @forelse($hotel->rooms as $room)
+                                            <tr class="border-b">
+                                                <td class="p-3">{{ $room->room_number }}</td>
+                                                <td class="p-3">{{ $room->room_type }}</td>
+                                                <td class="p-3">Rs. {{ number_format($room->price) }}</td>
+                                                <td class="p-3">
+                                                    @if ($room->status == 'available')
+                                                        <span class="text-green-600 font-semibold">
+                                                            Available
+                                                        </span>
+                                                    @else
+                                                        <span class="text-red-600 font-semibold">
+                                                            Occupied
+                                                        </span>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="4" class="p-4 text-center text-gray-500">
+                                                    No rooms added yet.
+                                                </td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody> --}}
+                                </table>
                             </div>
 
                         </div>

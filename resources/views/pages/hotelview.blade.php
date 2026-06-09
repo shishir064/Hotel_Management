@@ -122,6 +122,10 @@
                     @endif
                 </div>
             @endforelse
+
+            <div >
+                {{$hotels->links()}}
+            </div>
         </div>
 
     </div>

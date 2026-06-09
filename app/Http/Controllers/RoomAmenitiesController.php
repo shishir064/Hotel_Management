@@ -10,7 +10,7 @@ class RoomAmenitiesController extends Controller
 {
     public function index()
     {
-        $amenities = RoomAmenity::all();
+        $amenities = RoomAmenity::latest()->paginate(6);
         return view('pages.addRoomAmenities', compact('amenities'));
     }
     public function store(Request $request)

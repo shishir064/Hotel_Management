@@ -17,8 +17,7 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet">
 
-    <!-- Tailwind CDN -->
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
         body {
@@ -44,12 +43,7 @@
             box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.1);
         }
 
-        .hero-gradient {
-            background: linear-gradient(to bottom,
-                    rgba(0, 0, 0, 0.3) 0%,
-                    rgba(0, 0, 0, 0) 50%,
-                    rgba(0, 0, 0, 0.4) 100%);
-        }
+        
 
         .material-symbols-outlined {
             font-variation-settings:

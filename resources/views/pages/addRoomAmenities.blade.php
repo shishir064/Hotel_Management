@@ -10,18 +10,18 @@
             @endif
         </div>
         <div>
-            <h1 class="text-4xl md:text-[40px] outfit">Add Room Amenities</h1>
+            <h1 class="text-4xl md:text-[40px] outfit">Add Room Facilities</h1>
             <p class="text-sm md:text-base text-gray-500/90 mt-2 max-w-174">Fill in the details carefully.</p>
         </div>
 
 
         <div class="">
-            <h2 class="text-gray-800 mt-10">Add Room Amenities</h2>
+            <h2 class="text-gray-800 mt-10">Add Room Facilities</h2>
             <input type="text" placeholder="Room Amenities" name="amenity_name"
                 class="py-2 px-2 rounded border border-gray-300 text-gray-500 max-w-42">
         </div>
         <div class="mb-8">
-            <button class="bg-primary text-white px-8 py-2 rounded mt-8 cursor-pointer">Add Room Amenities</button>
+            <button class="bg-primary text-white px-8 py-2 rounded mt-8 cursor-pointer">Add Room Facilities</button>
         </div>
     </form>
 
@@ -41,7 +41,7 @@
                 
                 <tr>
                     <td class="border px-4 py-2">
-                        {{ $loop->iteration }}
+                        {{ $amenities->currentPage() * $amenities->perPage() - $amenities->perPage() + $loop->iteration }}
                     </td>
 
                     <td class="border px-4 py-2">
@@ -68,5 +68,8 @@
                 @endforeach
             </tbody>
         </table>
+        <div>
+            {{ $amenities->links() }}
+        </div>
     </div>
 @endsection
