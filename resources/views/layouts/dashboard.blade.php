@@ -44,7 +44,8 @@
 
 <body class="bg-surface font-body-md text-on-surface selection:bg-tertiary-fixed selection:text-on-tertiary-fixed">
     <!-- SideNavBar -->
-    <aside class="fixed left-0 top-0 h-screen w-72  border-r border-gray-200 shadow-lg flex flex-col z-50 bg-white/90 backdrop-blur-md">
+    <aside
+        class="fixed left-0 top-0 h-screen w-72  border-r border-gray-200 shadow-lg flex flex-col z-50 bg-white/90 backdrop-blur-md">
 
         <!-- Logo -->
         <div class="px-8 py-8 border-b">
@@ -108,17 +109,18 @@
 
                 <div x-show="open" x-transition class="ml-12 mt-2 space-y-1">
 
-                    <a href="{{ route('add_rooms') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-100">
+                    {{-- <a href="{{ route('show_rooms_form') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-100">
                         Add Room
-                    </a>
-                    <a href="{{ route('add_rooms') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-100">
-                        Room List                    </a>
+                    </a> --}}
+                    <a href="{{ route('show_rooms') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-100">
+                        Room List </a>
 
                     <a href="{{ route('add_category') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-100">
                         Room Types
                     </a>
 
-                    <a href="{{ route('add_room_main_facilities') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-100">
+                    <a href="{{ route('add_room_main_facilities') }}"
+                        class="block px-3 py-2 rounded-lg hover:bg-gray-100">
                         Room Main Facilities
                     </a>
                     <a href="{{ route('add_room_amenities') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-100">
@@ -135,7 +137,8 @@
             </a>
 
             <!-- Users -->
-            <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-100 transition">
+            <a href="{{ route('user.list') }}"
+                class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-100 transition">
                 <span class="material-symbols-outlined">group</span>
                 <span>Users</span>
             </a>

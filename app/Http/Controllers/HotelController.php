@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreHotel;
 use App\Models\Hotel;
 use App\Models\HotelFacility;
+use App\Models\Rooms;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class HotelController extends Controller
 {
@@ -26,6 +29,13 @@ class HotelController extends Controller
 
             $validated['cover_image'] = $path;
         }
+        $user = User::create([
+            'name' => $request->hotel_name,
+            'email' => $request->email,
+            'password' => Hash::make('password'),
+        ]);
+
+        $validated['user_id'] = $user->id;
 
         Hotel::create($validated);
 
@@ -48,11 +58,20 @@ class HotelController extends Controller
     }
 
     public function delete($id)
-    {
-        $hotel = Hotel::find($id);
-        $hotel->delete();
-        return redirect()->route('add_hotel')->with('success', 'Hotel deleted successfully');
+{
+    $hotel = Hotel::findOrFail($id);
+
+    // delete user first
+    if ($hotel->user) {
+        $hotel->user->delete();
     }
+
+    // delete hotel
+    $hotel->delete();
+
+    return redirect()->route('add_hotel')
+        ->with('success', 'Hotel and user deleted successfully');
+}
     public function showHotelList()
     {
         $hotels = Hotel::latest()->get();
@@ -69,9 +88,10 @@ class HotelController extends Controller
     public function showHotelProflie($id)
     {
         $facilities = HotelFacility::all();
+        $rooms = Rooms::all();
         $hotel = Hotel::with('facilities')->findOrFail($id);
         $hotel = Hotel::findorfail($id);
-        return view('pages.hotelProfile', compact('hotel', 'facilities'));
+        return view('pages.hotelProfile', compact('hotel', 'facilities', 'rooms'));
     }
 
     public function hotelImage($id)
@@ -125,8 +145,4 @@ class HotelController extends Controller
         // $hotels = Hotel::where('hotel_name', 'like', '%' . $request->search . '%')->get();
         return view('pages.hotelview', compact('hotels'));
     }
-
-   
 }
-
-

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class RoomAmenity extends Model
 {
-    protected $table = 'room_amenity';
+    protected $table = 'room_amenities';
 
     protected $fillable = [
         'amenity_name',

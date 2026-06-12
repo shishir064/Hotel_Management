@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreHotel;
-use App\Models\addHotel;
 use App\Models\Hotel;
 use App\Models\RoomAmenity;
 use App\Models\RoomCategory;
 use App\Models\RoomMainFacility;
+use App\Models\Rooms;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,16 +16,38 @@ class DashboardController extends Controller
     {
         return view('pages.dashboard');
     }
-    
 
-    public function showRoomsForm()
+
+    public function showRoomsForm($id)
     {
         $categories = RoomCategory::all();
         $amenities = RoomAmenity::all();
         $main_facilities = RoomMainFacility::all();
-        $hotels = Hotel::all();
+        $hotel = Hotel::with('rooms')->findorfail($id);
 
-        return view('pages.addroom', compact('categories', 'amenities', 'main_facilities'));
+        return view('pages.addroom', compact('categories', 'amenities', 'main_facilities', 'hotel'));
+    }
+
+    public function showRooms(){
+        $rooms = Rooms::all();
+        return view('pages.roomList', compact('rooms'));
+    }
+    public function storeRooms(Request $request)
+    {
+        $validated = $request->validate([
+            'room_no' => 'required',
+            'room_type' => 'required',
+            'room_price' => 'required',
+            'hotel_id' => 'required',
+
+        ]);
+        $validated['hotel_id'] = $request->hotel_id;
+        // dd($validated);
+        $room = Rooms::create($validated);
+        $room->mainFacilities()->sync($request->room_main_facility ?? []);
+
+        $room->amenities()->sync($request->room_Amenity ?? []);
+        return redirect()->route('show_rooms_form', ['id' => $request->hotel_id])->with('success', 'Room added successfully');
     }
 
     public function showCategoryForm()
@@ -45,11 +66,10 @@ class DashboardController extends Controller
         return redirect()->route('add_category')->with('success', 'Category added successfully');
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         $category = RoomCategory::find($id);
         $category->delete();
         return redirect()->route('add_category')->with('success', 'Category deleted successfully');
     }
-
-    
 }

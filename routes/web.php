@@ -7,6 +7,7 @@ use App\Http\Controllers\HotelController;
 use App\Http\Controllers\HotelFacilitiesController;
 use App\Http\Controllers\RoomAmenitiesController;
 use App\Http\Controllers\RoomMainFacilitiesController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -45,17 +46,24 @@ Route::controller(AuthController::class)->group(function () {
         ->name('register.form');
 
     Route::post('/register/user', 'store')
-        ->name('register');
+        ->name('register');   
 
     Route::post('/logout', 'logout')
         ->name('logout');
 });
 
+//user list
+Route::get('/user/list', [UserController::class, 'showUserList'])->name('user.list');
+Route::get('/edit/user', [UserController::class, 'edit'])->name('edit.user.list');
+
 
 //dashboard routes
 Route::controller(DashboardController::class)->group(function () {
     Route::get('/dashboard', 'index')->name('dashboard');
-    Route::get('/add-rooms', 'showRoomsForm')->name('add_rooms');
+    Route::get('/add-rooms/{id}', 'showRoomsForm')->name('show_rooms_form');
+    Route::get('/show/rooms', 'showRooms')->name('show_rooms');
+    Route::get('/delete/room', 'delete')->name('delete_room');
+    Route::post('/add-rooms/{id}', 'storeRooms')->name('store_rooms');
     Route::get('/add-category', 'showCategoryForm')->name('add_category');
     Route::delete('/delete/{id}/room_type', 'delete')->name('delete_room_type');
     Route::post('/category', 'Category')->name('category');

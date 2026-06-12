@@ -12,9 +12,10 @@ class RoomCategory extends Model
         'category_name'
     ];
 
+
     public function rooms()
     {
         
-        return $this->hasMany(Rooms::class,'category_id');
+        return $this->hasMany(Rooms::class, 'room_type');
     }
 }

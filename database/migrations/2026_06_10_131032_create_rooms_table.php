@@ -14,12 +14,10 @@ return new class extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
             $table->integer('room_no');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('hotel_id')->constrained()->onDelete('cascade');
             $table->string('room_type')->default('single');
             $table->string('room_status')->default('available');
             $table->integer('room_price')->default(0);
-            $table->string('room_image')->nullable();
-            $table->string('room_description')->nullable();
             $table->timestamps();
         });
     }

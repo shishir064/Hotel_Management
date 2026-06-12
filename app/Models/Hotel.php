@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use App\Models\Facilities;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,6 +19,7 @@ class Hotel extends Model
         'country',
         'star_rating',
         'cover_image',
+        'user_id',
     ];
 
     // public function rooms()
@@ -25,13 +27,22 @@ class Hotel extends Model
     //     return $this->hasMany(Room::class);
     // }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function images()
     {
         return $this->hasMany(HotelImage::class);
     }
 
     public function facilities()
-{
-    return $this->belongsToMany(HotelFacility::class);
-}
+    {
+        return $this->belongsToMany(HotelFacility::class);
+    }
+
+    public function rooms(){
+        return $this->hasMany(Rooms::class);
+    }
 }

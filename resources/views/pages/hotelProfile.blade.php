@@ -125,7 +125,7 @@
                                     Rooms
                                 </h2>
 
-                                <a href=""
+                                <a href="{{ route('show_rooms_form', $hotel->id) }}"
                                     class="bg-green-600 text-white px-4 py-2 rounded-xl font-semibold hover:bg-green-700 transition">
                                     Add Room
                                 </a>
@@ -137,21 +137,21 @@
                                 <div class="bg-blue-50 p-4 rounded-xl">
                                     <h3 class="text-sm text-gray-500">Total Rooms</h3>
                                     <p class="text-3xl font-bold">
-                                        {{-- {{ $hotel->rooms->count() }} --}}
+                                        {{ $hotel->rooms->count() }}
                                     </p>
                                 </div>
 
                                 <div class="bg-green-50 p-4 rounded-xl">
                                     <h3 class="text-sm text-gray-500">Available Rooms</h3>
                                     <p class="text-3xl font-bold">
-                                        {{-- {{ $hotel->rooms->where('status', 'available')->count() }} --}}
+                                        {{ $hotel->rooms->where('room_status', 'available')->count() }}
                                     </p>
                                 </div>
 
                                 <div class="bg-red-50 p-4 rounded-xl">
                                     <h3 class="text-sm text-gray-500">Occupied Rooms</h3>
                                     <p class="text-3xl font-bold">
-                                        {{-- {{ $hotel->rooms->where('status', 'occupied')->count() }} --}}
+                                        {{ $hotel->rooms->where('room_status', 'occupied')->count() }}
                                     </p>
                                 </div>
 
@@ -169,14 +169,14 @@
                                         </tr>
                                     </thead>
 
-                                    {{-- <tbody>
+                                    <tbody>
                                         @forelse($hotel->rooms as $room)
                                             <tr class="border-b">
-                                                <td class="p-3">{{ $room->room_number }}</td>
-                                                <td class="p-3">{{ $room->room_type }}</td>
-                                                <td class="p-3">Rs. {{ number_format($room->price) }}</td>
+                                                <td class="p-3">{{ $room->room_no }}</td>
+                                                <td class="p-3">{{ $room->roomCategory?->category_name }}</td>
+                                                <td class="p-3">Rs. {{ number_format($room->room_price) }}</td>
                                                 <td class="p-3">
-                                                    @if ($room->status == 'available')
+                                                    @if ($room->room_status == 'available')
                                                         <span class="text-green-600 font-semibold">
                                                             Available
                                                         </span>
@@ -194,7 +194,7 @@
                                                 </td>
                                             </tr>
                                         @endforelse
-                                    </tbody> --}}
+                                    </tbody>
                                 </table>
                             </div>
 
