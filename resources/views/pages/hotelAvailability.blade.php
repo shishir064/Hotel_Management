@@ -17,7 +17,7 @@
              class="w-full h-125 object-cover">
 
         <!-- Dark gradient overlay -->
-        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+        <div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent"></div>
 
         <!-- Hotel Info -->
         <div class="absolute bottom-0 left-0 z-10 p-8 text-white">

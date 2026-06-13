@@ -14,8 +14,5 @@ class Users extends Model
         'password',
     ];
 
-    public function hotels()
-    {
-        return $this->hasMany(Hotel::class);
-    }
+    
 }

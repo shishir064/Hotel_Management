@@ -31,7 +31,7 @@
             <div class="mb-4">
                 <label class="block mb-1 font-medium">Hotel Name</label>
                 <input type="text" name="hotel_name" class="w-full border rounded px-3 py-2"
-                    placeholder="Enter hotel name">
+                    placeholder="Enter hotel name" value="{{ old('hotel_name') }}">
                 @error('hotel_name')
                     {{ $message }}
                 @enderror
@@ -40,7 +40,7 @@
             <!-- Email -->
             <div class="mb-4">
                 <label class="block mb-1 font-medium">Email</label>
-                <input type="email" name="email" class="w-full border rounded px-3 py-2" placeholder="Enter email">
+                <input type="email" name="email" class="w-full border rounded px-3 py-2" placeholder="Enter email" value="{{ old('email') }}">
                 @error('email')
                     {{ $message }}
                 @enderror
@@ -50,7 +50,7 @@
             <div class="mb-4">
                 <label class="block mb-1 font-medium">Phone</label>
                 <input type="text" name="phone" class="w-full border rounded px-3 py-2"
-                    placeholder="Enter phone number">
+                    placeholder="Enter phone number" value="{{ old('phone') }}">
                 @error('phone')
                     {{ $message }}
                 @enderror
@@ -59,7 +59,7 @@
             <!-- Address -->
             <div class="mb-4">
                 <label class="block mb-1 font-medium">Address</label>
-                <input type="text" name="address" class="w-full border rounded px-3 py-2" placeholder="Enter address">
+                <input type="text" name="address" class="w-full border rounded px-3 py-2" placeholder="Enter address" value="{{ old('address') }}">
                 @error('address')
                     {{ $message }}
                 @enderror
@@ -69,7 +69,7 @@
             <div class="grid grid-cols-2 gap-4 mb-4">
                 <div>
                     <label class="block mb-1 font-medium">City</label>
-                    <input type="text" name="city" class="w-full border rounded px-3 py-2 " placeholder="Enter City">
+                    <input type="text" name="city" class="w-full border rounded px-3 py-2 " placeholder="Enter City" value="{{ old('city') }}">
                     @error('city')
                         {{ $message }}
                     @enderror
@@ -78,7 +78,7 @@
                 <div>
                     <label class="block mb-1 font-medium">Country</label>
                     <input type="text" name="country" class="w-full border rounded px-3 py-2"
-                        placeholder="Enter Country">
+                        placeholder="Enter Country" value="{{ old('country') }}">
                 </div>
                 @error('country')
                     {{ $message }}
@@ -88,7 +88,7 @@
             <!-- Star Rating -->
             <div class="mb-4">
                 <label class="block mb-1 font-medium">Star Rating</label>
-                <select name="star_rating" class="w-full border rounded px-3 py-2">
+                <select name="star_rating" class="w-full border rounded px-3 py-2" >
                     <option value="1">1 Star</option>
                     <option value="2">2 Stars</option>
                     <option value="3">3 Stars</option>
@@ -103,7 +103,7 @@
             <!-- Cover Image -->
             <div class="mb-4">
                 <label class="block mb-1 font-medium">Cover Image</label>
-                <input type="file" name="cover_image" class="w-full border rounded px-3 py-2">
+                <input type="file" name="cover_image" class="w-full border rounded px-3 py-2" >
                 @error('cover_image')
                     {{ $message }}
                 @enderror
@@ -113,7 +113,7 @@
             <div class="mb-4">
                 <label class="block mb-1 font-medium">Description</label>
                 <textarea name="description" rows="4" class="w-full border rounded px-3 py-2"
-                    placeholder="Enter hotel description"></textarea>
+                    placeholder="Enter hotel description" value="{{ old('description') }}"></textarea>
                 @error('description')
                     {{ $message }}
                 @enderror

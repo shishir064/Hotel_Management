@@ -143,6 +143,13 @@
                 <span>Users</span>
             </a>
 
+            <!-- Roles -->
+            <a href="{{ route('user.list') }}"
+                class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-100 transition">
+                <span class="material-symbols-outlined">group</span>
+                <span>Roles</span>
+            </a>
+
             <!-- Settings -->
             <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-100 transition">
                 <span class="material-symbols-outlined">settings</span>

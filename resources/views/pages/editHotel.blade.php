@@ -3,7 +3,7 @@
 @section('title', 'List Hotels')
 
 @section('content')
-    <div class="w-full mx-auto bg-gray-50 shadow rounded  p-6 rounded-lg ">
+    <div class="w-full mx-auto bg-gray-50 shadow   p-6 rounded-lg ">
 
         <h2 class="text-xl font-semibold mb-6">Add New Hotel</h2>
 

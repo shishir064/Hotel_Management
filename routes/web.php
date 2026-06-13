@@ -6,6 +6,8 @@ use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\HotelFacilitiesController;
 use App\Http\Controllers\RoomAmenitiesController;
+use App\Http\Controllers\RoomBookingController;
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\RoomMainFacilitiesController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -35,10 +37,6 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/login/user', 'showLoginForm')
         ->name('login.form');
 
-
-    Route::get('/dashboard', 'dashboard')
-        ->name('dashboard');
-
     Route::post('/login/user', 'login')
         ->name('login');
 
@@ -60,13 +58,17 @@ Route::get('/edit/user', [UserController::class, 'edit'])->name('edit.user.list'
 //dashboard routes
 Route::controller(DashboardController::class)->group(function () {
     Route::get('/dashboard', 'index')->name('dashboard');
-    Route::get('/add-rooms/{id}', 'showRoomsForm')->name('show_rooms_form');
-    Route::get('/show/rooms', 'showRooms')->name('show_rooms');
-    Route::get('/delete/room', 'delete')->name('delete_room');
-    Route::post('/add-rooms/{id}', 'storeRooms')->name('store_rooms');
     Route::get('/add-category', 'showCategoryForm')->name('add_category');
     Route::delete('/delete/{id}/room_type', 'delete')->name('delete_room_type');
     Route::post('/category', 'Category')->name('category');
+});
+
+//rooms
+Route::controller(RoomController::class)->group(function () {
+    Route::get('/add-rooms/{id}', 'showRoomsForm')->name('show_rooms_form');
+    Route::post('/add-rooms/{id}', 'storeRooms')->name('store_rooms');
+    Route::get('/show/rooms/list', 'showRooms')->name('show_rooms');
+    Route::delete('/delete/room/{id}', 'delete')->name('delete_room');
 });
 
 //Room Amenities
@@ -81,6 +83,13 @@ Route::controller(RoomMainFacilitiesController::class)->group(function () {
     Route::get('/add-room-main-facilities', 'index')->name('add_room_main_facilities');
     Route::post('/add-room-main-facilities', 'store')->name('store_room_main_facilities');
     Route::delete('/delete/{id}', 'destroy')->name('delete');
+});
+
+//Room Bookings
+Route::controller(RoomBookingController::class)->group(function () {
+    Route::get('/rooms/booking/{room}', 'index')->name('rooms.booking');
+    Route::post('/rooms/booking/{room}', 'store')->name('bookings.store');
+    Route::delete('/delete/{id}', 'delete')->name('delete');
 });
 
 //Hotel

@@ -5,12 +5,13 @@
 
 
         <div class="mt-10">
-            <div class="flex justify-between items-center pb-6">
-                @if (session('success'))
+             @if (session('success'))
                     <div class="bg-green-100 rounded p-2 flex pl-4 items-center">
                         <h1 class="text-green-800 text-lg">{{ session('success') }}</h1>
                     </div>
                 @endif
+            <div class="flex justify-between items-center pb-6">
+               
                 <h2 class="text-xl font-semibold mb-4">Rooms List</h2>
             </div>
 
@@ -39,8 +40,8 @@
                                     <div class="flex gap-4 justify-center items-center">
                                        
 
-                                        <form action="" method="POST">
-                                            {{-- {{ route('delete_rooms', $room->id) }} --}}
+                                        <form action="{{ route('delete_room', $room->id) }}" method="POST">
+                                            
                                             @csrf
                                             @method('DELETE')
 
@@ -55,7 +56,7 @@
                                             class="bg-green-500 text-white px-3 py-1 rounded shrink-0">
                                             View
                                         </a>
-                                         <a href="" {{-- {{ route('edit_hotel', $hotel->id) }} --}}
+                                         <a href="{{ route('rooms.booking', $room->id) }}" 
                                             class="bg-blue-500 text-white px-3 py-1 rounded">
                                             Book Room
                                         </a>
