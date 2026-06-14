@@ -14,11 +14,6 @@
                 <a href="{{ route('dashboard') }}" class="text-gray-600 hover:text-black">Dashboard</a>
             @endauth
         </div>
-
-        <div class="">
-            <!-- Open the modal using ID.showModal() method -->
-            <x-hotel-list-form  ></x-hotel-list-form>
-       </div>
     </div>
 
     @auth
@@ -36,8 +31,8 @@
     @guest
         <div class="flex items-center gap-6">
             <a href="{{ route('login.form') }}"
-                class="px-4 py-2 rounded bg-black text-white text-sm font-semibold hover:text-gray-200">
-                Login As Guest
+                class="px-6 py-2 rounded bg-black text-white text-sm font-semibold hover:text-gray-200">
+                Login
             </a>
         </div>
 

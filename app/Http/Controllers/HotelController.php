@@ -35,6 +35,8 @@ class HotelController extends Controller
             'password' => Hash::make('password'),
         ]);
 
+        $user->assignRole('admin');
+
         $validated['user_id'] = $user->id;
 
         Hotel::create($validated);
@@ -69,7 +71,7 @@ class HotelController extends Controller
     // delete hotel
     $hotel->delete();
 
-    return redirect()->route('add_hotel')
+    return redirect()->route('show.hotel.list')
         ->with('success', 'Hotel and user deleted successfully');
 }
     public function showHotelList()

@@ -10,40 +10,39 @@
 
             <!-- Hero Section -->
             <div class="bg-white rounded-3xl overflow-hidden shadow-lg">
-    <div class="relative">
+                <div class="relative">
 
-        <img src="{{ asset('storage/' . $hotel->cover_image) }}"
-             alt="{{ $hotel->hotel_name }}"
-             class="w-full h-125 object-cover">
+                    <img src="{{ asset('storage/' . $hotel->cover_image) }}" alt="{{ $hotel->hotel_name }}"
+                        class="w-full h-125 object-cover">
 
-        <!-- Dark gradient overlay -->
-        <div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent"></div>
+                    <!-- Dark gradient overlay -->
+                    <div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent"></div>
 
-        <!-- Hotel Info -->
-        <div class="absolute bottom-0 left-0 z-10 p-8 text-white">
+                    <!-- Hotel Info -->
+                    <div class="absolute bottom-0 left-0 z-10 p-8 text-white">
 
-            <h1 class="text-5xl font-bold mb-3 drop-shadow-lg">
-                {{ $hotel->hotel_name }}
-            </h1>
+                        <h1 class="text-5xl font-bold mb-3 drop-shadow-lg">
+                            {{ $hotel->hotel_name }}
+                        </h1>
 
-            <div class="flex flex-wrap items-center gap-4 text-lg drop-shadow-md">
+                        <div class="flex flex-wrap items-center gap-4 text-lg drop-shadow-md">
 
-                <span class="flex items-center gap-1">
-                    📍 {{ $hotel->city }}, {{ $hotel->country }}
-                </span>
+                            <span class="flex items-center gap-1">
+                                📍 {{ $hotel->city }}, {{ $hotel->country }}
+                            </span>
 
-                <span class="text-yellow-400">
-                    @for ($i = 0; $i < $hotel->star_rating; $i++)
-                        ⭐
-                    @endfor
-                </span>
+                            <span class="text-yellow-400">
+                                @for ($i = 0; $i < $hotel->star_rating; $i++)
+                                    ⭐
+                                @endfor
+                            </span>
 
+                        </div>
+
+                    </div>
+
+                </div>
             </div>
-
-        </div>
-
-    </div>
-</div>
 
             <!-- Main Content -->
             <div class="grid lg:grid-cols-3 gap-8 mt-8">

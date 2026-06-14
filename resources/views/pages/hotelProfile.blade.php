@@ -7,11 +7,7 @@
     <div class="bg-gray-100 min-h-screen py-10">
 
         <div class="max-w-7xl mx-auto px-4">
-            @if (session('success'))
-                <div class="bg-green-100 rounded p-2 flex pl-4 items-center">
-                    <h1 class="text-green-800 text-lg">{{ session('success') }}</h1>
-                </div>
-            @endif
+            <x-successMessage></x-successMessage>
 
             <!-- Hero Section -->
             <div class="bg-white rounded-3xl overflow-hidden shadow-lg">

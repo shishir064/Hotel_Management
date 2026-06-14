@@ -10,14 +10,8 @@
         <form action="{{ route('update.hotel', $hotel->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            <div>
-                @if (session('success'))
-                    <div class="bg-green-100 rounded p-2 flex pl-4 items-center">
-                        <h1 class="text-green-800 text-lg">{{ session('success') }}</h1>
-                        <h1 class="text-green-800 p-6"></h1>
-                    </div>
-                @endif
-            </div>
+                <x-successMessage></x-successMessage>
+            
             <!-- Hotel Name -->
             <div class="mb-4">
                 <label class="block mb-1 font-medium">Hotel Name</label>

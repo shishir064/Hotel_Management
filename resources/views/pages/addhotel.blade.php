@@ -5,26 +5,11 @@
 @section('content')
     <div class="w-full mx-auto bg-gray-50 shadow  p-6 rounded-lg ">
         <h2 class="text-xl font-semibold mb-6">Add New Hotel</h2>
-        @if ($errors->any())
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-                <ul class="list-disc pl-5">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+       <x-errorMessage></x-errorMessage>
         <form action="{{ route('store_hotel') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <div>
-                @if (session('success'))
-                    <div class="bg-green-100 rounded p-2 flex pl-4 items-center">
-                        <h1 class="text-green-800 text-lg">{{ session('success') }}</h1>
-                        <h1 class="text-green-800 p-6"></h1>
-                    </div>
-                @endif
-            </div>
+            <x-successMessage></x-successMessage>
 
 
             <!-- Hotel Name -->

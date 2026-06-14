@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\HotelFacilitiesController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RoomAmenitiesController;
 use App\Http\Controllers\RoomBookingController;
 use App\Http\Controllers\RoomController;
@@ -75,21 +76,21 @@ Route::controller(RoomController::class)->group(function () {
 Route::controller(RoomAmenitiesController::class)->group(function () {
     Route::get('/add-room-amenities', 'index')->name('add_room_amenities');
     Route::post('/add-room-amenities', 'store')->name('store_room_amenities');
-    Route::delete('/delete/{id}', 'delete')->name('delete');
+    Route::delete('/delete/amenities/{id}', 'delete')->name('delete');
 });
 
 //Room Main Facilities
 Route::controller(RoomMainFacilitiesController::class)->group(function () {
     Route::get('/add-room-main-facilities', 'index')->name('add_room_main_facilities');
     Route::post('/add-room-main-facilities', 'store')->name('store_room_main_facilities');
-    Route::delete('/delete/{id}', 'destroy')->name('delete');
+    Route::delete('/delete/main-facilities/{id}', 'destroy')->name('delete_main_facilities');
 });
 
 //Room Bookings
 Route::controller(RoomBookingController::class)->group(function () {
     Route::get('/rooms/booking/{room}', 'index')->name('rooms.booking');
     Route::post('/rooms/booking/{room}', 'store')->name('bookings.store');
-    Route::delete('/delete/{id}', 'delete')->name('delete');
+    Route::delete('/delete/booking/{id}', 'delete')->name('delete');
 });
 
 //Hotel
@@ -108,8 +109,16 @@ Route::controller(HotelController::class)->group(function () {
     Route::post('/hotel', 'searchHotel')->name('search.hotel');
 });
 
+//Hotel Facilities
 Route::get('/hotel/facilities', [HotelFacilitiesController::class, 'index'])->name('show.hotel.facilities');
 Route::post('/hotel/facilities', [HotelFacilitiesController::class, 'store'])->name('store.hotel.facilities');
 Route::delete('/hotel/facilities/delete/{id}', [HotelFacilitiesController::class, 'delete'])->name('delete.hotel.facilities');
 Route::get('/hotel/facilities/select/show/{id}', [HotelFacilitiesController::class, 'selectFacilities'])->name('show.hotel.facilities.select');
 
+
+//Role 
+Route::controller(RoleController::class)->group(function () {
+    Route::get('/add-role', 'index')->name('add_role');
+    Route::post('/add-role', 'store')->name('store_role');
+    Route::delete('/delete-role/{id}', 'delete')->name('delete_role');
+});

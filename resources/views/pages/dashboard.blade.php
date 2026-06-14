@@ -2,11 +2,6 @@
 @section('title', 'dashborad')
 @section('content')
 
-
-    @if (session('success'))
-        <div>{{ session('success') }}</div>
-    @endif
-
     <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter mb-10">
         <!-- Occupancy -->
         <div class="glass-card p-6 shadow-sm flex flex-col justify-between">
@@ -49,7 +44,7 @@
                     <span class="material-symbols-outlined text-secondary" data-icon="currency_rupee">currency_rupee</span>
                 </div>
             </div>
-            <p class="font-label-sm text-label-sm text-on-surface-variant mt-4">Rs .{{ number_format($totalRevenue, 2) }}
+            <p class="font-label-sm text-label-sm text-on-surface-variant mt-4">Rs. {{ number_format($totalRevenue, 2) }}
             </p>
         </div>
     </section>

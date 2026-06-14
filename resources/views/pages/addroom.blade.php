@@ -4,16 +4,8 @@
 
 @section('content')
     <div class="w-full mx-auto">
-        @if ($errors->any())
-    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-        <ul class="list-disc pl-5">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
+        
+    <x-errorMessage></x-errorMessage>
 
         <!-- Header -->
         <div class="mb-8">
@@ -26,11 +18,7 @@
                 Create a new room by providing room type, pricing, and available amenities.
             </p>
         </div>
-        <div class="bg-green-100 rounded ">
-            @if (session('success'))
-                <h1 class="text-green-800 p-6">{{ session('success') }}</h1>
-            @endif
-        </div>
+        <x-successMessage></x-successMessage>
 
         <!-- Form Card -->
         <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">

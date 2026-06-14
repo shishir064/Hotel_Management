@@ -4,11 +4,7 @@
 
 @section('content')
     <form action="{{ route('store_room_main_facilities') }}" method="POST">
-        <div class="bg-green-100 rounded ">
-            @if (session('success'))
-                <h1 class="text-green-800 p-6">{{ session('success') }}</h1>
-            @endif
-        </div>
+        <x-successMessage></x-successMessage>
         <div>
             <h1 class="text-4xl md:text-[40px] outfit">Add Main Facilities</h1>
             <p class="text-sm md:text-base text-gray-500/90 mt-2 max-w-174">Fill in the details carefully.</p>
@@ -52,7 +48,7 @@
                         <a href="" class="bg-blue-500 text-white px-3 py-1 rounded">
                             Edit
                         </a>
-                         <form action="{{ route('delete', $facility->id)  }}" method="POST">
+                         <form action="{{ route('delete_main_facilities', $facility->id)  }}" method="POST">
 
                             @csrf
                             @method('DELETE')

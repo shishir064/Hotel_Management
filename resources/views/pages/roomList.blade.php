@@ -5,11 +5,7 @@
 
 
         <div class="mt-10">
-             @if (session('success'))
-                    <div class="bg-green-100 rounded p-2 flex pl-4 items-center">
-                        <h1 class="text-green-800 text-lg">{{ session('success') }}</h1>
-                    </div>
-                @endif
+             <x-successMessage></x-successMessage>
             <div class="flex justify-between items-center pb-6">
                
                 <h2 class="text-xl font-semibold mb-4">Rooms List</h2>

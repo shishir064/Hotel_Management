@@ -5,9 +5,7 @@
 @section('content')
     <div class="max-w-5xl mx-auto p-6">
 
-        @if (session('success'))
-            <h1 class="text-green-800 p-6">{{ session('success') }}</h1>
-        @endif
+        <x-successMessage></x-successMessage>
 
         <!-- Header -->
         <div class="mb-8">
