@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Guest;
 use App\Models\RoomBooking;
 use App\Models\RoomCategory;
+use App\Models\Rooms;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,12 +14,15 @@ class DashboardController extends Controller
     public function index()
     {
         $guests = Guest::all();
-
+        // $rooms = Auth::user()->hotels?->Rooms::count();
+        $hotels = Auth::user()->hotels;
+        $rooms = $hotels ? $hotels->rooms()->count() : 0;
+        $hotel_name = Auth::user()->hotels?->hotel_name;
         $roomBookings = RoomBooking::with('guest')->where('status', 'confirmed')->get();
 
         $totalRevenue = RoomBooking::where('status', 'confirmed')->sum('total_price');
 
-        return view('pages.dashboard', compact('roomBookings', 'totalRevenue', 'guests'));
+        return view('pages.dashboard', compact('roomBookings', 'totalRevenue', 'guests', 'hotel_name', 'rooms'));
     }
 
 

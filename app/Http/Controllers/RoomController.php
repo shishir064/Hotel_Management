@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class RoomController extends Controller
 {
 
-public function showRoomsForm($id)
+    public function showRoomsForm($id)
     {
         $categories = RoomCategory::all();
         $amenities = RoomAmenity::all();
@@ -39,12 +39,19 @@ public function showRoomsForm($id)
         $room->amenities()->sync($request->room_Amenity ?? []);
         return redirect()->route('show_rooms_form', ['id' => $request->hotel_id])->with('success', 'Room added successfully');
     }
-    public function showRooms(){
-        $rooms = Rooms::all();
+    public function showRooms()
+    {
+        $rooms = Rooms::query();
+        if (auth()->user()->hasRole('admin')) {
+            $rooms = Rooms::where('hotel_id', auth()->user()->hotels?->id)->get();
+        } else {
+            $rooms = Rooms::all();
+        }
         return view('pages.roomList', compact('rooms'));
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         $room = Rooms::findorfail($id);
         $room->delete();
         return redirect()->route('show_rooms')->with('success', 'Room deleted successfully');

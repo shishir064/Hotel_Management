@@ -2,9 +2,9 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\HotelFacilitiesController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RoomAmenitiesController;
 use App\Http\Controllers\RoomBookingController;
@@ -122,3 +122,6 @@ Route::controller(RoleController::class)->group(function () {
     Route::post('/add-role', 'store')->name('store_role');
     Route::delete('/delete-role/{id}', 'delete')->name('delete_role');
 });
+
+//Profile
+Route::get('/profile', [ProfileController::class, 'index'])->name('user.profile');

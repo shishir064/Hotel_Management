@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    
-    
+
+
     public function create()
     {
         return view('auth.register');
@@ -23,12 +23,25 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function login(LoginRequest $request){
-        $credentials = $request->only('email','password');
+    public function login(LoginRequest $request)
+    {
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->route('hotel.check');
+            $user = Auth::user();
+            if ($user->hasRole('admin')) {
+                return redirect()->route('dashboard');
+            }
+            else{
+                return redirect('/'); 
+            }
         }
+
+
         return back()->withErrors(['email' => 'Email or Password is incorrect']);
     }
 
@@ -36,9 +49,11 @@ class AuthController extends Controller
     {
         $validated = $request->validated();
         $validated['password'] = Hash::make($validated['password']);
-        
+
         $user = User::create($validated);
-        return redirect()->route('hotel.check');
+
+        $user->assignRole('user');
+        return redirect()->route('login.form');
     }
 
     public function logout(Request $request)
@@ -48,5 +63,4 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
         return redirect()->route('home');
     }
-    
 }

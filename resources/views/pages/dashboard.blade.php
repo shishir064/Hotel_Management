@@ -23,6 +23,18 @@
 
             </div>
         </div>
+        <!-- Rooms -->
+        <div class="glass-card p-6 shadow-sm flex flex-col justify-between">
+            <div>
+                <div class="flex justify-between items-start">
+                    <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Total
+                        Rooms</span>
+                    <span class="material-symbols-outlined text-secondary" data-icon="person">bed</span>
+                </div>
+            </div>
+            <p class="font-headline-lg text-headline-lg mt-4">{{ $rooms  }}</p>
+
+        </div>
         <!-- Arrivals -->
         <div class="glass-card p-6 shadow-sm flex flex-col justify-between">
             <div>

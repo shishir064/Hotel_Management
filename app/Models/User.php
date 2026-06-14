@@ -35,6 +35,6 @@ class User extends Authenticatable
 
     public function hotels()
     {
-        return $this->hasMany(Hotel::class);
+        return $this->hasOne(Hotel::class);
     }
 }

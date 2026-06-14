@@ -48,10 +48,12 @@
         class="fixed left-0 top-0 h-screen w-72  border-r border-gray-200 shadow-lg flex flex-col z-50 bg-white/90 backdrop-blur-md">
 
         <!-- Logo -->
-        <div class="px-8 py-8 border-b">
-            <h1 class="text-3xl font-bold text-gray-900">
-                QuickStay
-            </h1>
+        <div class="px-8 py-8 border-b flex justify-center items-center flex-col">
+                <div class="w-18 h-18 rounded-full bg-secondary-fixed flex items-center justify-center font-label-md">
+                    <span class="text-2xl">{{ strtoupper(substr($hotel_name ?? 'N', 0, 2)) }}</span>
+                    
+                </div>
+        
             <p class="text-sm text-gray-500 mt-1">
                 Dashboard Management
             </p>
