@@ -14,8 +14,8 @@
           <form action="{{ route('login') }}" method="POST" class="space-y-6">
             @csrf
             <div class="space-y-1">
-              <label class="font-label-md text-label-md text-secondary block tracking-widest uppercase" for="email">Email Address</label>
-              <input class="border-outline-variant focus:border-primary font-body-md text-on-surface placeholder:text-on-surface-variant/40 w-full border-0 border-b bg-transparent px-0 py-3 transition-all duration-300 focus:ring-0" id="email" name="email" placeholder="name@example.com" type="email" />
+              <label class="font-label-md text-label-md  block  uppercase" for="email">Email Address</label>
+              <input class=" focus:border-primary    w-full border-0 border-b  px-2 py-3 transition-all duration-300 focus:ring-0" id="email" name="email" placeholder="name@example.com" type="email" />
               @error('email')
                   <h1 class="text-red-400">{{ $message }}</h1>
               @enderror
@@ -26,7 +26,7 @@
                 <label class="font-label-md text-label-md text-secondary block tracking-widest uppercase" for="password">Password</label>
                 <a class="font-label-sm text-label-sm text-on-primary-container hover:text-primary transition-colors" href="#">Forgot Password?</a>
               </div>
-              <input class="border-outline-variant focus:border-primary font-body-md text-on-surface placeholder:text-on-surface-variant/40 w-full border-0 border-b bg-transparent px-0 py-3 transition-all duration-300 focus:ring-0" id="password" name="password" placeholder="••••••••" type="password" />
+              <input class="border-outline-variant focus:border-primary font-body-md text-on-surface placeholder:text-on-surface-variant/40 w-full border-0 border-b bg-transparent px-2 py-3 transition-all duration-300 focus:ring-0" id="password" name="password" placeholder="••••••••" type="password" />
               @error('password')
                   <h1 class="text-red-400">{{ $message }}</h1>
               @enderror

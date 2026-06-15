@@ -23,14 +23,14 @@
         <!-- Form Card -->
         <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
 
-            <form action="{{ route('store_rooms', $hotel->id) }}" method="POST">
+            <form action="{{ route('store_rooms') }}" method="POST">
                 @csrf
 
                 <!-- Room Type & Price -->
                 <div class="grid md:grid-cols-2 gap-6">
 
                     <!-- Room No -->
-                    <input type="text" name="hotel_id" value="{{ $hotel->id }}" hidden>
+                    {{-- <input type="text" name="hotel_id" value="{{ $hotel->id }}" hidden> --}}
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">
                             Room No

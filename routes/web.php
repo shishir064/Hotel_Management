@@ -10,6 +10,7 @@ use App\Http\Controllers\RoomAmenitiesController;
 use App\Http\Controllers\RoomBookingController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\RoomMainFacilitiesController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -57,7 +58,7 @@ Route::get('/edit/user', [UserController::class, 'edit'])->name('edit.user.list'
 
 
 //dashboard routes
-Route::controller(DashboardController::class)->group(function () {
+Route::middleware('auth')->controller(DashboardController::class)->group(function () {
     Route::get('/dashboard', 'index')->name('dashboard');
     Route::get('/add-category', 'showCategoryForm')->name('add_category');
     Route::delete('/delete/{id}/room_type', 'delete')->name('delete_room_type');
@@ -66,8 +67,8 @@ Route::controller(DashboardController::class)->group(function () {
 
 //rooms
 Route::controller(RoomController::class)->group(function () {
-    Route::get('/add-rooms/{id}', 'showRoomsForm')->name('show_rooms_form');
-    Route::post('/add-rooms/{id}', 'storeRooms')->name('store_rooms');
+    Route::get('/add-rooms', 'showRoomsForm')->name('show_rooms_form');
+    Route::post('/add-rooms', 'storeRooms')->name('store_rooms');
     Route::get('/show/rooms/list', 'showRooms')->name('show_rooms');
     Route::delete('/delete/room/{id}', 'delete')->name('delete_room');
 });
@@ -102,7 +103,7 @@ Route::controller(HotelController::class)->group(function () {
     Route::delete('/hotel/delete/{id}', 'delete')->name('hotel.delete');
     Route::get('/list/hotel', 'showHotelList')->name('show.hotel.list');
     Route::get('/hotel', 'showHotel')->name('show.hotel');
-    Route::get('/hotel/profile/{id}', 'showHotelProflie')->name('show.hotel.profile');
+    Route::get('/hotel/profile', 'showHotelProflie')->name('show.hotel.profile');
     Route::get('/hotel/image/{id}', 'hotelImage')->name('hotel.images.create');
     Route::post('/hotel/image/{id}', 'hotelImageStore')->name('hotel.images.store');
     Route::get('/hotel/availability/{id}', 'hotelAvailability')->name('hotel.availability');
@@ -125,3 +126,12 @@ Route::controller(RoleController::class)->group(function () {
 
 //Profile
 Route::get('/profile', [ProfileController::class, 'index'])->name('user.profile');
+
+//setting 
+
+Route::middleware('auth')->controller(SettingController::class)->group(function () {
+    Route::get('/setting', 'edit')->name('edit.settings');
+    Route::patch('/setting/profile', 'updateProfile')->name('settings.profile.update');
+    Route::patch('/setting/password', 'updatePassword')->name('settings.password.update');
+    Route::post('/logout', 'destory')->name('logout')->middleware('auth');
+});

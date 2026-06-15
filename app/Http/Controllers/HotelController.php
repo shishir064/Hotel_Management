@@ -8,6 +8,7 @@ use App\Models\HotelFacility;
 use App\Models\Rooms;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class HotelController extends Controller
@@ -87,12 +88,12 @@ class HotelController extends Controller
         return view('pages.hotelview', compact('hotels'));
     }
 
-    public function showHotelProflie($id)
+    public function showHotelProflie()
     {
+        $hotel_id = Auth::user()->hotels->id;
         $facilities = HotelFacility::all();
         $rooms = Rooms::all();
-        $hotel = Hotel::with('facilities')->findOrFail($id);
-        $hotel = Hotel::findorfail($id);
+        $hotel = Hotel::with('facilities')->findOrFail($hotel_id);
         return view('pages.hotelProfile', compact('hotel', 'facilities', 'rooms'));
     }
 

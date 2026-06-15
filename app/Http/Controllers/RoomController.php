@@ -12,32 +12,36 @@ use Illuminate\Http\Request;
 class RoomController extends Controller
 {
 
-    public function showRoomsForm($id)
+    public function showRoomsForm()
     {
         $categories = RoomCategory::all();
         $amenities = RoomAmenity::all();
         $main_facilities = RoomMainFacility::all();
-        $hotel = Hotel::with('rooms')->findorfail($id);
+        // $hotel = Hotel::with('rooms')->findorfail();
 
-        return view('pages.addroom', compact('categories', 'amenities', 'main_facilities', 'hotel'));
+        return view('pages.addroom', compact('categories', 'amenities', 'main_facilities'));
     }
 
     public function storeRooms(Request $request)
     {
+        $hotel_id = auth()->user()->hotels->id;
         $validated = $request->validate([
             'room_no' => 'required',
             'room_type' => 'required',
             'room_price' => 'required',
-            'hotel_id' => 'required',
 
         ]);
-        $validated['hotel_id'] = $request->hotel_id;
         // dd($validated);
-        $room = Rooms::create($validated);
+        $room = Rooms::create([
+            'hotel_id' => $hotel_id,
+            'room_no' => $validated['room_no'],
+            'room_type' => $validated['room_type'],
+            'room_price' => $validated['room_price'],
+        ]);
         $room->mainFacilities()->sync($request->room_main_facility ?? []);
 
         $room->amenities()->sync($request->room_Amenity ?? []);
-        return redirect()->route('show_rooms_form', ['id' => $request->hotel_id])->with('success', 'Room added successfully');
+        return redirect()->route('show_rooms_form')->with('success', 'Room added successfully');
     }
     public function showRooms()
     {

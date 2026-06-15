@@ -11,19 +11,63 @@ use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
+    // public function index()
+    // {
+    //     // $guests = Guest::all();
+    //     // // $rooms = Auth::user()->hotels?->Rooms::count();
+    //     // $hotels = Auth::user()->hotels;
+    //     // $rooms = $hotels ? $hotels->rooms()->count() : 0;
+    //     // $hotel_name = Auth::user()->hotels?->hotel_name;
+    //     // $roomBookings = RoomBooking::with('guest')->where('status', 'confirmed')->get();
+
+    //     // $totalRevenue = RoomBooking::where('status', 'confirmed')->sum('total_price');
+
+    //     // return view('pages.dashboard', compact('roomBookings', 'totalRevenue', 'guests', 'hotel_name', 'rooms'));
+    // }
     public function index()
-    {
-        $guests = Guest::all();
-        // $rooms = Auth::user()->hotels?->Rooms::count();
-        $hotels = Auth::user()->hotels;
-        $rooms = $hotels ? $hotels->rooms()->count() : 0;
-        $hotel_name = Auth::user()->hotels?->hotel_name;
-        $roomBookings = RoomBooking::with('guest')->where('status', 'confirmed')->get();
+{
+    $hotel = Auth::user()->hotels;
 
-        $totalRevenue = RoomBooking::where('status', 'confirmed')->sum('total_price');
-
-        return view('pages.dashboard', compact('roomBookings', 'totalRevenue', 'guests', 'hotel_name', 'rooms'));
+    if (!$hotel) {
+        return view('pages.dashboard', [
+            'roomBookings' => collect(),
+            'totalRevenue' => 0,
+            'totalGuests' => 0,
+            'totalBookings' => 0,
+            'hotel_name' => null,
+            'rooms' => 0,
+        ]);
     }
+
+    $rooms = $hotel->rooms()->count();
+    $hotel_name = $hotel->hotel_name;
+
+    // Bookings only for this hotel
+    $roomBookings = RoomBooking::with('guest')->whereHas('room', function ($query) use ($hotel) {
+            $query->where('hotel_id', $hotel->id);
+        })->where('status', 'confirmed')->get();
+
+    // Total bookings count
+    $totalBookings = $roomBookings->count();
+
+    // Total guests (unique guests)
+    $totalGuests = $roomBookings->pluck('guest_id')->unique()->count();
+
+    // Total revenue
+    $totalRevenue = $roomBookings->sum('total_price');
+
+    return view(
+        'pages.dashboard',
+        compact(
+            'roomBookings',
+            'totalRevenue',
+            'totalGuests',
+            'totalBookings',
+            'hotel_name',
+            'rooms'
+        )
+    );
+}
 
 
     public function showCategoryForm()
