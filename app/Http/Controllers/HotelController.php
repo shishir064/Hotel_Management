@@ -129,8 +129,9 @@ class HotelController extends Controller
         $facilities = HotelFacility::all();
         $hotel = Hotel::with('facilities')->findOrFail($id);
         // dd($facilities);
-        // $hotel = Hotel::findorfail($id);
-        return view('pages.hotelAvailability', compact('hotel', 'facilities'));
+        $rooms = Rooms::all();
+        $hotel = Hotel::findorfail($id);
+        return view('pages.hotelAvailability', compact('hotel', 'facilities', 'rooms'));
     }
 
     public function searchHotel(Request $request)

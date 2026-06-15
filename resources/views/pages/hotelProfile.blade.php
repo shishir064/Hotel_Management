@@ -1,255 +1,484 @@
-@extends('layouts.dashboard')
+@extends('layouts.hotelProfile')
 
 @section('title', $hotel->hotel_name)
 
 @section('content')
 
-    <div class="bg-gray-100 min-h-screen py-10">
 
-        <div class="max-w-7xl mx-auto px-4">
-            <x-successMessage></x-successMessage>
+    <!-- Main Content -->
+    <div class=" mt-8">
 
-            <!-- Hero Section -->
-            <div class="bg-white rounded-3xl overflow-hidden shadow-lg">
 
-                <div class="relative w-full h-64 bg-cover bg-center rounded-lg shadow-lg"
-                    style="background-image: url('{{ asset('storage/' . $hotel->cover_image) }}');">
+        <!-- Left Side -->
+        <div class=" ">
+            <div x-data="{ tab: 'about' }" class="bg-white rounded-2xl shadow">
 
-                    {{-- <img
-                    src="{{ asset('storage/' . $hotel->cover_image) }}"
-                    alt="{{ $hotel->hotel_name }}"
-                    class="w-full h-125 object-cover"> --}}
+                <!-- Tabs Navigation -->
+                <div class="border-b">
+                    <nav class="flex overflow-x-auto">
+                        <button @click="tab = 'about'"
+                            :class="tab === 'about'
+                                ?
+                                'border-blue-600 text-blue-600' :
+                                'border-transparent text-gray-500 hover:text-gray-700'"
+                            class="px-6 py-4 font-medium border-b-2 transition">
+                            About
+                        </button>
+                        <button @click="tab = 'rooms'"
+                            :class="tab === 'rooms'
+                                ?
+                                'border-blue-600 text-blue-600' :
+                                'border-transparent text-gray-500 hover:text-gray-700'"
+                            class="px-6 py-4 font-medium border-b-2 transition">
+                            Rooms
+                        </button>
 
-                    <div class="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent"></div>
+                        <button @click="tab = 'gallery'"
+                            :class="tab === 'gallery'
+                                ?
+                                'border-blue-600 text-blue-600' :
+                                'border-transparent text-gray-500 hover:text-gray-700'"
+                            class="px-6 py-4 font-medium border-b-2 transition">
+                            Gallery
+                        </button>
 
-                    <div class="absolute bottom-0 left-0 p-8 text-white">
+                        <button @click="tab = 'facilities'"
+                            :class="tab === 'facilities'
+                                ?
+                                'border-blue-600 text-blue-600' :
+                                'border-transparent text-gray-500 hover:text-gray-700'"
+                            class="px-6 py-4 font-medium border-b-2 transition">
+                            Facilities
+                        </button>
 
-                        <h1 class="text-5xl font-bold mb-3">
-                            {{ $hotel->hotel_name }}
-                        </h1>
 
-                        <div class="flex flex-wrap items-center gap-4 text-lg">
-
-                            <span>
-                                📍 {{ $hotel->city }}, {{ $hotel->country }}
-                            </span>
-
-                            <span class="text-yellow-400">
-                                @for ($i = 0; $i < $hotel->star_rating; $i++)
-                                    ⭐
-                                @endfor
-                            </span>
-
-                        </div>
-
-                    </div>
-
+                    </nav>
                 </div>
 
-            </div>
-
-            <!-- Main Content -->
-            <div class="grid lg:grid-cols-3 gap-8 mt-8">
-
-                <!-- Left Side -->
-                <div class="lg:col-span-2 space-y-8">
-
-                    <!-- Description -->
-                    <div class="bg-white rounded-2xl shadow p-6">
+                <!-- About Tab -->
+                <div x-show="tab === 'about'" class="p-6">
+                    <div>
 
                         <h2 class="text-2xl font-bold mb-4">
-                            About <span class="font-bold underline">{{ $hotel->hotel_name }}</span>
+                            About <span class="underline">{{ $hotel->hotel_name }}</span>
                         </h2>
 
                         <p class="text-gray-600 leading-8">
                             {{ $hotel->description }}
                         </p>
-
                     </div>
 
-                    <!-- Gallery -->
-                    <div class="bg-white rounded-2xl shadow p-6">
+                    <div class="flex justify-between items-center mt-6 mb-6">
+                        <h2 class="text-2xl font-bold">
+                            Facilities
+                        </h2>
+                    </div>
 
-                        <h2 class="text-2xl font-bold mb-6">
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        @forelse($hotel->facilities as $facility)
+                            <div class="bg-gray-100 px-4 py-3 rounded-lg">
+                                {{ $facility->name }}
+                            </div>
+                        @empty
+                            <p class="text-gray-500">
+                                No facilities found.
+                            </p>
+                        @endforelse
+                    </div>
+
+                    <div class="mt-10">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-bold">
+                                Hotel Gallery
+                            </h2>
+
+                            <a href="{{ route('hotel.images.create', $hotel->id) }}"
+                                class="bg-blue-600 text-white px-4 py-2 rounded-xl font-semibold hover:bg-blue-700 transition">
+                                Add Images
+                            </a>
+                        </div>
+
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            @forelse ($hotel->images as $image)
+                                <img src="{{ asset('storage/' . $image->image) }}" alt="Hotel Image"
+                                    class="w-full h-52 object-cover rounded-xl hover:scale-105 transition duration-300">
+                            @empty
+                                <p class="col-span-full text-gray-500">
+                                    No images available.
+                                </p>
+                            @endforelse
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <!-- Gallery Tab -->
+                <div x-show="tab === 'gallery'" class="p-6" x-cloak>
+                    {{-- <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold">
                             Hotel Gallery
                         </h2>
 
-                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <a href="{{ route('hotel.images.create', $hotel->id) }}"
+                            class="bg-blue-600 text-white px-4 py-2 rounded-xl font-semibold hover:bg-blue-700 transition">
+                            Add Images
+                        </a>
+                    </div>
 
-                            {{-- Main Cover Image --}}
-                            <img {{-- src="{{ asset('storage/' . $hotel->cover_image) }}"
-                            alt="{{ $hotel->hotel_name }}"
-                            class="w-full h-52 object-cover rounded-xl hover:scale-105 transition duration-300"> --}} {{-- Additional Images --}} {{-- Uncomment after creating HotelImage relationship --}}
-                                @foreach ($hotel->images as $image)
-                            <img
-                                src="{{ asset('storage/' . $image->image) }}"
-                                alt="Hotel Image"
-                                class="w-full h-52 object-cover rounded-xl hover:scale-105 transition duration-300"> @endforeach
-                                </div>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        @forelse ($hotel->images as $image)
+                            <img src="{{ asset('storage/' . $image->image) }}" alt="Hotel Image"
+                                class="w-full h-52 object-cover rounded-xl hover:scale-105 transition duration-300">
+                        @empty
+                            <p class="col-span-full text-gray-500">
+                                No images available.
+                            </p>
+                        @endforelse
+                    </div> --}}
+                    <div class="bg-gray-100 min-h-screen py-10">
 
-                        </div>
+                        <div class="max-w-7xl mx-auto px-4">
 
-                        <!-- Facilities -->
-                        <div class="bg-white rounded-2xl shadow p-6">
-                            <div class="flex justify-between mb-4 items-center">
-
-                                <h2 class="text-2xl font-bold mb-6">
-                                    Facilities
-                                </h2>
-
-                                <a href="{{ route('show.hotel.facilities.select', $hotel->id) }}"
-                                    class="block w-fit text-center bg-blue-600 text-white px-4 py-2  rounded-xl font-semibold hover:bg-blue-700 transition">
-                                    Add Hotel Facilities
-                                </a>
+                            <!-- Header -->
+                            <div class="mb-8">
+                                <h1 class="text-3xl font-bold">
+                                    Manage Hotel Images
+                                </h1>
+                                <p class="text-gray-500 mt-2">
+                                    Upload and manage images for {{ $hotel->hotel_name }}
+                                </p>
                             </div>
 
-                            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-gray-700">
-                                @forelse($hotel->facilities as $facility)
-                                    <div>{{ $facility->name }}</div>
-                                @empty
-                                    <div>No facilities found</div>
-                                @endforelse
+                            <div class="grid lg:grid-cols-3 gap-8">
 
-                            </div>
+                                <!-- Upload Section -->
+                                <div class="lg:col-span-1">
 
-                        </div>
-                        <!-- Rooms Section -->
-                        <div class="bg-white rounded-2xl shadow p-6 mt-8">
+                                    <div class="bg-white rounded-2xl shadow p-6">
 
-                            <div class="flex justify-between items-center mb-6">
-                                <h2 class="text-2xl font-bold">
-                                    Rooms
-                                </h2>
+                                        <h2 class="text-xl font-semibold mb-4">
+                                            Upload Images
+                                        </h2>
 
-                                <a href="{{ route('show_rooms_form', $hotel->id) }}"
-                                    class="bg-green-600 text-white px-4 py-2 rounded-xl font-semibold hover:bg-green-700 transition">
-                                    Add Room
-                                </a>
-                            </div>
+                                        <form action="{{ route('hotel.images.store', $hotel->id) }}" method="POST"
+                                            enctype="multipart/form-data">
 
-                            <!-- Room Stats -->
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                                            @csrf
 
-                                <div class="bg-blue-50 p-4 rounded-xl">
-                                    <h3 class="text-sm text-gray-500">Total Rooms</h3>
-                                    <p class="text-3xl font-bold">
-                                        {{ $hotel->rooms->count() }}
-                                    </p>
+                                            <label for="images"
+                                                class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center block cursor-pointer hover:border-blue-500 transition">
+
+                                                <div class="text-5xl mb-3">
+                                                    📷
+                                                </div>
+
+                                                <h3 class="font-semibold text-lg">
+                                                    Click to Upload
+                                                </h3>
+
+                                                <p class="text-gray-500 text-sm mt-2">
+                                                    Upload multiple hotel images
+                                                </p>
+
+                                                <input type="file" id="images" name="images[]" multiple class="hidden"
+                                                    onchange="previewImages(event)">
+                                            </label>
+
+                                            <!-- Preview Section -->
+                                            <div id="preview-container" class="grid grid-cols-2 gap-3 mt-6">
+                                            </div>
+
+                                            <button type="submit"
+                                                class="w-full mt-6 bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700">
+                                                Upload Images
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+
                                 </div>
 
-                                <div class="bg-green-50 p-4 rounded-xl">
-                                    <h3 class="text-sm text-gray-500">Available Rooms</h3>
-                                    <p class="text-3xl font-bold">
-                                        {{ $hotel->rooms->where('room_status', 'available')->count() }}
-                                    </p>
+                                <!-- Gallery Section -->
+                                <div class="lg:col-span-2">
+
+                                    <div class="bg-white rounded-2xl shadow p-6">
+
+                                        <div class="flex justify-between items-center mb-6">
+
+                                            <h2 class="text-xl font-semibold">
+                                                Uploaded Images
+                                            </h2>
+
+                                            <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">
+                                                {{ $hotel->images->count() }} Images
+                                            </span>
+
+                                        </div>
+
+                                        @if ($hotel->images->count())
+
+                                            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+
+                                                @foreach ($hotel->images as $image)
+                                                    <div class="relative group">
+
+                                                        <img src="{{ asset('storage/' . $image->image) }}" alt="Hotel Image"
+                                                            class="w-full h-52 object-cover rounded-xl">
+
+                                                        <div
+                                                            class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition rounded-xl flex items-center justify-center">
+
+                                                            <form action="" method="POST">
+
+                                                                @csrf
+                                                                @method('DELETE')
+
+                                                                <button class="bg-red-600 text-white px-4 py-2 rounded-lg">
+                                                                    Delete
+                                                                </button>
+
+                                                            </form>
+
+                                                        </div>
+
+                                                    </div>
+                                                @endforeach
+
+                                            </div>
+                                        @else
+                                            <div class="text-center py-16">
+
+                                                <div class="text-6xl mb-4">
+                                                    🏨
+                                                </div>
+
+                                                <h3 class="text-xl font-semibold">
+                                                    No Images Uploaded
+                                                </h3>
+
+                                                <p class="text-gray-500 mt-2">
+                                                    Upload your first hotel image.
+                                                </p>
+
+                                            </div>
+
+                                        @endif
+
+                                    </div>
+
                                 </div>
 
-                                <div class="bg-red-50 p-4 rounded-xl">
-                                    <h3 class="text-sm text-gray-500">Occupied Rooms</h3>
-                                    <p class="text-3xl font-bold">
-                                        {{ $hotel->rooms->where('room_status', 'occupied')->count() }}
-                                    </p>
-                                </div>
-
-                            </div>
-
-                            <!-- Room List -->
-                            <div class="overflow-x-auto">
-                                <table class="w-full border-collapse">
-                                    <thead>
-                                        <tr class="bg-gray-100">
-                                            <th class="text-left p-3">Room No</th>
-                                            <th class="text-left p-3">Type</th>
-                                            <th class="text-left p-3">Price</th>
-                                            <th class="text-left p-3">Status</th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        @forelse($hotel->rooms as $room)
-                                            <tr class="border-b">
-                                                <td class="p-3">{{ $room->room_no }}</td>
-                                                <td class="p-3">{{ $room->roomCategory?->category_name }}</td>
-                                                <td class="p-3">Rs. {{ number_format($room->room_price) }}</td>
-                                                <td class="p-3">
-                                                    @if ($room->room_status == 'available')
-                                                        <span class="text-green-600 font-semibold">
-                                                            Available
-                                                        </span>
-                                                    @else
-                                                        <span class="text-red-600 font-semibold">
-                                                            Occupied
-                                                        </span>
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                        @empty
-                                            <tr>
-                                                <td colspan="4" class="p-4 text-center text-gray-500">
-                                                    No rooms added yet.
-                                                </td>
-                                            </tr>
-                                        @endforelse
-                                    </tbody>
-                                </table>
                             </div>
 
                         </div>
 
                     </div>
 
-                    <!-- Right Side Booking Card -->
-                    <div>
+                    <script>
+                        function previewImages(event) {
 
-                        <div class="bg-white rounded-2xl shadow-xl p-6 sticky top-24">
+                            const container = document.getElementById('preview-container');
+                            container.innerHTML = '';
 
-                            <h3 class="text-xl font-bold mb-4">
-                                Hotel Management
-                            </h3>
+                            Array.from(event.target.files).forEach(file => {
 
-                            <a href="{{ route('hotel.images.create', $hotel->id) }}"
-                                class="block w-full text-center bg-blue-600 text-white py-3 rounded-xl font-semibold mb-4 hover:bg-blue-700 transition">
-                                Add Hotel Images
-                            </a>
+                                const reader = new FileReader();
 
-                            <hr class="my-6">
+                                reader.onload = function(e) {
 
-                            <div class="space-y-4 text-sm text-gray-700">
+                                    const wrapper = document.createElement('div');
 
-                                <div>
-                                    📍 {{ $hotel->address }}
-                                </div>
+                                    wrapper.innerHTML = `
+                <img
+                    src="${e.target.result}"
+                    class="w-full h-32 object-cover rounded-lg border">
+            `;
 
-                                <div>
-                                    🏙 {{ $hotel->city }}, {{ $hotel->country }}
-                                </div>
+                                    container.appendChild(wrapper);
+                                }
 
-                                <div>
-                                    ⭐ {{ $hotel->star_rating }} Star Hotel
-                                </div>
+                                reader.readAsDataURL(file);
+                            });
+                        }
+                    </script>
+                </div>
 
-                                @if ($hotel->phone)
-                                    <div>
-                                        📞 {{ $hotel->phone }}
+                <!-- Facilities Tab -->
+                <div x-show="tab === 'facilities'" class="p-6" x-cloak>
+
+
+
+                     <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-800">
+                Hotel Facilities
+            </h1>
+            <p class="text-gray-500 mt-2">
+                Choose the facilities available in your hotel.
+            </p>
+
+            
+        </div>
+
+        <form action="{{ route('store.hotel.facilities') }}" method="POST">
+            @csrf
+            <input type="hidden" name="hotel_id" value="{{ $hotel->id }}">
+            <div class="bg-white rounded-2xl  p-6 ">
+                <div class="flex justify-between items-center mb-4">
+
+                    <h2 class="text-lg font-semibold mb-5 text-gray-700">
+                        Available Facilities
+                    </h2>
+                    {{-- <button class=" px-4 py-2 bg-black text-white rounded"> Add Facilities</button> --}}
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    @foreach ($facilities as $facility)
+                        <label for="facility{{ $facility->id }}" class="group cursor-pointer">
+                            <input type="checkbox" name="facilities[]" value="{{ $facility->id }}"
+                                id="facility{{ $facility->id }}" class="peer hidden">
+
+                            <div
+                                class="border-2 border-gray-200 rounded-xl p-4 transition-all duration-300
+                                   hover:border-primary hover:shadow-md
+                                   peer-checked:border-primary
+                                   peer-checked:bg-primary/10
+                                   peer-checked:shadow-lg">
+                                <div class="flex items-center justify-between">
+
+                                    <div class="flex items-center gap-3">
+                                        <div
+                                            class="w-12 h-12 rounded-full bg-gray-100
+                                               flex items-center justify-center
+                                               peer-checked:bg-primary/20">
+                                            🏨
+                                        </div>
+
+                                        <div>
+                                            <h3 class="font-semibold text-gray-800">
+                                                {{ $facility->name }}
+                                            </h3>
+                                            <p class="text-sm text-gray-500">
+                                                Hotel Facility
+                                            </p>
+                                        </div>
                                     </div>
-                                @endif
 
-                                @if ($hotel->email)
-                                    <div>
-                                        ✉️ {{ $hotel->email }}
-                                    </div>
-                                @endif
-
+                                </div>
                             </div>
+                        </label>
+                    @endforeach
 
+                </div>
+
+                <div class="mt-8 flex justify-end">
+                    <button type="submit"
+                        class="px-8 py-3 bg-primary text-white rounded-xl
+                           shadow-lg hover:scale-105 transition-all duration-300">
+                        Save Facilities
+                    </button>
+                </div>
+
+            </div>
+        </form>
+
+                </div>
+
+                <!-- Rooms Tab -->
+                <div x-show="tab === 'rooms'" class="p-6" x-cloak>
+
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold">
+                            Rooms
+                        </h2>
+
+                        <a href="{{ route('show_rooms_form', $hotel->id) }}"
+                            class="bg-green-600 text-white px-4 py-2 rounded-xl font-semibold hover:bg-green-700 transition">
+                            Add Room
+                        </a>
+                    </div>
+
+                    <!-- Room Statistics -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+
+                        <div class="bg-blue-50 p-4 rounded-xl">
+                            <h3 class="text-sm text-gray-500">Total Rooms</h3>
+                            <p class="text-3xl font-bold">
+                                {{ $hotel->rooms->count() }}
+                            </p>
                         </div>
 
+                        <div class="bg-green-50 p-4 rounded-xl">
+                            <h3 class="text-sm text-gray-500">Available Rooms</h3>
+                            <p class="text-3xl font-bold">
+                                {{ $hotel->rooms->where('room_status', 'available')->count() }}
+                            </p>
+                        </div>
+
+                        <div class="bg-red-50 p-4 rounded-xl">
+                            <h3 class="text-sm text-gray-500">Occupied Rooms</h3>
+                            <p class="text-3xl font-bold">
+                                {{ $hotel->rooms->where('room_status', 'occupied')->count() }}
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <!-- Room List -->
+                    <div class="overflow-x-auto">
+                        <table class="w-full border-collapse">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="text-left p-3">Room No</th>
+                                    <th class="text-left p-3">Type</th>
+                                    <th class="text-left p-3">Price</th>
+                                    <th class="text-left p-3">Status</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @forelse($hotel->rooms as $room)
+                                    <tr class="border-b">
+                                        <td class="p-3">{{ $room->room_no }}</td>
+
+                                        <td class="p-3">
+                                            {{ $room->roomCategory?->category_name }}
+                                        </td>
+
+                                        <td class="p-3">
+                                            Rs. {{ number_format($room->room_price) }}
+                                        </td>
+
+                                        <td class="p-3">
+                                            @if ($room->room_status == 'available')
+                                                <span class="text-green-600 font-semibold">
+                                                    Available
+                                                </span>
+                                            @else
+                                                <span class="text-red-600 font-semibold">
+                                                    Occupied
+                                                </span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="4" class="text-center p-4 text-gray-500">
+                                            No rooms added yet.
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+
+                        </table>
                     </div>
 
                 </div>
 
             </div>
-
         </div>
+
 
     @endsection

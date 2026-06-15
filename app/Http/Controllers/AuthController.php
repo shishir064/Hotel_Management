@@ -37,7 +37,7 @@ class AuthController extends Controller
                 return redirect()->route('dashboard');
             }
             else{
-                return redirect('/'); 
+                return redirect()->route('show.hotel'); 
             }
         }
 
