@@ -64,8 +64,13 @@
                                         {{ $hotel->hotel_name }}
                                     </h2>
 
-                                    <p class="text-gray-600 mt-1">
-                                        📍 {{ $hotel->city }}, {{ $hotel->country }}
+                                    <p class="text-gray-600 mt-1 flex items-center">
+                                        <span class="material-symbols-outlined">
+                                            location_on
+                                        </span>  
+                                        <span>
+                                            {{ $hotel->city }}, {{ $hotel->country }}
+                                        </span>
                                     </p>
                                 </div>
 
@@ -123,9 +128,9 @@
                 </div>
             @endforelse
 
-            <div >
-                {{$hotels->links()}}
-            </div>
+        </div>
+        <div class="mt-4 ">
+            {{ $hotels->links() }}
         </div>
 
     </div>
