@@ -52,7 +52,7 @@
                             </td>
 
                             <!-- Status -->
-                            <td class="px-6 py-4">
+                            <td class="px-6 py-4 flex items-center gap-2 ">
                                 <span
                                     class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-sm font-medium
                                 @if ($room->room_status === 'available') bg-emerald-50 text-emerald-700
@@ -70,6 +70,10 @@
 
                                     {{ ucfirst($room->room_status) }}
                                 </span>
+
+                                <form action="{{ route('rooms.booking', $room->id) }}" method="GET">
+                                    <button type="submit" class="text-white bg-blue-500 py-2 px-4 rounded hover:bg-blue-600">Book Room</button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach

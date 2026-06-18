@@ -12,7 +12,7 @@ use Illuminate\Notifications\Notifiable;
 use PhpParser\Node\Expr\Assign;
 use Spatie\Permission\Traits\HasRoles;
 
-#[Fillable(['name', 'email', 'password'])]
+#[Fillable(['name', 'email', 'password', 'phone', 'address', 'citizen_id'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {

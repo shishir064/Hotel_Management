@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BookingApiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\HotelFacilitiesController;
@@ -89,10 +90,11 @@ Route::controller(RoomMainFacilitiesController::class)->group(function () {
 
 //Room Bookings
 Route::controller(RoomBookingController::class)->group(function () {
-    Route::get('/rooms/booking/{room}', 'index')->name('rooms.booking');
-    Route::post('/rooms/booking/{room}', 'store')->name('bookings.store');
+    Route::get('/rooms/booking/{id}', 'index')->name('rooms.booking');
+    Route::post('/rooms/booking', 'store')->name('bookings.store');
     Route::delete('/delete/booking/{id}', 'delete')->name('delete');
 });
+
 
 //Hotel
 Route::controller(HotelController::class)->group(function () {

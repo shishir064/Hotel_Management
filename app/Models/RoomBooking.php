@@ -19,7 +19,7 @@ class RoomBooking extends Model
         'children',
         'total_price',
         'status',
-        'guest_id'
+        'user_id'
     ];
 
     public function room()
@@ -29,7 +29,7 @@ class RoomBooking extends Model
 
     public function guest()
     {
-        return $this->belongsTo(Guest::class);
+        return $this->belongsTo(User::class);
     }
 
     Public function roomCategory()

@@ -5,28 +5,39 @@ namespace App\Http\Controllers;
 use App\Models\Guest;
 use App\Models\RoomBooking;
 use App\Models\Rooms;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 class RoomBookingController extends Controller
 {
-    public function index(Rooms $room)
+    public function index($id)
     {
+        $room = Rooms::findorfail($id);
         return view('pages.roomBooking', compact('room'));
     }
 
+
+
+
+
     public function store(Request $request, Rooms $room)
     {
+        // dd($request->all());
         $validated = $request->validate([
             'guest_name' => 'required|string|max:255',
+            'room_id' => 'required|exists:rooms,id',
             'email' => 'required|email',
             'phone' => 'required',
+            'address' => 'required',
+            'citizen_id' => 'required|string|max:6',
             'check_in' => 'required|date|after_or_equal:today',
             'check_out' => 'required|date|after:check_in',
             'adults' => 'required|integer|min:1',
             'children' => 'nullable|integer|min:0',
         ]);
-
+        // dd($validated);
         // Check room availability
         $exists = RoomBooking::where('room_id', $room->id)
             ->where('status', '!=', 'cancelled')
@@ -47,18 +58,22 @@ class RoomBookingController extends Controller
         $days = Carbon::parse($validated['check_in'])->diffInDays(Carbon::parse($validated['check_out']));
 
         $totalPrice = $days * $room->room_price;
-        
-        $guest = Guest::create([
+
+        $user = User::create([
             'name' => $validated['guest_name'],
+
             'email' => $validated['email'],
             'phone' => $validated['phone'],
+            'address' => $validated['address'],
+            'citizen_id' => $validated['citizen_id'],
+            'password' => Hash::make($validated['email']),
         ]);
-
-        $validated['guest_id'] = $guest->id;
-
+        $validated['user_id'] = $user->id;
+        $user->assignRole('guest');
+        dd($totalPrice);
         RoomBooking::create([
-            'room_id' => $room->id,
-            'guest_id' => $guest->id,
+            'room_id' => $validated['room_id'],
+            'user_id' => $user->id,
             'check_in' => $validated['check_in'],
             'check_out' => $validated['check_out'],
             'adults' => $validated['adults'],
@@ -69,6 +84,6 @@ class RoomBookingController extends Controller
 
 
 
-        return redirect()->route('rooms.booking')->with('success', 'Room booked successfully.');
+        return redirect()->back()->with('success', 'Room booked successfully.');
     }
 }

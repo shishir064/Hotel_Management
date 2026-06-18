@@ -142,7 +142,7 @@
             </div>
 
             <!-- Bookings -->
-            <a href="" class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-700 transition">
+            <a href="{{ route('booking.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-700 transition">
                 <span class="material-symbols-outlined">calendar_month</span>
                 <span>Bookings</span>
             </a>
