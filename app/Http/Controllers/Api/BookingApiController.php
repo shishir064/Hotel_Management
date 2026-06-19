@@ -36,4 +36,6 @@ class BookingApiController extends Controller
 
         return response()->json($rooms);
     }
+
+    
 }

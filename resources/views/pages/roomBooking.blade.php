@@ -33,16 +33,27 @@
                     <input type="hidden" name="room_id" value="{{ $room->id }}">
                 @else
                     <div>
-                        <label class="block mb-2">Select Room</label>
-                        <select id="roomSelect" name="room_id" class="w-full border rounded px-3 py-2">
-                            <option value="">Loading rooms...</option>
+                        <label for="categorySelect" class="block mb-2">Select Category</label>
+                        <select id="categorySelect" class="w-full border rounded px-3 py-2">
+                            <option value="">Select Category</option>
+                            <option value="2">Single</option>
+                            <option value="3">Double</option>
+                            <option value="4">Twin</option>
                         </select>
-
-
-
+                    </div>
+                    <div>
+                        <label class="block mb-2" for="">Select Room</label>
+                        <select id="roomSelect" name="room_id" class="w-full border rounded px-3 py-2">
+                            <option value="">Select Room</option>
+                        </select>
                         @error('room_id')
                             <small class="text-red-500">{{ $message }}</small>
                         @enderror
+                    </div>
+                    <div>
+                        <label class="block mb-2">Price Per Night</label>
+                        <input type="text" id="roomPrice" name="room_price"
+                            class="w-full border rounded px-3 py-2 bg-gray-100" readonly>
                     </div>
                 @endif
 
@@ -141,22 +152,80 @@
         </form>
 
     </div>
+    {{-- <script>
+        document.getElementById('categorySelect').addEventListener('change', function() {
 
+            let categoryId = this.value;
+
+            fetch('/api/bookings/store') // or your rooms API endpoint
+                .then(response => response.json())
+                .then(rooms => {
+
+                    let select = document.getElementById('roomSelect');
+
+                    select.innerHTML = '<option value="">Select Room</option>';
+
+                    let filteredRooms = rooms.filter(room =>
+                        room.room_type == categoryId
+                    );
+
+                    filteredRooms.forEach(room => {
+                        select.innerHTML += `
+                    <option value="${room.id}">
+                        Room ${room.room_no}
+                    </option>
+                `;
+                    });
+                })
+                .catch(error => console.error(error));
+        });
+    </script> --}}
     <script>
-        fetch('/api/bookings/store')
-            .then(response => response.json())
-            .then(rooms => {
-                let select = document.getElementById('roomSelect');
+        let allRooms = [];
 
-                select.innerHTML = '<option value="">Select Room</option>';
+        document.getElementById('categorySelect').addEventListener('change', function() {
 
-                rooms.forEach(room => {
-                    select.innerHTML += `
-                <option value="${room.id}">
-                    ${room.room_no}
-                </option>
-            `;
-                });
-            });
+            let categoryId = this.value;
+
+            fetch('/api/bookings/store')
+                .then(response => response.json())
+                .then(rooms => {
+
+                    allRooms = rooms;
+
+                    let select = document.getElementById('roomSelect');
+
+                    select.innerHTML = '<option value="">Select Room</option>';
+
+                    let filteredRooms = rooms.filter(room =>
+                        room.room_type == categoryId
+                    );
+
+                    filteredRooms.forEach(room => {
+                        select.innerHTML += `
+                        <option value="${room.id}">
+                            Room ${room.room_no}
+                        </option>
+                    `;
+                    });
+
+                    document.getElementById('roomPrice').value = '';
+                })
+                .catch(error => console.error(error));
+        });
+
+        document.getElementById('roomSelect').addEventListener('change', function() {
+
+            let roomId = this.value;
+
+            let selectedRoom = allRooms.find(room => room.id == roomId);
+
+            if (selectedRoom) {
+                document.getElementById('roomPrice').value =
+                    'Rs. ' + selectedRoom.room_price;
+            } else {
+                document.getElementById('roomPrice').value = '';
+            }
+        });
     </script>
 @endsection
