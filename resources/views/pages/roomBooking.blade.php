@@ -3,10 +3,10 @@
 @section('content')
     <h1 class="text-4xl p-4">Book Room</h1>
     <div class="p-6  bg-white shadow rounded-lg ">
-
-        @if (session('error'))
+             <x-errorMessage />
+            @if (session('success'))
             <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
-                {{ session('error') }}
+                {{ session('success') }}
             </div>
         @endif
         @if (isset($room))
@@ -17,14 +17,15 @@
             <x-successMessage></x-successMessage>
 
 
+            <form action="{{ route('bookings.store', $room->id) }}" method="POST">
             <div class="mb-6 p-4 bg-gray-100 rounded">
                 <p><strong>Room:</strong> {{ $room->room_no }}</p>
                 <p><strong>Category:</strong> {{ $room->roomCategory?->category_name }}</p>
-                <p><strong>Price per Night:</strong> Rs. {{ $room->room_price }}</p>
+                <p name="room_price"><strong>Price per Night:</strong> Rs. {{ $room->room_price }}</p>
+                <p name="discount"><strong>Discount:</strong> {{ $room->discount }}%</p>
             </div>
         @endif
 
-        <form action="{{ route('bookings.store') }}" method="POST">
 
             @csrf
 
@@ -53,7 +54,12 @@
                     <div>
                         <label class="block mb-2">Price Per Night</label>
                         <input type="text" id="roomPrice" name="room_price"
-                            class="w-full border rounded px-3 py-2 bg-gray-100" readonly>
+                            class="w-full border rounded px-3 py-2 " readonly>
+                    </div>
+                    <div>
+                        <label class="block mb-2">Discount </label>
+                        <input type="number" id="discount" name="discount"
+                            class="w-full border rounded px-3 py-2 " readonly>
                     </div>
                 @endif
 
@@ -180,14 +186,14 @@
                 .catch(error => console.error(error));
         });
     </script> --}}
-    <script>
+    {{-- <script>
         let allRooms = [];
 
         document.getElementById('categorySelect').addEventListener('change', function() {
 
             let categoryId = this.value;
 
-            fetch('/api/bookings/store')
+            fetch('/api/store')
                 .then(response => response.json())
                 .then(rooms => {
 
@@ -227,5 +233,57 @@
                 document.getElementById('roomPrice').value = '';
             }
         });
-    </script>
+
+        document.getElementById('discount').add
+    </script> --}}
+    <script>
+    let allRooms = [];
+
+    document.getElementById('categorySelect').addEventListener('change', function() {
+
+        let categoryId = this.value;
+
+        fetch('/api/store')
+            .then(response => response.json())
+            .then(rooms => {
+
+                allRooms = rooms;
+
+                let select = document.getElementById('roomSelect');
+
+                select.innerHTML = '<option value="">Select Room</option>';
+
+                let filteredRooms = rooms.filter(room =>
+                    room.room_type == categoryId
+                );
+
+                filteredRooms.forEach(room => {
+                    select.innerHTML += `
+                        <option value="${room.id}">
+                            Room ${room.room_no}
+                        </option>
+                    `;
+                });
+
+                document.getElementById('roomPrice').value = '';
+                document.getElementById('discount').value = '';
+            })
+            .catch(error => console.error(error));
+    });
+
+    document.getElementById('roomSelect').addEventListener('change', function() {
+
+        let roomId = this.value;
+
+        let selectedRoom = allRooms.find(room => room.id == roomId);
+
+        if (selectedRoom) {
+            document.getElementById('roomPrice').value = selectedRoom.room_price;
+            document.getElementById('discount').value = selectedRoom.discount;
+        } else {
+            document.getElementById('roomPrice').value = '';
+            document.getElementById('discount').value = '';
+        }
+    });
+</script>
 @endsection

@@ -20,6 +20,7 @@
                     <tr>
                         <th class="px-6 py-4 font-semibold text-gray-700">Room No</th>
                         <th class="px-6 py-4 font-semibold text-gray-700">Room Type</th>
+                        <th class="px-6 py-4 font-semibold text-gray-700">Discount</th>
                         <th class="px-6 py-4 font-semibold text-gray-700">Price</th>
                         <th class="px-6 py-4 font-semibold text-gray-700">Status</th>
                     </tr>
@@ -42,7 +43,9 @@
                             <td class="px-6 py-4 text-gray-700">
                                 {{ $room->roomCategory?->category_name ?? 'N/A' }}
                             </td>
-
+                            <td class="px-6 py-4 text-gray-700">
+                                {{ $room->discount }}
+                            </td>
                             <!-- Price -->
                             <td class="px-6 py-4 text-gray-700">
                                 Rs. {{ number_format($room->room_price) }}
@@ -71,8 +74,17 @@
                                     {{ ucfirst($room->room_status) }}
                                 </span>
 
+
+                                <form action="{{ route('rooms.edit', $room->id) }}" method="GET">
+                                    <button type="submit"
+                                        class="text-white bg-gray-500 py-2 px-4 rounded hover:bg-gray-600">Edit
+                                        Room</button>
+                                </form>
+
                                 <form action="{{ route('rooms.booking', $room->id) }}" method="GET">
-                                    <button type="submit" class="text-white bg-blue-500 py-2 px-4 rounded hover:bg-blue-600">Book Room</button>
+                                    <button type="submit"
+                                        class="text-white bg-blue-500 py-2 px-4 rounded hover:bg-blue-600">Book
+                                        Room</button>
                                 </form>
                             </td>
                         </tr>

@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('guest', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->string('phone');
-            $table->timestamps();
+        Schema::table('rooms', function (Blueprint $table) {
+            $table->integer('discount')->default(0)->nullable();
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('guest');
+        Schema::table('rooms', function (Blueprint $table) {
+            $table->dropColumn('discount');
+        });
     }
 };

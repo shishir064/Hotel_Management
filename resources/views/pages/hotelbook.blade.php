@@ -1,174 +1,243 @@
 @extends('layouts.app')
 
-@section('title', 'Hotel Book')
-
 @section('content')
-    <main class="pt-28 pb-20 max-w-7xl mx-auto px-6 lg:px-20">
-        <div class="flex items-center gap-4 mb-12">
-            <button class="flex items-center text-secondary hover:text-primary transition-colors">
-                <span class="material-symbols-outlined mr-2">arrow_back</span>
-                <span class="font-label-md text-label-md">BACK TO PROPERTY</span>
-            </button>
-            <h1 class="font-headline-lg text-headline-lg text-primary">Complete Your Sanctuary</h1>
+    <div class="min-h-screen bg-gray-50">
+
+        <div class="max-w-6xl mx-auto px-4 py-10">
+
+            <!-- Hero Header -->
+            <div class="mb-10">
+                <div class="bg-gradient-to-r from-gray-800 to-gray-600 rounded-3xl p-8 text-white shadow-lg">
+                    <h1 class="text-4xl font-bold">
+                        Reserve Your Stay
+                    </h1>
+                    <p class="mt-2 text-blue-100">
+                        Complete your booking details and enjoy a comfortable experience.
+                    </p>
+                </div>
+            </div>
+
+            <x-successMessage />
+
+            @if (session('error'))
+                <div class="mb-6 rounded-2xl border border-red-200 bg-red-50 p-4 text-red-600">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+            <form action="{{ route('reserve.store', $room->id) }}" method="POST">
+                @csrf
+
+                <div class="grid lg:grid-cols-3 gap-8">
+
+                    <!-- Room Summary -->
+                    <div class="lg:col-span-1">
+
+                        <div class="bg-white rounded-3xl border border-gray-100 shadow-lg overflow-hidden sticky top-20">
+
+                            <div class="bg-gradient-to-r from-gray-800 to-gray-600 p-5 text-white">
+                                <h2 class="text-xl font-semibold">
+                                    Room Details
+                                </h2>
+                            </div>
+
+                            <div class="p-6">
+
+                                <div class="space-y-6">
+
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-500">Room Number</span>
+                                        <span class="font-semibold">
+                                            #{{ $room->room_no }}
+                                        </span>
+                                    </div>
+
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-500">Category</span>
+                                        <span class="font-semibold">
+                                            {{ $room->roomCategory?->category_name }}
+                                        </span>
+                                    </div>
+
+                                    @php
+                                        $discountPercent = 15; // Example 15% discount
+                                        $originalPrice = $room->room_price;
+                                        $discountAmount = ($originalPrice * $discountPercent) / 100;
+                                        $finalPrice = $originalPrice - $discountAmount;
+                                    @endphp
+
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-500">Price / Night</span>
+                                        <span class="font-bold text-green-600 text-lg">
+                                            Rs. {{ number_format($finalPrice) }}
+                                        </span>
+                                    </div>
+
+                                </div>
+
+                                <input type="hidden" name="room_id" value="{{ $room->id }}">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Booking Form -->
+                    <div class="lg:col-span-2">
+
+                        <div class="bg-white rounded-3xl shadow-lg border border-gray-100 p-8">
+
+                            <!-- Guest Info -->
+                            <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                                Guest Information
+                            </h2>
+
+                            <div class="grid md:grid-cols-2 gap-5">
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                                        Full Name
+                                    </label>
+                                    <input type="text" name="guest_name" value="{{ $userName }}"
+                                        placeholder="Enter your full name"
+                                        class="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition">
+
+                                    @error('guest_name')
+                                        <small class="text-red-500">{{ $message }}</small>
+                                    @enderror
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                                        Email Address
+                                    </label>
+                                    <input type="email" name="email" value="{{ $userEmail }}"
+                                        placeholder="example@gmail.com"
+                                        class="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition"
+                                        readonly>
+
+                                    @error('email')
+                                        <small class="text-red-500">{{ $message }}</small>
+                                    @enderror
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                                        Phone Number
+                                    </label>
+                                    <input type="text" name="phone" value="{{ old('phone') }}"
+                                        placeholder="+977 98XXXXXXXX"
+                                        class="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition">
+
+                                    @error('phone')
+                                        <small class="text-red-500">{{ $message }}</small>
+                                    @enderror
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                                        Citizen ID
+                                    </label>
+                                    <input type="text" name="citizen_id" value="{{ old('citizen_id') }}"
+                                        placeholder="Citizen Number"
+                                        class="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition">
+
+                                    @error('citizen_id')
+                                        <small class="text-red-500">{{ $message }}</small>
+                                    @enderror
+                                </div>
+
+                                <div class="md:col-span-2">
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                                        Address
+                                    </label>
+                                    <input type="text" name="address" value="{{ old('address') }}"
+                                        placeholder="Your address"
+                                        class="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition">
+
+                                    @error('address')
+                                        <small class="text-red-500">{{ $message }}</small>
+                                    @enderror
+                                </div>
+
+                            </div>
+
+                            <div class="border-t border-gray-200 my-8"></div>
+
+                            <!-- Stay Information -->
+                            <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                                Stay Information
+                            </h2>
+
+                            <div class="grid md:grid-cols-2 gap-5">
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                                        Check In
+                                    </label>
+                                    <input type="date" name="check_in" value="{{ old('check_in') }}"
+                                        class="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition">
+
+                                    @error('check_in')
+                                        <small class="text-red-500">{{ $message }}</small>
+                                    @enderror
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                                        Check Out
+                                    </label>
+                                    <input type="date" name="check_out" value="{{ old('check_out') }}"
+                                        class="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition">
+
+                                    @error('check_out')
+                                        <small class="text-red-500">{{ $message }}</small>
+                                    @enderror
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                                        Adults
+                                    </label>
+                                    <input type="number" min="1" name="adults" value="{{ old('adults', 1) }}"
+                                        class="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition">
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                                        Children
+                                    </label>
+                                    <input type="number" min="0" name="children" value="{{ old('children', 0) }}"
+                                        class="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition">
+                                </div>
+
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="flex flex-col md:flex-row gap-4 mt-10">
+
+                                <button type="submit"
+                                    class="flex-1 bg-gradient-to-r from-gray-800 to-gray-600 text-white py-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200">
+                                    Confirm Booking
+                                </button>
+
+                                <a href="{{ url()->previous() }}"
+                                    class="px-8 py-4 rounded-2xl bg-gray-100 hover:bg-gray-200 text-center font-semibold transition">
+                                    Cancel
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </form>
+
         </div>
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            <section class="lg:col-span-7 space-y-12">
-                <div>
-                    <div class="flex items-center gap-4 mb-6">
-                        <span
-                            class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-md text-label-md">1</span>
-                        <h2 class="font-headline-md text-headline-md text-primary">Guest Information</h2>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
-                        <div class="space-y-2">
-                            <label class="font-label-md text-label-md text-secondary block">FIRST NAME</label>
-                            <input
-                                class="w-full border-0 border-b border-outline-variant bg-transparent py-3 focus:ring-0 focus:border-primary transition-colors outline-none"
-                                placeholder="Julian" type="text" />
-                        </div>
-                        <div class="space-y-2">
-                            <label class="font-label-md text-label-md text-secondary block">LAST NAME</label>
-                            <input
-                                class="w-full border-0 border-b border-outline-variant bg-transparent py-3 focus:ring-0 focus:border-primary transition-colors outline-none"
-                                placeholder="Vandermeer" type="text" />
-                        </div>
-                        <div class="md:col-span-2 space-y-2">
-                            <label class="font-label-md text-label-md text-secondary block">EMAIL ADDRESS</label>
-                            <input
-                                class="w-full border-0 border-b border-outline-variant bg-transparent py-3 focus:ring-0 focus:border-primary transition-colors outline-none"
-                                placeholder="j.vandermeer@elysian.com" type="email" />
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="flex items-center gap-4 mb-6">
-                        <span
-                            class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-md text-label-md">2</span>
-                        <h2 class="font-headline-md text-headline-md text-primary">Payment Details</h2>
-                    </div>
-                    <div class="space-y-8 bg-surface-container-low p-8">
-                        <div class="flex gap-6 mb-4">
-                            <label class="flex items-center gap-3 cursor-pointer group">
-                                <input checked="" class="text-primary focus:ring-primary w-4 h-4" name="payment"
-                                    type="radio" />
-                                <span
-                                    class="font-label-md text-label-md group-hover:text-primary transition-colors">CREDIT
-                                    CARD</span>
-                            </label>
-                            <label class="flex items-center gap-3 cursor-pointer group">
-                                <input class="text-primary focus:ring-primary w-4 h-4" name="payment" type="radio" />
-                                <span
-                                    class="font-label-md text-label-md group-hover:text-primary transition-colors">BANK
-                                    TRANSFER</span>
-                            </label>
-                        </div>
-                        <div class="space-y-6">
-                            <div class="space-y-2">
-                                <label class="font-label-md text-label-md text-secondary block">CARDHOLDER NAME</label>
-                                <input
-                                    class="w-full border-0 border-b border-outline-variant bg-transparent py-3 focus:ring-0 focus:border-primary transition-colors outline-none"
-                                    placeholder="Julian Vandermeer" type="text" />
-                            </div>
-                            <div class="space-y-2">
-                                <label class="font-label-md text-label-md text-secondary block">CARD NUMBER</label>
-                                <div class="relative">
-                                    <input
-                                        class="w-full border-0 border-b border-outline-variant bg-transparent py-3 focus:ring-0 focus:border-primary transition-colors outline-none pr-10"
-                                        placeholder="0000 0000 0000 0000" type="text" />
-                                    <span
-                                        class="material-symbols-outlined absolute right-0 top-3 text-secondary">credit_card</span>
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-2 gap-gutter">
-                                <div class="space-y-2">
-                                    <label class="font-label-md text-label-md text-secondary block">EXPIRY DATE</label>
-                                    <input
-                                        class="w-full border-0 border-b border-outline-variant bg-transparent py-3 focus:ring-0 focus:border-primary transition-colors outline-none"
-                                        placeholder="MM/YY" type="text" />
-                                </div>
-                                <div class="space-y-2">
-                                    <label class="font-label-md text-label-md text-secondary block">CVC</label>
-                                    <input
-                                        class="w-full border-0 border-b border-outline-variant bg-transparent py-3 focus:ring-0 focus:border-primary transition-colors outline-none"
-                                        placeholder="123" type="text" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="pt-6 border-t border-outline-variant">
-                    <p class="text-secondary font-body-md mb-8 italic">"Every stay is curated with silence in mind. By
-                        confirming, you agree to our house rules and sanctuary protocols."</p>
-                    <button
-                        class="w-full md:w-auto bg-primary text-on-primary px-12 py-5 font-label-md text-label-md uppercase tracking-widest hover:opacity-90 active:scale-[0.99] transition-all">
-                        Confirm Booking
-                    </button>
-                </div>
-            </section>
-            <aside class="lg:col-span-5">
-                <div class="sticky top-32 space-y-6">
-                    <div class="bg-surface-container-lowest overflow-hidden shadow-sm border border-surface-container">
-                        <div class="h-64 overflow-hidden">
-                            <img class="w-full h-full object-cover"
-                                data-alt="A luxurious minimalist villa with floor-to-ceiling glass windows overlooking a serene coastal landscape at dusk. The interior is bathed in warm, soft golden lighting, highlighting a clean white aesthetic with deep navy blue accents. Outside, the calm ocean reflects a purple and orange sunset sky, creating a tranquil digital sanctuary atmosphere."
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfVnairrRGgsqwhTjApksebVhJ2smIG9OllMOtc3TCtYgnznYDg2ukmlOAGb0oZlYNIQCWI0chGkGsnfXHZC2dCGFoPM29VhaHFRP-nCHpRV71Z7SGoE9sGkOuB4IBbLkDCI95RPHqM5FpCQR8p8rINNKnua8xJhJTJyP2FZBaYe5l6GgX1aZjfsP2jAQXtkCyhELEdokKVnLft9PD9J28KWrl2S8ty-q4gE6OYaaJQXOCS8FpBjtNfrOzqsSmTT12LmwF-wlg3PVr" />
-                        </div>
-                        <div class="p-8 space-y-6">
-                            <div>
-                                <h3 class="font-headline-md text-headline-md text-primary mb-2">The Glass Pavilion</h3>
-                                <div class="flex items-center gap-2 text-secondary">
-                                    <span class="material-symbols-outlined text-sm">location_on</span>
-                                    <span class="font-label-sm text-label-sm">Reykjavík, Iceland</span>
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-2 gap-gutter py-6 border-y border-surface-container">
-                                <div class="space-y-1">
-                                    <span
-                                        class="font-label-sm text-label-sm text-secondary uppercase tracking-tighter block">CHECK-IN</span>
-                                    <span class="font-label-md text-label-md text-primary block">Oct 14, 2024</span>
-                                </div>
-                                <div class="space-y-1">
-                                    <span
-                                        class="font-label-sm text-label-sm text-secondary uppercase tracking-tighter block">CHECK-OUT</span>
-                                    <span class="font-label-md text-label-md text-primary block">Oct 21, 2024</span>
-                                </div>
-                            </div>
-                            <div class="space-y-3">
-                                <div class="flex justify-between items-center">
-                                    <span class="font-body-md text-secondary">7 nights at $1,250</span>
-                                    <span class="font-body-md text-primary font-bold">$8,750.00</span>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="font-body-md text-secondary">Concierge Service Fee</span>
-                                    <span class="font-body-md text-primary font-bold">$420.00</span>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="font-body-md text-secondary">Environmental Tax</span>
-                                    <span class="font-body-md text-primary font-bold">$85.00</span>
-                                </div>
-                            </div>
-                            <div class="pt-6 border-t border-primary flex justify-between items-end">
-                                <span class="font-headline-md text-headline-md text-primary">Total</span>
-                                <div class="text-right">
-                                    <span class="block font-label-sm text-label-sm text-secondary">USD</span>
-                                    <span
-                                        class="font-headline-md text-headline-md text-primary font-bold">$9,255.00</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-primary-container p-6 flex gap-4 items-start">
-                        <span class="material-symbols-outlined text-tertiary-fixed-dim"
-                            data-weight="fill">verified_user</span>
-                        <div>
-                            <h4 class="font-label-md text-label-md text-on-primary-container uppercase">Elysian
-                                Guarantee</h4>
-                            <p class="font-body-md text-on-primary-container text-sm opacity-80 mt-1">Your booking is
-                                protected by our global concierge support and 48-hour cancellation policy.</p>
-                        </div>
-                    </div>
-                </div>
-            </aside>
-        </div>
-    </main>
+
+    </div>
 @endsection

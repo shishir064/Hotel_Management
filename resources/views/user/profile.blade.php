@@ -15,7 +15,7 @@
                 <div class="absolute left-8 -bottom-16">
                     <div
                         class="w-32 h-32 rounded-full border-4 border-white bg-white text-indigo-600 flex items-center justify-center text-5xl font-bold shadow-lg">
-                        {{ strtoupper(substr($user->name, 0, 1)) }}
+                        {{ substr($user->name, 0, 1) }}
                     </div>
                 </div>
 

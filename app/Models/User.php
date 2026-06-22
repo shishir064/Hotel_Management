@@ -37,4 +37,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Hotel::class);
     }
+
+    public function Guests()
+    {
+        return $this->hasMany(RoomBooking::class);
+    }
 }

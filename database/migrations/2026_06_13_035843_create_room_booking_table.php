@@ -18,6 +18,10 @@ return new class extends Migration
               ->constrained()
               ->onDelete('cascade');
 
+        $table->foreignId('user_id')
+              ->constrained()
+              ->onDelete('cascade');
+
         $table->string('guest_name');
         $table->string('email');
         $table->string('phone');

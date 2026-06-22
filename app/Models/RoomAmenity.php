@@ -11,4 +11,9 @@ class RoomAmenity extends Model
     protected $fillable = [
         'amenity_name',
     ];
+
+    public function rooms()
+    {
+        return $this->belongsToMany(Rooms::class);
+    }
 }

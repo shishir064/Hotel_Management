@@ -10,9 +10,9 @@
             {{-- <a href="{{ route('show.hotel') }}" class="text-gray-600 hover:text-black">Hotels</a> --}}
             <a href="#" class="text-gray-600 hover:text-black">Experiences</a>
             <a href="#" class="text-gray-600 hover:text-black">About</a>
-            @auth
+            @role('super admin')
                 <a href="{{ route('dashboard') }}" class="text-gray-600 hover:text-black">Dashboard</a>
-            @endauth
+            @endrole
         </div>
     </div>
 

@@ -120,7 +120,7 @@
                 <!-- Amenities -->
                 <div class="mt-8">
                     <h2 class="text-lg font-semibold text-gray-800 mb-4">
-                        Room Amenities
+                        Room Amenities,
                     </h2>
 
                     <div

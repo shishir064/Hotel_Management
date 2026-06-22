@@ -50,8 +50,35 @@ class RoomController extends Controller
             $rooms = Rooms::where('hotel_id', auth()->user()->hotels?->id)->get();
         } else {
             $rooms = Rooms::all();
+            
         }
         return view('pages.roomList', compact('rooms'));
+    }
+
+    public function edit($id)
+    {
+        $room = Rooms::findorfail($id);
+        $categories = RoomCategory::all();
+    //  dd($categories->toArray());
+        return view('pages.editRoom', compact('room', 'categories'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'room_no' => 'required',
+            'room_type' => 'required',
+            'room_price' => 'required',
+            'discount' => 'required',
+        ]);
+        $room = Rooms::findorfail($id);
+        $room->update([
+            'room_no' => $validated['room_no'],
+            'room_type' => $validated['room_type'],
+            'room_price' => $validated['room_price'],
+            'discount' => $validated['discount'],
+        ]);
+        return redirect()->route('rooms.edit', $room->id)->with('success', 'Room updated successfully');
     }
 
     public function delete($id)
@@ -59,5 +86,12 @@ class RoomController extends Controller
         $room = Rooms::findorfail($id);
         $room->delete();
         return redirect()->route('show_rooms')->with('success', 'Room deleted successfully');
+    }
+
+    public function searchRooms(Request $request)
+    {
+        $search = $request->search;
+        $rooms = Rooms::where('room_no', 'like', '%' . $search . '%')->get();
+        return view('pages.roomList', compact('rooms'));
     }
 }

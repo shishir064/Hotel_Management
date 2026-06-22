@@ -3,41 +3,7 @@
 @section('content')
     <div class="bg-gray-100 min-h-screen">
 
-        <!-- Search Section -->
-        <div class="bg-blue-800 py-6">
-            <div class="max-w-7xl mx-auto px-4">
-                <form action="" method="GET" {{-- {{ route('availability.search') }} --}}
-                    class="bg-white rounded-lg shadow-lg p-4 grid grid-cols-1 md:grid-cols-5 gap-4">
-
-                    <input type="date" name="check_in" value="{{ request('check_in') }}"
-                        class="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500" required>
-
-                    <input type="date" name="check_out" value="{{ request('check_out') }}"
-                        class="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500" required>
-
-                    <select name="guests" class="border rounded-lg px-4 py-3">
-                        @for ($i = 1; $i <= 10; $i++)
-                            <option value="{{ $i }}" {{ request('guests') == $i ? 'selected' : '' }}>
-                                {{ $i }} Guest{{ $i > 1 ? 's' : '' }}
-                            </option>
-                        @endfor
-                    </select>
-
-                    <select name="rooms" class="border rounded-lg px-4 py-3">
-                        @for ($i = 1; $i <= 5; $i++)
-                            <option value="{{ $i }}" {{ request('rooms') == $i ? 'selected' : '' }}>
-                                {{ $i }} Room{{ $i > 1 ? 's' : '' }}
-                            </option>
-                        @endfor
-                    </select>
-
-                    <button class="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold rounded-lg">
-                        Check Availability
-                    </button>
-
-                </form>
-            </div>
-        </div>
+        
 
         <!-- Hotel Info -->
         <div class="max-w-7xl mx-auto px-4 py-8">
@@ -48,8 +14,8 @@
 
                     <!-- Hotel Image -->
                     <div class="lg:w-1/3">
-                        <img src="{{ asset('storage/' . $hotel->cover_image) }}" class="w-full h-64 object-cover rounded-lg"
-                            alt="{{ $hotel->hotel_name }}">
+                        <img src="{{ asset('storage/' . $hotel->cover_image) }}"
+                            class="w-full h-64 object-cover rounded-lg" alt="{{ $hotel->hotel_name }}">
                     </div>
 
                     <!-- Hotel Details -->
@@ -176,6 +142,42 @@
                 @endif
 
             </div>
+
+            <!-- Search Section -->
+        <div class="bg-blue-800 py-6 mt-4">
+            <div class="max-w-7xl mx-auto px-4">
+                <form action="{{ route('search.rooms') }}" method="GET" {{-- {{ route('availability.search') }} --}}
+                    class="bg-white rounded-lg shadow-lg p-4 grid grid-cols-1 md:grid-cols-5 gap-4">
+
+                    <input type="date" name="check_in" value="{{ request('check_in') }}"
+                        class="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500" required>
+
+                    <input type="date" name="check_out" value="{{ request('check_out') }}"
+                        class="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500" required>
+
+                    <select name="guests" class="border rounded-lg px-4 py-3">
+                        @for ($i = 1; $i <= 10; $i++)
+                            <option value="{{ $i }}" {{ request('guests') == $i ? 'selected' : '' }}>
+                                {{ $i }} Guest{{ $i > 1 ? 's' : '' }}
+                            </option>
+                        @endfor
+                    </select>
+
+                    <select name="rooms" class="border rounded-lg px-4 py-3">
+                        @for ($i = 1; $i <= 5; $i++)
+                            <option value="{{ $i }}" {{ request('rooms') == $i ? 'selected' : '' }}>
+                                {{ $i }} Room{{ $i > 1 ? 's' : '' }}
+                            </option>
+                        @endfor
+                    </select>
+
+                    <button class="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold rounded-lg">
+                        Check Availability
+                    </button>
+
+                </form>
+            </div>
+        </div>
 
             <!-- Availability Table -->
             <div class="bg-white rounded-xl shadow-sm overflow-hidden">
@@ -316,7 +318,7 @@
 
                                     <div class="mt-4 space-y-2 text-sm">
 
-                                       
+
 
                                         <div class="flex items-center gap-2 text-green-700">
                                             <span>✓</span>
@@ -339,15 +341,10 @@
                                 <!-- Guests -->
                                 <div class="col-span-2 p-6 flex items-center">
                                     <div>
-                                        <div class="flex text-xl">
-                                            @for ($i = 1; $i <= $room->category_name; $i++)
-                                                👤
-                                            @endfor
-                                        </div>
 
                                         <p class="text-sm text-gray-600 mt-2">
-                                            {{ $room->capacity }}
-                                            Adult{{ $room->capacity > 1 ? 's' : '' }}
+                                            {{ $room->room_category }}
+                                            {{ $room->roomCategory?->category_name }}
                                         </p>
                                     </div>
                                 </div>
@@ -359,8 +356,31 @@
                                         Includes taxes and charges
                                     </p>
 
-                                    <p class="text-3xl font-bold mt-1">
-                                        NPR {{ number_format($room->room_price) }}
+                                    @php
+                                        $discountPercent = 15; // Example 15% discount
+                                        $originalPrice = $room->room_price;
+                                        $discountAmount = ($originalPrice * $discountPercent) / 100;
+                                        $finalPrice = $originalPrice - $discountAmount;
+                                    @endphp
+
+                                    <!-- Discount Badge -->
+                                    <div
+                                        class="inline-flex items-center bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-semibold mb-2">
+                                        {{ $discountPercent }}% OFF
+                                    </div>
+
+                                    <!-- Original Price -->
+                                    <p class="text-gray-400 line-through text-lg">
+                                        NPR {{ number_format($originalPrice) }}
+                                    </p>
+
+                                    <!-- Final Price -->
+                                    <p class="text-3xl font-bold text-green-600">
+                                        NPR {{ number_format($finalPrice) }}
+                                    </p>
+
+                                    <p class="text-sm text-green-700 font-medium mt-1">
+                                        You save NPR {{ number_format($discountAmount) }}
                                     </p>
 
                                     <p class="text-sm text-gray-500">
@@ -397,8 +417,7 @@
                                             ✔ Available
                                         </span>
 
-                                        <a href=""
-                                        {{-- {{ route('booking.create', [
+                                        <a href="{{ route('rooms.reserve', $room->id) }}" {{-- {{ route('booking.create', [
                                             'room' => $room->id,
                                             'check_in' => request('check_in'),
                                             'check_out' => request('check_out'),

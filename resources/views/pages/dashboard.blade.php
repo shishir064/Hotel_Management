@@ -101,7 +101,7 @@
                                     <div
                                         class="w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center font-label-md">
                                        {{ $roomBooking->guest?->initials ?? 'N' }}</div>
-                                    <span class="font-body-md font-semibold">{{ $roomBooking->user?->name }}</span>
+                                    <span class="font-body-md font-semibold"> {{ $roomBooking->user?->name ?? 'No User' }}</span>
                                 </div>
                             </td>
                             <td class="px-8 py-5 font-body-md text-on-surface-variant">{{ $roomBooking->room?->roomCategory?->category_name }}</td>

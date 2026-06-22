@@ -1,6 +1,27 @@
 @extends('layouts.dashboard')
 
 @section('content')
+<style>
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+        #printTable, #printTable * {
+            visibility: visible;
+        }
+
+        #printTable {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .no-print, .no-print * {
+            display: none !important;
+        }
+    }
+    
+</style>
 <div class="bg-white shadow rounded-lg p-6">
 
     <h2 class="text-2xl font-bold mb-5">
@@ -19,7 +40,11 @@
                 </span>
             </h3>
 
+            
             <form action="{{ url()->current() }}" method="GET" class="flex gap-2">
+                <span>
+                    <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded" onclick="window.print()">Print</button>
+                </span>
                 <input
                     type="text"
                     name="search"
@@ -37,14 +62,14 @@
         </div>
 
         <!-- Table -->
-        <table class="w-full border border-gray-300">
+        <table class="w-full border border-gray-300" id="printTable">
 
             <thead>
                 <tr class="bg-gray-200">
                     <th class="border p-3">SN</th>
                     <th class="border p-3">Username</th>
                     <th class="border p-3">Email</th>
-                    <th class="border p-3">Action</th>
+                    <th class="border p-3 no-print" >Action</th>
                 </tr>
             </thead>
 
@@ -65,7 +90,7 @@
                             {{ $user->email }}
                         </td>
 
-                        <td class="border p-3 text-center">
+                        <td class="border p-3 text-center no-print" >
                             <a href="{{ route('user.profile', $user->id) }}"
                                class="text-indigo-600 hover:underline">
                                 View

@@ -43,22 +43,21 @@ class DashboardController extends Controller
     $hotel_name = $hotel->hotel_name;
 
     // Bookings only for this hotel
-    $roomBookings = RoomBooking::with('guest')->whereHas('room', function ($query) use ($hotel) {
+    $roomBookings = RoomBooking::with('user')->whereHas('room', function ($query) use ($hotel) {
             $query->where('hotel_id', $hotel->id);
         })->where('status', 'confirmed')->get();
+    $roomBookings = RoomBooking::with('user')->get();
 
     // Total bookings count
     $totalBookings = $roomBookings->count();
 
     // Total guests (unique guests)
-    $totalGuests = $roomBookings->pluck('guest_id')->unique()->count();
+    $totalGuests = $roomBookings->pluck('user_id')->unique()->count();
 
     // Total revenue
     $totalRevenue = $roomBookings->sum('total_price');
 
-    return view(
-        'pages.dashboard',
-        compact(
+    return view( 'pages.dashboard', compact(
             'roomBookings',
             'totalRevenue',
             'totalGuests',

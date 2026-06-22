@@ -87,7 +87,7 @@
                     <a href="{{ route('show.hotel.profile') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
                         Profile
                     </a>
-                    @role('super-admin')
+                    @role('super admin')
                     <a href="{{ route('add_hotel') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
                         Add Hotel
                     </a>
@@ -114,16 +114,15 @@
                 </button>
 
                 <div x-show="open" x-transition class="ml-12 mt-2 space-y-1">
-                    @role('admin')
+                    @hasanyrole('super admin|admin')
                      <a href="{{ route('show_rooms_form') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
-                        {{-- {{ route('show_rooms_form') }} --}}
                         Add Room
                     </a> 
                     <a href="{{ route('show_rooms') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
                         Room List </a>
-                    @endrole
+                    @endhasanyrole
 
-                    @role('super-admin')
+                    @role('super admin')
                     <a href="{{ route('add_category') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
                         Room Types
                     </a>
@@ -132,11 +131,11 @@
                     <a href="{{ route('add_room_main_facilities') }}"
                     class="block px-3 py-2 rounded-lg hover:bg-gray-700">
                     Room Main Facilities
-                </a>
-                <a href="{{ route('add_room_amenities') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
+                    </a>
+                    <a href="{{ route('add_room_amenities') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
                     Room Facilities
-                </a>
-                @endrole
+                    </a>
+                    @endrole
 
                 </div>
             </div>
@@ -148,7 +147,7 @@
             </a>
 
             <!-- Users -->
-            @role('super-admin')
+            @role('super admin')
             <a href="{{ route('user.list') }}"
                 class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-700 transition">
                 <span class="material-symbols-outlined">group</span>
