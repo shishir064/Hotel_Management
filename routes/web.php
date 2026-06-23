@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookingApiController;
 use App\Http\Controllers\DashboardController;
@@ -139,6 +140,8 @@ Route::controller(RoleController::class)->group(function () {
 
 //Profile
 Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('user.profile');
+Route::get('/profile/edit/{id}', [ProfileController::class, 'edit'])->name('edit.profile');
+Route::put('/profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
 
 //setting 
 
@@ -148,3 +151,7 @@ Route::middleware('auth')->controller(SettingController::class)->group(function 
     Route::patch('/setting/password', 'updatePassword')->name('settings.password.update');
     Route::post('/logout', 'destory')->name('logout')->middleware('auth');
 });
+
+
+//About us
+Route::get('/about-us', [AboutUsController::class, 'index'])->name('about.us');
