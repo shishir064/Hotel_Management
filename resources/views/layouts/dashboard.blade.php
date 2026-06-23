@@ -47,17 +47,21 @@
     <aside
         class="fixed left-0 top-0 h-screen w-72  border-r text-white border-gray-200 shadow-lg flex flex-col z-50 bg-gray-800 backdrop-blur-md">
 
+        @php
+            $hotelName = auth()->user()?->hotel?->hotel_name ?? 'No Hotel';
+        @endphp
         <!-- Logo -->
         <div class="px-8 py-8 border-b flex justify-center items-center flex-col">
-                <div class="w-18 h-18 rounded-full bg-blue-300 flex items-center justify-center font-label-md">
-                    <span class="text-2xl">{{ strtoupper(substr($hotel_name ?? 'N', 0, 2)) }}</span>
-                    
-                </div>
-        
+            <div class="w-18 h-18 rounded-full bg-blue-300 flex items-center justify-center font-label-md">
+                <span class="text-2xl">{{ strtoupper(substr($hotelName ?? 'N', 0, 2)) }}</span>
+
+            </div>
+
             <p class="text-sm text-white mt-1">
                 Dashboard Management
             </p>
         </div>
+
 
         <!-- Navigation -->
         <nav class="flex-1 overflow-y-auto px-4 py-6 space-y-2">
@@ -88,12 +92,12 @@
                         Profile
                     </a>
                     @role('super admin')
-                    <a href="{{ route('add_hotel') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
-                        Add Hotel
-                    </a>
-                    <a href="{{ route('show.hotel.list') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
-                        Hotel List
-                    </a>
+                        <a href="{{ route('add_hotel') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
+                            Add Hotel
+                        </a>
+                        <a href="{{ route('show.hotel.list') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
+                            Hotel List
+                        </a>
                     @endrole
                 </div>
             </div>
@@ -115,55 +119,57 @@
 
                 <div x-show="open" x-transition class="ml-12 mt-2 space-y-1">
                     @hasanyrole('super admin|admin')
-                     <a href="{{ route('show_rooms_form') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
-                        Add Room
-                    </a> 
-                    <a href="{{ route('show_rooms') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
-                        Room List </a>
+                        <a href="{{ route('show_rooms_form') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
+                            Add Room
+                        </a>
+                        <a href="{{ route('show_rooms') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
+                            Room List </a>
                     @endhasanyrole
 
                     @role('super admin')
-                    <a href="{{ route('add_category') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
-                        Room Types
-                    </a>
-                    
-                    
-                    <a href="{{ route('add_room_main_facilities') }}"
-                    class="block px-3 py-2 rounded-lg hover:bg-gray-700">
-                    Room Main Facilities
-                    </a>
-                    <a href="{{ route('add_room_amenities') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
-                    Room Facilities
-                    </a>
+                        <a href="{{ route('add_category') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
+                            Room Types
+                        </a>
+
+
+                        <a href="{{ route('add_room_main_facilities') }}"
+                            class="block px-3 py-2 rounded-lg hover:bg-gray-700">
+                            Room Main Facilities
+                        </a>
+                        <a href="{{ route('add_room_amenities') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
+                            Room Facilities
+                        </a>
                     @endrole
 
                 </div>
             </div>
 
             <!-- Bookings -->
-            <a href="{{ route('booking.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-700 transition">
+            <a href="{{ route('booking.index') }}"
+                class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-700 transition">
                 <span class="material-symbols-outlined">calendar_month</span>
                 <span>Bookings</span>
             </a>
 
             <!-- Users -->
             @role('super admin')
-            <a href="{{ route('user.list') }}"
-                class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-700 transition">
-                <span class="material-symbols-outlined">group</span>
-                <span>Users</span>
-            </a>
-            
-            <!-- Roles -->
-            <a href="{{ route('add_role') }}"
-            class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-700 transition">
-            <span class="material-symbols-outlined">group</span>
-            <span>Roles</span>
-        </a>
-        @endrole
+                <a href="{{ route('user.list') }}"
+                    class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-700 transition">
+                    <span class="material-symbols-outlined">group</span>
+                    <span>Users</span>
+                </a>
+
+                <!-- Roles -->
+                <a href="{{ route('add_role') }}"
+                    class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-700 transition">
+                    <span class="material-symbols-outlined">group</span>
+                    <span>Roles</span>
+                </a>
+            @endrole
 
             <!-- Settings -->
-            <a href="{{ route('edit.settings') }}" class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-700 transition">
+            <a href="{{ route('edit.settings') }}"
+                class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-700 transition">
                 <span class="material-symbols-outlined">settings</span>
                 <span>Settings</span>
             </a>

@@ -90,10 +90,26 @@ class HotelController extends Controller
 
     public function showHotelProflie()
     {
-        $hotel_id = Auth::user()->hotels->id;
+       
+        $user = Auth::user();
+        if($user->hasRole('admin')){ {
+            $hotel_id = Auth::user()->hotels->id;
+            $hotel = Hotel::with('facilities')->findOrFail($hotel_id);
+        }
+        }
+        else{
+            $hotel = Hotel::get();
+        }
         $facilities = HotelFacility::all();
         $rooms = Rooms::all();
-        $hotel = Hotel::with('facilities')->findOrFail($hotel_id);
+        return view('pages.hotelProfile', compact('hotel', 'facilities', 'rooms'));
+    }
+
+    public function showHotelView($id)
+    {
+        $hotel = Hotel::findorfail($id);
+        $facilities = HotelFacility::all();
+        $rooms = Rooms::all();
         return view('pages.hotelProfile', compact('hotel', 'facilities', 'rooms'));
     }
 

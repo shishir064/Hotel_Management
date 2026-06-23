@@ -63,7 +63,7 @@
                                             </button>
                                         </form>
 
-                                        <a href="{{route('show.hotel.profile',$hotel->id)}}"
+                                        <a href="{{route('hotel.view', $hotel->id)}}"
                                             class="bg-green-500 text-white px-3 py-1 rounded shrink-0">
                                             View
                                         </a>

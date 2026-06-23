@@ -118,6 +118,7 @@ Route::controller(HotelController::class)->group(function () {
     Route::get('/list/hotel', 'showHotelList')->name('show.hotel.list');
     Route::get('/hotel', 'showHotel')->name('show.hotel');
     Route::get('/hotel/profile', 'showHotelProflie')->name('show.hotel.profile');
+    Route::get('/hotel/view/{id}', 'showHotelView')->name('hotel.view');
     Route::get('/hotel/image/{id}', 'hotelImage')->name('hotel.images.create');
     Route::post('/hotel/image/{id}', 'hotelImageStore')->name('hotel.images.store');
     Route::get('/hotel/availability/{id}', 'hotelAvailability')->name('hotel.availability');
