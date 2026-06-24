@@ -174,12 +174,12 @@
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
 
                     <div>
-                        <h3 class="text-5xl font-bold text-white">500+</h3>
+                        <h3 class="text-5xl font-bold text-white">{{ $totalRoom}}</h3>
                         <p class="text-indigo-100 mt-2">Rooms Available</p>
                     </div>
 
                     <div>
-                        <h3 class="text-5xl font-bold text-white">1000+</h3>
+                        <h3 class="text-5xl font-bold text-white">{{ $totalUser}}</h3>
                         <p class="text-indigo-100 mt-2">Happy Guests</p>
                     </div>
 

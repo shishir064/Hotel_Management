@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BookingApiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\HotelFacilitiesController;
@@ -15,6 +14,7 @@ use App\Http\Controllers\RoomMainFacilitiesController;
 use App\Http\Controllers\RoomReserveController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserPrfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -140,10 +140,18 @@ Route::controller(RoleController::class)->group(function () {
 });
 
 //Profile
-Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('user.profile');
-Route::get('/profile/edit/{id}', [ProfileController::class, 'edit'])->name('edit.profile');
-Route::put('/profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
+Route::middleware('auth')->controller(ProfileController::class)->group(function () {
+    Route::get('/profile/{id}',  'index')->name('profile');
+    Route::get('/profile/edit/{id}', 'edit')->name('edit.profile');
+    Route::put('/profile/update/{id}', 'update')->name('profile.update');
+});
 
+//user profile
+Route::middleware('auth')->controller(UserPrfileController::class)->group(function () {
+    Route::get('/user/profile','index')->name('user.profile');
+    Route::get('/user/profile/edit/{id}', 'edit')->name('edit.user.profile');
+    Route::get('/user/profile/setting', 'showSetting')->name('user.security');
+});
 //setting 
 
 Route::middleware('auth')->controller(SettingController::class)->group(function () {

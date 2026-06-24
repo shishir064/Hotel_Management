@@ -91,7 +91,7 @@
                         </td>
 
                         <td class="border p-3 text-center no-print" >
-                            <a href="{{ route('user.profile', $user->id) }}"
+                            <a href="{{ route('profile', $user->id) }}"
                                class="text-indigo-600 hover:underline">
                                 View
                             </a>
