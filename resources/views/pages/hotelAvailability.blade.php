@@ -309,7 +309,7 @@
                                 <div class="col-span-4 p-6">
 
                                     <h3 class="text-blue-700 font-bold text-lg hover:underline cursor-pointer">
-                                        {{ $room->roomCategory?->category_name ?? '' }}
+                                        {{ $room->roomCategory?->category_name ?? 'N/A' }}
                                     </h3>
 
                                     <p class="text-gray-600 text-sm mt-1">
@@ -343,8 +343,7 @@
                                     <div>
 
                                         <p class="text-sm text-gray-600 mt-2">
-                                            {{ $room->room_category }}
-                                            {{ $room->roomCategory?->category_name }}
+                                            {{ $room->capacity }}
                                         </p>
                                     </div>
                                 </div>
@@ -352,36 +351,40 @@
                                 <!-- Price -->
                                 <div class="col-span-3 p-6 flex flex-col justify-center">
 
-                                    <p class="text-sm text-gray-500">
-                                        Includes taxes and charges
-                                    </p>
-
                                     @php
-                                        $discountPercent = 15; // Example 15% discount
+                                        $discountPercent = $room->discount; // Example 15% discount
                                         $originalPrice = $room->room_price;
                                         $discountAmount = ($originalPrice * $discountPercent) / 100;
                                         $finalPrice = $originalPrice - $discountAmount;
                                     @endphp
+                                    <p class="text-sm text-gray-500">
+                                        Includes taxes and charges
+                                    </p>
+                                    @if ($discountPercent > 0)
+
 
                                     <!-- Discount Badge -->
                                     <div
                                         class="inline-flex items-center bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-semibold mb-2">
                                         {{ $discountPercent }}% OFF
                                     </div>
-
+                                    
                                     <!-- Original Price -->
                                     <p class="text-gray-400 line-through text-lg">
                                         NPR {{ number_format($originalPrice) }}
                                     </p>
+                                    @endif
 
                                     <!-- Final Price -->
                                     <p class="text-3xl font-bold text-green-600">
                                         NPR {{ number_format($finalPrice) }}
                                     </p>
 
+                                    @if($discountPercent > 0)
                                     <p class="text-sm text-green-700 font-medium mt-1">
                                         You save NPR {{ number_format($discountAmount) }}
                                     </p>
+                                    @endif
 
                                     <p class="text-sm text-gray-500">
                                         per night

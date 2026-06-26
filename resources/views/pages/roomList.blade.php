@@ -22,7 +22,9 @@
                         <th class="px-6 py-4 font-semibold text-gray-700">Room Type</th>
                         <th class="px-6 py-4 font-semibold text-gray-700">Discount</th>
                         <th class="px-6 py-4 font-semibold text-gray-700">Price</th>
+                        <th class="px-6 py-4 font-semibold text-gray-700">Capacity</th>
                         <th class="px-6 py-4 font-semibold text-gray-700">Status</th>
+                        <th class="px-6 py-4 font-semibold text-gray-700">Action</th>
                     </tr>
                 </thead>
 
@@ -46,6 +48,7 @@
                             <td class="px-6 py-4 text-gray-700">
                                 {{ $room->discount }}
                             </td>
+
                             <!-- Price -->
                             <td class="px-6 py-4 text-gray-700">
                                 Rs. {{ number_format($room->room_price) }}
@@ -54,8 +57,13 @@
                                 </span>
                             </td>
 
+                            <!-- Capacity -->
+                            <td class="px-6 py-4 text-gray-700">
+                                {{ $room->capacity  }}
+                            </td>
+
                             <!-- Status -->
-                            <td class="px-6 py-4 flex items-center gap-2 ">
+                            <td class="px-6 py-4  ">
                                 <span
                                     class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-sm font-medium
                                 @if ($room->room_status === 'available') bg-emerald-50 text-emerald-700
@@ -73,8 +81,9 @@
 
                                     {{ ucfirst($room->room_status) }}
                                 </span>
-
-
+    
+                            </td>
+                            <td class="px-6 py-4  text-gray-700 flex items-center gap-2">
                                 <form action="{{ route('rooms.edit', $room->id) }}" method="GET">
                                     <button type="submit"
                                         class="text-white bg-gray-500 py-2 px-4 rounded hover:bg-gray-600">Edit
@@ -101,4 +110,10 @@
         </div>
 
     </div>
+
+    <script>
+        document.getElementById('searchInput').addEventListener('input', function() {
+            search = this.value;
+        });
+    </script>
 @endsection

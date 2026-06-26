@@ -79,6 +79,19 @@
                             <h1 class="text-red-400">{{ $message }}</h1>
                         @enderror
                     </div>
+                    <!-- Capacity -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Room capacity
+                        </label>
+
+                        <input type="number" name="capacity" placeholder="Enter room capacity"
+                            value="{{ old('capacity') }}"
+                            class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+                        @error('capacity')
+                            <h1 class="text-red-400">{{ $message }}</h1>
+                        @enderror
+                    </div>
 
                 </div>
 

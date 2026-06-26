@@ -89,9 +89,12 @@
                 </button>
 
                 <div x-show="open" x-transition class="ml-12 mt-2 space-y-1">
+                    @role('admin')
+
                     <a href="{{ route('show.hotel.profile') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
                         Profile
                     </a>
+                    @endrole
                     @role('super-admin')
                         <a href="{{ route('add_hotel') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
                             Add Hotel

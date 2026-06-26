@@ -95,6 +95,19 @@
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
                     </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                             Capacity
+                        </label>
+
+                        <input type="number" min="0" max="100" name="capacity" value="{{ old('capacity') ?? $room->capacity }}"
+                            placeholder="Enter room capacity"
+                            class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+
+                        @error('capacity')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
 
                 </div>
 

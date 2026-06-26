@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Hotel;
+
 use App\Models\RoomAmenity;
 use App\Models\RoomCategory;
 use App\Models\RoomMainFacility;
@@ -29,6 +29,7 @@ class RoomController extends Controller
             'room_no' => 'required',
             'room_type' => 'required',
             'room_price' => 'required',
+            'capacity' => 'required',
 
         ]);
         // dd($validated);
@@ -37,6 +38,7 @@ class RoomController extends Controller
             'room_no' => $validated['room_no'],
             'room_type' => $validated['room_type'],
             'room_price' => $validated['room_price'],
+            'capacity' => $validated['capacity'],
         ]);
         $room->mainFacilities()->sync($request->room_main_facility ?? []);
 
@@ -70,6 +72,7 @@ class RoomController extends Controller
             'room_type' => 'required',
             'room_price' => 'required',
             'discount' => 'required',
+            'capacity' => 'required',
         ]);
         $room = Rooms::findorfail($id);
         $room->update([
@@ -77,6 +80,7 @@ class RoomController extends Controller
             'room_type' => $validated['room_type'],
             'room_price' => $validated['room_price'],
             'discount' => $validated['discount'],
+            'capacity' => $validated['capacity'],
         ]);
         return redirect()->route('rooms.edit', $room->id)->with('success', 'Room updated successfully');
     }

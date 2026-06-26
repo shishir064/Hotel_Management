@@ -17,6 +17,7 @@ class Rooms extends Model
         'room_main_facility',
         'room_Amenity',
         'discount',
+        'capacity',
     ];
 
     public function mainFacilities()

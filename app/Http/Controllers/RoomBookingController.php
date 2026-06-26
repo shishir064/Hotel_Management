@@ -87,6 +87,10 @@ class RoomBookingController extends Controller
             'total_price' => $totalPrice,
             'status' => 'confirmed',
         ]);
+        Rooms::where('id', $request->room_id)
+            ->update([
+                'room_status' => 'confirmed'
+            ]);
 
 
 

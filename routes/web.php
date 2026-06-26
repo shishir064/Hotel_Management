@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AvailableBookingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\HotelFacilitiesController;
@@ -58,6 +59,7 @@ Route::controller(AuthController::class)->group(function () {
 //user list
 Route::get('/user/list', [UserController::class, 'showUserList'])->name('user.list');
 Route::get('/edit/user', [UserController::class, 'edit'])->name('edit.user.list');
+// Route::get('/delete/user', [UserController::class, 'delete'])->name('delete.user.list');
 
 
 //dashboard routes
@@ -159,6 +161,11 @@ Route::middleware('auth')->controller(SettingController::class)->group(function 
     Route::patch('/setting/profile', 'updateProfile')->name('settings.profile.update');
     Route::patch('/setting/password', 'updatePassword')->name('settings.password.update');
     Route::post('/logout', 'destory')->name('logout')->middleware('auth');
+});
+
+Route::controller(AvailableBookingController::class)->group(function () {
+    Route::get('/available/bookings', 'index')->name('booking.available');
+    Route::get('/available/bookings/{status?}', 'index')->name('booking.available');
 });
 
 
