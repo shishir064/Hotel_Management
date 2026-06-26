@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\RoomBooking;
 use App\Models\Rooms;
 use App\Models\User;
@@ -20,11 +21,11 @@ class RoomBookingController extends Controller
 
 
 
-    public function store(Request $request , $id)
+    public function store(Request $request)
     {
         // dd(auth()->id());
         // dd($request->all());
-        $room = Rooms::findorfail($id);
+        $room = Rooms::findorfail($request->room_id);
         $validated = $request->validate([
             'guest_name' => 'required|string|max:255',
             'room_id' => 'required|exists:rooms,id',
@@ -75,7 +76,7 @@ class RoomBookingController extends Controller
         $check = $validated['user_id'] = $user->id;
         $user->assignRole('guest');
         // dd($totalPrice);
-        RoomBooking::create([
+       $booking = RoomBooking::create([
             'room_id' => $validated['room_id'],
             'user_id' => $check,
             'check_in' => $validated['check_in'],
@@ -83,11 +84,11 @@ class RoomBookingController extends Controller
             'adults' => $validated['adults'],
             'children' => $validated['children'] ?? 0,
             'total_price' => $totalPrice,
-            'status' => 'confirmed',
+            'status' => 'pending',
         ]);
         Rooms::where('id', $request->room_id)
             ->update([
-                'room_status' => 'confirmed'
+                'room_status' => 'pending',
             ]);
 
 

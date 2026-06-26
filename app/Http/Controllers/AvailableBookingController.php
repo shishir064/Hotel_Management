@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RoomBooking;
 use App\Models\Rooms;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AvailableBookingController extends Controller
 {
-    public function index($status = null)
-    {
-        $hotel = Auth::user()->hotels;
-        $rooms = Rooms::where('hotel_id', $hotel->id)->with('roomCategory');
-        $query = $rooms;
+    public function index()
+{
+    $hotel = Auth::user()->hotels;
 
-    if ($status) {
-        $query->where('room_status', $status);
-    }
+    $roomIds = Rooms::where('hotel_id', $hotel->id)->pluck('id');
+    $bookings = RoomBooking::whereIn('room_id', $roomIds)->get();
 
-    $rooms = $query->get();
-        return view('pages.availableBooking', compact('rooms', 'status'));
-    }
+    // dd($bookings);
+
+    return view('pages.booking', compact('bookings'));
+}
 }

@@ -6,7 +6,7 @@
 
             <div class="px-6 py-4 border-b flex justify-between">
                 <h2 class="text-xl font-semibold text-gray-800">
-                    Available Rooms
+                    Bookings
                 </h2>
 
                 {{-- <select id="statusFilter" name="room_status" class="border border-gray-300 rounded-lg px-4 py-2">
@@ -16,26 +16,29 @@
                     <option value="confirmed">Confirmed</option>
                 </select> --}}
                 <select id="statusFilter" class="border border-gray-300 rounded-lg px-4 py-2">
-    <option value="" {{ empty($status) ? 'selected' : '' }}>All Status</option>
+                    <option value="" {{ empty($status) ? 'selected' : '' }}>All Status</option>
 
-    <option value="available" {{ ($status ?? '') == 'available' ? 'selected' : '' }}>
-        Available
-    </option>
+                    <option value="available" {{ ($status ?? '') == 'available' ? 'selected' : '' }}>
+                        Available
+                    </option>
 
-    <option value="pending" {{ ($status ?? '') == 'pending' ? 'selected' : '' }}>
-        Pending
-    </option>
+                    <option value="pending" {{ ($status ?? '') == 'pending' ? 'selected' : '' }}>
+                        Pending
+                    </option>
 
-    <option value="confirmed" {{ ($status ?? '') == 'confirmed' ? 'selected' : '' }}>
-        Confirmed
-    </option>
-</select>
+                    <option value="confirmed" {{ ($status ?? '') == 'confirmed' ? 'selected' : '' }}>
+                        Confirmed
+                    </option>
+                </select>
             </div>
 
             <div class="overflow-x-auto">
                 <table class="w-full">
                     <thead class="bg-gray-50">
                         <tr>
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">
+                                Guest Name
+                            </th>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">
                                 Room No
                             </th>
@@ -49,6 +52,9 @@
                                 Price
                             </th>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">
+                                Check In
+                            </th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">
                                 Status
                             </th>
                             <th class="px-6 py-4 text-center text-sm font-semibold text-gray-700">
@@ -59,38 +65,43 @@
 
                     <tbody class="divide-y divide-gray-100" id="roomTableBody">
 
-                        @forelse($rooms as $room)
+                        @forelse($bookings as $book)
                             <tr class="hover:bg-gray-50 transition">
 
                                 <td class="px-6 py-4 text-gray-700">
-                                    {{ $room->room_no }}
+                                    {{ $book->user?->name ?? 'N/A' }}
+                                </td>
+                                <td class="px-6 py-4 text-gray-700">
+                                    {{ $book->room?->room_no }}
                                 </td>
 
                                 <td class="px-6 py-4 text-gray-700">
-                                    {{ $room->roomCategory?->category_name ?? 'N/A' }}
+                                    {{ $book->room?->roomCategory?->category_name ?? 'N/A' }}
                                 </td>
 
                                 <td class="px-6 py-4 text-gray-700">
-                                    {{ $room->capacity }}
+                                    {{ $book->room?->capacity }}
                                 </td>
-
+                                
                                 <td class="px-6 py-4">
                                     <span class="font-semibold text-blue-600">
-                                        Rs. {{ number_format($room->room_price) }}
+                                        Rs. {{ number_format($book->total_price) }}
                                     </span>
+                                </td>
+                                <td class="px-6 py-4 text-gray-700">
+                                    {{ $book->check_in }}
                                 </td>
 
                                 <td class="px-6 py-4">
-                                        <span
-                                            class="px-3 py-1 text-xs font-medium rounded-full bg-green-100 text-green-700">
-                                            Available
-                                        </span>
+                                    <span class="px-3 py-1 text-xs font-medium rounded-full bg-green-100 text-green-700">
+                                        Available
+                                    </span>
                                 </td>
 
                                 <td class="px-6 py-4 text-center">
                                     <a href=""
                                         class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                                        Book Now
+                                        View
                                     </a>
                                 </td>
 
@@ -111,17 +122,17 @@
     </div>
 
 
-<script>
-document.getElementById('statusFilter').addEventListener('change', function () {
+    <script>
+        document.getElementById('statusFilter').addEventListener('change', function() {
 
-    let status = this.value;
+            let status = this.value;
 
-    if (status) {
-        window.location.href = '/available/bookings/' + status;
-    } else {
-        window.location.href = '/available/bookings';
-    }
+            if (status) {
+                window.location.href = '/available/bookings/' + status;
+            } else {
+                window.location.href = '/available/bookings';
+            }
 
-});
-</script>
+        });
+    </script>
 @endsection

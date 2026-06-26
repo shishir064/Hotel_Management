@@ -111,6 +111,11 @@
                         </a>
                         <a href="{{ route('show_rooms') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
                             Room List </a>
+
+                        <a href="{{ route('room.available') }}"
+                            class="flex items-center gap-4 px-3 py-2 rounded-xl hover:bg-gray-700 transition">
+                            <span>Available Rooms</span>
+                        </a>
                     @endhasanyrole
 
                     @role('super admin')
@@ -148,11 +153,12 @@
                         <!-- Bookings -->
                         <a href="{{ route('booking.index') }}"
                             class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-700 transition">
-                            <span>Bookings</span>
+                            <span>Add New Booking </span>
                         </a>
+
                         <a href="{{ route('booking.available') }}"
                             class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-700 transition">
-                            <span>Available Bookings</span>
+                            <span>Booking</span>
                         </a>
                     @endrole
                 </div>

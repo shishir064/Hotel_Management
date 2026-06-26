@@ -3,6 +3,7 @@
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AvailableBookingController;
+use App\Http\Controllers\AvailableRoomsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\HotelFacilitiesController;
@@ -98,7 +99,7 @@ Route::controller(RoomMainFacilitiesController::class)->group(function () {
 //Room Bookings
 Route::controller(RoomBookingController::class)->group(function () {
     Route::get('/rooms/booking/{id}', 'index')->name('rooms.booking');
-    Route::post('/rooms/booking/{id}', 'store')->name('bookings.store');
+    Route::post('/rooms/booking', 'store')->name('bookings.store');
     Route::delete('/delete/booking/{id}', 'delete')->name('delete');
 });
 
@@ -163,9 +164,13 @@ Route::middleware('auth')->controller(SettingController::class)->group(function 
     Route::post('/logout', 'destory')->name('logout')->middleware('auth');
 });
 
+Route::controller(AvailableRoomsController::class)->group(function () {
+    Route::get('/available/room', 'index')->name('room.available');
+    Route::get('/available/room/{status?}', 'index')->name('room.available');
+});
+
 Route::controller(AvailableBookingController::class)->group(function () {
-    Route::get('/available/bookings', 'index')->name('booking.available');
-    Route::get('/available/bookings/{status?}', 'index')->name('booking.available');
+    Route::get('/available/booking', 'index')->name('booking.available');
 });
 
 

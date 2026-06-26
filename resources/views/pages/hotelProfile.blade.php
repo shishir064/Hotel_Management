@@ -1,4 +1,4 @@
-@extends('layouts.hotelProfile')
+@extends('layouts.dashborad')
 
 @section('title', $hotel->hotel_name)
 

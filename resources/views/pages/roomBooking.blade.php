@@ -9,15 +9,16 @@
                 {{ session('success') }}
             </div>
         @endif
+        <x-successMessage></x-successMessage>
+        <form action="{{route('bookings.store')}}" method="POST">
+            @csrf
         @if (isset($room))
             <h2 class="text-2xl font-bold mb-6">
                 Book Room #{{ $room->room_no }}
             </h2>
 
-            <x-successMessage></x-successMessage>
 
-
-            <form action="{{ route('bookings.store', $room->id) }}" method="POST">
+            
             <div class="mb-6 p-4 bg-gray-100 rounded">
                 <p><strong>Room:</strong> {{ $room->room_no }}</p>
                 <p><strong>Category:</strong> {{ $room->roomCategory?->category_name }}</p>
@@ -27,7 +28,6 @@
         @endif
 
 
-            @csrf
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 @if (isset($room))
@@ -40,6 +40,8 @@
                             <option value="2">Single</option>
                             <option value="3">Double</option>
                             <option value="4">Twin</option>
+                            <option value="5 ">Triple room</option>
+                            <option value="6 ">Quad room</option>
                         </select>
                     </div>
                     <div>
@@ -146,7 +148,8 @@
             </div>
 
             <div class="mt-6 flex gap-3">
-                <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">
+                <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
+                >
                     Confirm Booking
                 </button>
 
