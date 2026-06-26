@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Guest;
 use App\Models\RoomBooking;
 use App\Models\Rooms;
 use App\Models\User;

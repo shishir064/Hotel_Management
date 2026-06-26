@@ -18,6 +18,6 @@ class AvailableBookingController extends Controller
     }
 
     $rooms = $query->get();
-        return view('pages.availableBooking', compact('rooms'));
+        return view('pages.availableBooking', compact('rooms', 'status'));
     }
 }
