@@ -94,12 +94,12 @@
 
                                 <td class="px-6 py-4">
                                     <span class="px-3 py-1 text-xs font-medium rounded-full bg-green-100 text-green-700">
-                                        Available
+                                        {{ $book->status }}
                                     </span>
                                 </td>
 
                                 <td class="px-6 py-4 text-center">
-                                    <a href=""
+                                    <a href="{{ route('billing.show', $book->id) }}"
                                         class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
                                         View
                                     </a>

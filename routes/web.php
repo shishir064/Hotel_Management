@@ -4,6 +4,7 @@ use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AvailableBookingController;
 use App\Http\Controllers\AvailableRoomsController;
+use App\Http\Controllers\BillController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\HotelFacilitiesController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\RoomBookingController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\RoomMainFacilitiesController;
 use App\Http\Controllers\RoomReserveController;
+use App\Http\Controllers\RoomServicesController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPrfileController;
@@ -172,6 +174,20 @@ Route::controller(AvailableRoomsController::class)->group(function () {
 Route::controller(AvailableBookingController::class)->group(function () {
     Route::get('/available/booking', 'index')->name('booking.available');
 });
+
+Route::controller(BillController::class)->group(function () {
+    Route::get('/bill/{id}', 'index')->name('billing.show');
+    Route::post('/bill', 'store')->name('bill.store');
+});
+
+
+// Room Services
+Route::controller(RoomServicesController::class)->group(function () {
+    Route::get('/add-room-services', 'index')->name('add_room_services');
+    Route::post('/add-room-services', 'store')->name('store_room_services');
+    Route::delete('/delete/room-services/{id}', 'destroy')->name('delete_service');
+});
+
 
 
 //About us

@@ -122,6 +122,9 @@
                         <a href="{{ route('add_category') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
                             Room Types
                         </a>
+                        <a href="{{ route('add_room_services') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
+                            Room Room Services
+                        </a>
 
 
                         <a href="{{ route('add_room_main_facilities') }}"

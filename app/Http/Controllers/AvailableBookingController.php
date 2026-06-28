@@ -14,7 +14,7 @@ class AvailableBookingController extends Controller
     $hotel = Auth::user()->hotels;
 
     $roomIds = Rooms::where('hotel_id', $hotel->id)->pluck('id');
-    $bookings = RoomBooking::whereIn('room_id', $roomIds)->get();
+    $bookings = RoomBooking::whereIn('room_id', $roomIds)->latest()->get();
 
     // dd($bookings);
 

@@ -13,9 +13,9 @@ class AvailableRoomsController extends Controller
         $rooms = Rooms::where('hotel_id', $hotel->id)->with('roomCategory');
         $query = $rooms;
 
-    if ($status) {
-        $query->where('room_status', $status);
-    }
+  
+        $query->where('room_status', 'available');
+
 
     $rooms = $query->get();
         return view('pages.availableBooking', compact('rooms', 'status'));

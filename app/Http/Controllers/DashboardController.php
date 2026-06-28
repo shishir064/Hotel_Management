@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bill;
 use App\Models\Guest;
 use App\Models\RoomBooking;
 use App\Models\RoomCategory;
@@ -41,7 +42,9 @@ class DashboardController extends Controller
 
     $rooms = $hotel->rooms()->count();
     $hotel_name = $hotel->hotel_name;
-
+    $totalRevenue = Bill::whereHas('room', function ($query) use ($hotel) {
+    $query->where('hotel_id', $hotel->id);
+    })->sum('total');
     // Bookings only for this hotel
     $roomBookings = RoomBooking::with('user')->whereHas('room', function ($query) use ($hotel) {
             $query->where('hotel_id', $hotel->id);
@@ -54,8 +57,7 @@ class DashboardController extends Controller
     // Total guests (unique guests)
     $totalGuests = $roomBookings->pluck('user_id')->unique()->count();
 
-    // Total revenue
-    $totalRevenue = $roomBookings->sum('total_price');
+    
 
     return view( 'pages.dashboard', compact(
             'roomBookings',
