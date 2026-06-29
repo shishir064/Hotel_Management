@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AvailableBookingController;
 use App\Http\Controllers\AvailableRoomsController;
 use App\Http\Controllers\BillController;
+use App\Http\Controllers\BookingHistoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\HotelFacilitiesController;
@@ -173,6 +174,12 @@ Route::controller(AvailableRoomsController::class)->group(function () {
 
 Route::controller(AvailableBookingController::class)->group(function () {
     Route::get('/available/booking', 'index')->name('booking.available');
+});
+
+Route::controller(BookingHistoryController::class)->group(function () {
+    Route::get('/booking/history', 'index')->name('booking.history');
+    Route::get('/booking/history/{id}', 'show')->name('show.invoice');
+
 });
 
 Route::controller(BillController::class)->group(function () {

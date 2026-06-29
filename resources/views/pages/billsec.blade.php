@@ -136,13 +136,10 @@
                     @csrf
                     {{-- Guest info --}}
                             <div class="grid grid-cols-2 border-b border-gray-300">
-                                <input type="text" name="user_id" hidden value="{{$bill->user_id}}">
-                                <input type="text" name="room_id" hidden value="{{$bill->room_id}}">
-                                <input type="text" name="bill_id" hidden value="{{$bill->id}}">
                                 <div class="px-5 py-3 border-r border-gray-300 space-y-1.5">
                                     <div class="flex items-center gap-2">
                                         <label class="text-xs font-semibold text-gray-600 whitespace-nowrap w-16">Booked Date:</label>
-                                        <input type="date" id="invDate" class="field-input" value="{{ now()->format('Y-m-d') }}">
+                                        <input type="date" id="invDate" class="field-input" value="{{ $bill->booking_date }}">
                                     </div>
                                     <div class="flex items-center gap-2">
                                         <label class="text-xs font-semibold text-gray-600 whitespace-nowrap w-16">Room No:</label>
@@ -150,11 +147,11 @@
                                     </div>
                                     <div class="flex items-center gap-2">
                                         <label class="text-xs font-semibold text-gray-600 whitespace-nowrap w-16">Check In:</label>
-                                        <input type="date" id="checkIn" class="field-input" name="check_in">
+                                        <input type="date" id="checkIn" class="field-input" value="{{ $bill->check_in_date }}" name="check_in">
                                     </div>
                                     <div class="flex items-center gap-2">
                                         <label class="text-xs font-semibold text-gray-600 whitespace-nowrap w-16">Check Out:</label>
-                                        <input type="date" id="checkOut" class="field-input" name="check_out">
+                                        <input type="date" id="checkOut" class="field-input" value="{{ $bill->check_out_date }}" name="check_out">
                                     </div>
                                 </div>
 
@@ -213,22 +210,12 @@
                                             <input class="cell-input rate text-right" value="{{ $bill->room->room_price }}">
                                         </td>
                                         <td class="border border-gray-200 px-1.5 py-0.5">
-                                            <input class="cell-input amount text-right" readonly value="{{ $bill->total_price }}">
+                                            <input class="cell-input amount text-right" readonly value="{{ $bill->room->room_price }}">
                                         </td>
-                                        <td class="border border-gray-200 no-print"></td>
                                     </tr>
 
                                 </tbody>
                             </table>
-
-                            <div class="no-print">
-                                <button
-                                type="button"                               
-                                onclick="addItem()"
-                                    class="m-3 bg-green-700 hover:bg-green-800 text-white text-xs font-semibold px-4 py-1.5 rounded">
-                                    + Add Item
-                                </button>
-                            </div>
 
                             {{-- Summary --}}
                             <div class="flex justify-end border-t-2 border-gray-300 px-5 py-3">
@@ -239,7 +226,7 @@
                                             Subtotal</td>
                                         <td class="border border-gray-200 px-2 py-1 min-w-[110px]">
                                             <input id="subtotal"
-                                                class="sum-input" name="subtotal" readonly placeholder="0.0su0"></td>
+                                                class="sum-input" name="subtotal" value="{{ $bill->sub_total }}" readonly placeholder="0.0su0"></td>
                                     </tr>
                                     <tr>
                                         <td
@@ -247,7 +234,7 @@
                                             Discount</td>
                                         <td class="border border-gray-200 px-2 py-1">
                                             <input id="discount" class="sum-input" name="discount"
-                                                value="0" oninput="calculateTotal()"></td>
+                                                value="{{ $bill->discount}}" oninput="calculateTotal()"></td>
                                     </tr>
                                     <tr>
                                         <td
@@ -255,14 +242,14 @@
                                             VAT (%)</td>
                                         <td class="border border-gray-200 px-2 py-1">
                                             <input id="tax" class="sum-input" name="vat"
-                                                value="13" oninput="calculateTotal()"></td>
+                                                value="{{ $bill->vat }}" oninput="calculateTotal()"></td>
                                     </tr>
                                     <tr class="bg-gray-100">
                                         <td
                                             class="border border-gray-300 px-2 py-1.5 text-sm font-bold text-gray-800 whitespace-nowrap">
                                             TOTAL £</td>
                                         <td class="border border-gray-300 px-2 py-1.5"><input id="grandTotal"
-                                                class="sum-input font-bold" readonly placeholder="0.00"></td>
+                                                class="sum-input font-bold" value="{{$bill->total}}" readonly placeholder="0.00"></td>
                                     </tr>
                                     <tr>
                                         <td
@@ -277,7 +264,7 @@
                                             Amount Due</td>
                                         <td class="border border-green-200 px-2 py-1.5">
                                             <input id="due"
-                                                class="sum-input font-bold text-green-800" readonly placeholder="0.00" name="total"></td>
+                                                class="sum-input font-bold text-green-800" readonly placeholder="0.00" value="{{$bill->total}}" name="total"></td>
                                     </tr>
                                 </table>
                             </div>
@@ -295,25 +282,25 @@
                     <div class="no-print max-w-3xl mx-auto mt-4 grid grid-cols-3 gap-3">
                         <div>
                             <label class="block text-xs font-semibold text-gray-600 mb-1">Payment Method</label>
-                            <select class="w-full border border-gray-300 rounded-md px-2 py-1.5 text-sm text-gray-800 bg-white" name="payment_method">
-                                <option>Cash</option>
-                                <option>Card</option>
-                                <option>eSewa</option>
-                                <option>Khalti</option>
-                                <option>Bank Transfer</option>
+                            <select class="w-full border  border-gray-300 rounded-md px-2 py-1.5 text-sm text-gray-800 bg-white" name="payment_method" disabled>
+                                <option {{ $bill->payment_method == 'Cash' ? 'selected' : ''}} >Cash</option>
+                                <option {{ $bill->payment_method == 'Card' ? 'selected' : ''}}>Card</option>
+                                <option {{ $bill->payment_method == 'eSewa' ? 'selected' : ''}}>eSewa</option>
+                                <option {{ $bill->payment_method == 'Khalti' ? 'selected' : ''}}>Khalti</option>
+                                <option {{ $bill->payment_method == 'Bank Transfer' ? 'selected' : ''}}>Bank Transfer</option>
                             </select>
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-gray-600 mb-1">Status</label>
-                            <select class="w-full border border-gray-300 rounded-md px-2 py-1.5 text-sm text-gray-800 bg-white" name="status">
-                                <option>Paid</option>
-                                <option>Partial</option>
-                                <option>Unpaid</option>
+                            <select class="w-full border border-gray-300 rounded-md px-2 py-1.5 text-sm  text-gray-800 bg-white" name="status" disabled >
+                                <option {{ $bill->status == 'Paid' ? 'selected' : ''}}>Paid</option>
+                                <option {{ $bill->status == 'Partial' ? 'selected' : ''}}>Partial</option>
+                                <option {{ $bill->status == 'Unpaid' ? 'selected' : ''}}>Unpaid</option>
                             </select>
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-gray-600 mb-1">Notes</label>
-                            <textarea rows="2" name="remarks" class="w-full border border-gray-300 rounded-md px-2 py-1.5 text-sm text-gray-800 resize-y"></textarea>
+                            <textarea rows="2" name="remarks" value="{{$bill->remarks}}" class="w-full border border-gray-300 rounded-md px-2 py-1.5 text-sm text-gray-800 resize-y"></textarea>
                         </div>
                     </div>
 
@@ -324,167 +311,8 @@
                             class="bg-gray-600 hover:bg-gray-700 text-white text-sm font-semibold px-5 py-2 rounded-md">
                             Print
                         </button>
-                        <button class="bg-green-700 hover:bg-green-800 text-white text-sm font-semibold px-5 py-2 rounded-md">
-                            Confirm Bill
-                        </button>
                     </div>
 
                 </form>
         </div>
-
-    <script>
-        const services = @json($services);
-    </script>
-
-    <script>
-        function updateServiceOptions() {
-
-            let selected = [];
-
-            document.querySelectorAll(".service-select").forEach(select => {
-
-                if (select.value) {
-                    selected.push(select.value);
-                }
-
-            });
-
-            document.querySelectorAll(".service-select").forEach(select => {
-
-                let current = select.value;
-
-                select.innerHTML = `<option value="">Select Service</option>`;
-
-                services.forEach(service => {
-
-                    if (
-                        !selected.includes(service.id.toString()) ||
-                        current == service.id
-                    ) {
-
-                        select.innerHTML += `
-                    <option
-                        value="${service.id}"
-                        data-price="${service.price}"
-                        ${current==service.id ? 'selected':''}>
-                        ${service.name}
-                    </option>
-                `;
-                    }
-
-                });
-
-            });
-
-        }
-
-        function addItem() {
-
-            const table = document.getElementById('billTable');
-
-            const row = table.insertRow();
-
-            row.innerHTML = `
-        <td class="border border-gray-200 px-1.5 py-0.5">
-            <select name="items[]" class="cell-input service-select">
-                <option value="">Add Service</option>
-            </select>
-        </td>
-
-        <td class="border border-gray-200 px-1.5 py-0.5">
-            <input value="1" class="cell-input qty text-center">
-        </td>
-
-        <td class="border border-gray-200 px-1.5 py-0.5">
-            <input readonly class="cell-input rate text-right">
-        </td>
-
-        <td class="border border-gray-200 px-1.5 py-0.5">
-            <input readonly class="cell-input amount text-right">
-        </td>
-
-        <td class="border border-gray-200 text-center no-print">
-            <button
-                onclick="removeRow(this)"
-                class="text-red-600 text-lg">
-                ✕
-            </button>
-        </td>
-    `;
-
-            updateServiceOptions();
-            attachEvents();
-        }
-
-        function attachEvents() {
-
-            document.querySelectorAll(".service-select").forEach(select => {
-
-                select.onchange = function() {
-
-                    const option = this.options[this.selectedIndex];
-
-                    const row = this.closest("tr");
-
-                    row.querySelector(".rate").value =
-                        option.dataset.price ?? 0;
-
-                    row.querySelector(".qty").dispatchEvent(new Event('input'));
-
-                    updateServiceOptions();
-
-                };
-
-            });
-
-            document.querySelectorAll(".qty").forEach(input => {
-
-                input.oninput = function() {
-
-                    const row = this.closest("tr");
-
-                    const qty = parseFloat(row.querySelector(".qty").value) || 0;
-
-                    const rate = parseFloat(row.querySelector(".rate").value) || 0;
-
-                    row.querySelector(".amount").value = (qty * rate).toFixed(2);
-
-                    calculateTotal();
-
-                };
-
-            });
-
-        }
-
-        function calculateTotal() {
-            let subtotal = 0;
-            document.querySelectorAll('.amount').forEach(el => {
-                subtotal += parseFloat(el.value) || 0;
-            });
-            document.getElementById('subtotal').value = subtotal.toFixed(2);
-
-            const discount = parseFloat(document.getElementById('discount').value) || 0;
-            const taxPct = parseFloat(document.getElementById('tax').value) || 0;
-            const taxable = subtotal - discount;
-            const grand = taxable + taxable * taxPct / 100;
-            document.getElementById('grandTotal').value = grand.toFixed(2);
-
-            const advance = parseFloat(document.getElementById('advance').value) || 0;
-            document.getElementById('due').value = (grand - advance).toFixed(2);
-        }
-
-        attachEvents();
-        calculateTotal();
-
-        function removeRow(button) {
-
-            button.closest("tr").remove();
-
-            updateServiceOptions();
-
-            calculateTotal();
-
-        }
-    </script>
 @endsection

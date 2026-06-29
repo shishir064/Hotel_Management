@@ -163,6 +163,10 @@
                             class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-700 transition">
                             <span>Booking</span>
                         </a>
+                        <a href="{{ route('booking.history') }}"
+                            class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-700 transition">
+                            <span>Booking History</span>
+                        </a>
                     @endrole
                 </div>
             </div>
