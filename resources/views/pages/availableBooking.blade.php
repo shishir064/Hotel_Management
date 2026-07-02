@@ -83,7 +83,7 @@
                                 <td class="px-6 py-4">
                                         <span
                                             class="px-3 py-1 text-xs font-medium rounded-full bg-green-100 text-green-700">
-                                            {{ ucfirst($room->room_status) }}
+                                             {{ ucfirst($room->room_status) }}
                                         </span>
                                 </td>
 

@@ -27,13 +27,16 @@
                                     {{ $hotel->hotel_name }}
                                 </h1>
 
-                                <p class="text-gray-600 mt-2">
-                                    📍 {{ $hotel->address }}
+                                <p class="flex items-centertext-gray-600 mt-2">
+                                    <span class="material-symbols-outlined text-base mr-1">
+                                location_on
+                            </span>
+                                     {{ $hotel->address }}
                                 </p>
 
                                 <div class="mt-2 flex items-center gap-2">
                                     <span class="bg-blue-700 text-white px-2 py-1 rounded text-sm">
-                                        {{ $hotel->rating }}/10
+                                        {{ $hotel->star_rating }}/5
                                     </span>
 
                                     <span class="font-medium">
@@ -48,7 +51,7 @@
                                 </p>
 
                                 <p class="text-3xl font-bold text-green-600">
-                                    NPR {{ number_format($hotel->rooms->min('price')) }}
+                                    NPR {{ number_format($hotel->rooms->min('room_price')) }}
                                 </p>
 
                                 <p class="text-sm text-gray-500">
@@ -390,13 +393,13 @@
                                         per night
                                     </p>
 
-                                    @if ($room->available_rooms <= 2)
+                                    {{-- @if ($room->available_rooms <= 2)
                                         <span
                                             class="mt-3 inline-block bg-red-100 text-red-700 text-xs px-3 py-1 rounded-full">
                                             Only {{ $room->available_rooms }}
                                             room{{ $room->available_rooms > 1 ? 's' : '' }} left
                                         </span>
-                                    @endif
+                                    @endif --}}
 
                                 </div>
 
@@ -404,7 +407,8 @@
                                 <div class="col-span-3 p-6 flex flex-col justify-center">
 
                                     @if ($room->room_status === 'available')
-                                        <div class="mb-3">
+                                    <p class=" pb-4 text-2xl font-bold"> Reserve now </p>
+                                        {{-- <div class="mb-3">
                                             <label class="text-sm text-gray-600 block mb-1">
                                                 Number of rooms
                                             </label>
@@ -414,11 +418,11 @@
                                                     <option>{{ $i }}</option>
                                                 @endfor
                                             </select>
-                                        </div>
+                                        </div> --}}
 
-                                        <span class="text-green-700 font-semibold text-sm mb-3">
+                                        {{-- <span class="text-green-700 font-semibold text-sm mb-3">
                                             ✔ Available
-                                        </span>
+                                        </span> --}}
 
                                         <a href="{{ route('rooms.reserve', $room->id) }}" {{-- {{ route('booking.create', [
                                             'room' => $room->id,

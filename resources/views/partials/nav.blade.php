@@ -49,7 +49,7 @@
                         My Profile
                     </a>
 
-                    <a href="#" class="block px-4 py-3 hover:bg-gray-100">
+                    <a href="{{ route('booking.my') }}" class="block px-4 py-3 hover:bg-gray-100">
                         My Bookings
                     </a>
 

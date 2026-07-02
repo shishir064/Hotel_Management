@@ -16,6 +16,7 @@ class Bill extends Model
         'status',
         'sub_total',
         'vat',
+        'items',
         'payment_method',
         'check_in_date',
         'check_out_date',

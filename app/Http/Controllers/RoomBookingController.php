@@ -58,10 +58,13 @@ class RoomBookingController extends Controller
 
         $days = Carbon::parse($validated['check_in'])->diffInDays(Carbon::parse($validated['check_out']));
         $roomPrice = $room->room_price;
-        // dd($roomPrice);
-        $roomDiscount = $room->discount;
-        $roomDiscountAmount = $roomDiscount / 100 * $roomPrice;
-        $totalPrice = $days * $roomPrice - $roomDiscountAmount;
+        $room = Rooms::findorfail($validated['room_id']);
+        $discountPercent = $room->discount;
+
+        $discountAmount = ($roomPrice * $discountPercent) / 100;
+        $discountedPrice = $roomPrice - $discountAmount;
+
+        $totalPrice = $days * $discountedPrice;
 
         $user = User::firstOrCreate(
             ['email' => $validated['email']],

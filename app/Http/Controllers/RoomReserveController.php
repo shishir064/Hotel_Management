@@ -17,11 +17,14 @@ class RoomReserveController extends Controller
     {
         $userEmail =  Auth::user()->email;
         $userName =  Auth::user()->name;
+        $userPhone =  Auth::user()->phone;
+        $userCitizenId =  Auth::user()->citizen_id;
+        $userAddress =  Auth::user()->address;
         $room = Rooms::findorfail($id);
-        return view('pages.hotelbook', compact('room', 'userEmail', 'userName'));
+        return view('pages.hotelbook', compact('room', 'userEmail', 'userName', 'userPhone', 'userCitizenId', 'userAddress'));
     }
 
-    public function store(Request $request , Rooms $room)
+    public function store(Request $request)
     {
         $validated = $request->validate([
             'guest_name' => 'required|string|max:255',
@@ -38,7 +41,7 @@ class RoomReserveController extends Controller
 
 
         // Check room availability
-        $exists = RoomBooking::where('room_id', $room->id)
+        $exists = RoomBooking::where('room_id', $validated['room_id'])
             ->where('status', '!=', 'cancelled')
             ->where(function ($query) use ($validated) {
                 $query->whereBetween('check_in', [
@@ -54,12 +57,20 @@ class RoomReserveController extends Controller
             return back()->with('error', 'Room is not available for selected dates.');
         }
 
-        $days = Carbon::parse($validated['check_in'])->diffInDays(Carbon::parse($validated['check_out']));
+        $days = Carbon::parse($validated['check_in'])
+            ->diffInDays(Carbon::parse($validated['check_out']));
+        $room = Rooms::findorfail($validated['room_id']);
+        $roomPrice = $room->room_price;
+        $discountPercent = $room->discount;
 
-        $totalPrice = $days * $room->room_price;
+        $discountAmount = ($roomPrice * $discountPercent) / 100;
+        $discountedPrice = $roomPrice - $discountAmount;
+
+        $totalPrice = $days * $discountedPrice;
+
 
         $user = Auth::user();
-        $user -> updated(
+        $user->update(
             [
                 'phone' => $validated['phone'],
                 'address' => $validated['address'],
@@ -67,7 +78,7 @@ class RoomReserveController extends Controller
             ]
         );
 
-        
+
         $user->assignRole('guest');
 
         RoomBooking::create([
@@ -78,7 +89,7 @@ class RoomReserveController extends Controller
             'adults' => $validated['adults'],
             'children' => $validated['children'] ?? 0,
             'total_price' => $totalPrice,
-            'status' => 'confirmed',
+            'status' => 'pending',
         ]);
 
         return redirect()->route('show.hotel');

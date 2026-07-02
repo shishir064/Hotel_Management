@@ -282,21 +282,23 @@
                     <div class="no-print max-w-3xl mx-auto mt-4 grid grid-cols-3 gap-3">
                         <div>
                             <label class="block text-xs font-semibold text-gray-600 mb-1">Payment Method</label>
-                            <select class="w-full border  border-gray-300 rounded-md px-2 py-1.5 text-sm text-gray-800 bg-white" name="payment_method" disabled>
+                            {{-- <select class="w-full border  border-gray-300 rounded-md px-2 py-1.5 text-sm text-gray-800 bg-white" name="payment_method" disabled>
                                 <option {{ $bill->payment_method == 'Cash' ? 'selected' : ''}} >Cash</option>
                                 <option {{ $bill->payment_method == 'Card' ? 'selected' : ''}}>Card</option>
                                 <option {{ $bill->payment_method == 'eSewa' ? 'selected' : ''}}>eSewa</option>
                                 <option {{ $bill->payment_method == 'Khalti' ? 'selected' : ''}}>Khalti</option>
                                 <option {{ $bill->payment_method == 'Bank Transfer' ? 'selected' : ''}}>Bank Transfer</option>
-                            </select>
+                            </select> --}}
+                            <p class="bg-gray-200 p-2">{{$bill->payment_method}}</p>
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-gray-600 mb-1">Status</label>
-                            <select class="w-full border border-gray-300 rounded-md px-2 py-1.5 text-sm  text-gray-800 bg-white" name="status" disabled >
-                                <option {{ $bill->status == 'Paid' ? 'selected' : ''}}>Paid</option>
+                            {{-- <select class="w-full border border-gray-300 rounded-md px-2 py-1.5 text-sm  text-gray-800 bg-white" name="status" disabled > --}}
+                                {{-- <option {{ $bill->status == 'Paid' ? 'selected' : ''}}>Paid</option>
                                 <option {{ $bill->status == 'Partial' ? 'selected' : ''}}>Partial</option>
-                                <option {{ $bill->status == 'Unpaid' ? 'selected' : ''}}>Unpaid</option>
-                            </select>
+                                <option {{ $bill->status == 'Unpaid' ? 'selected' : ''}}>Unpaid</option> --}}
+                                <p class="bg-gray-200 p-2">{{$bill->status}}</p>
+                            {{-- </select> --}}
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-gray-600 mb-1">Notes</label>

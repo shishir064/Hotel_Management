@@ -25,14 +25,13 @@
                 </div>
             @endif
 
-            <form action="{{ route('reserve.store', $room->id) }}" method="POST">
+            <form action="{{ route('reserve.store') }}" method="POST">
                 @csrf
 
                 <div class="grid lg:grid-cols-3 gap-8">
-
+                    
                     <!-- Room Summary -->
                     <div class="lg:col-span-1">
-
                         <div class="bg-white rounded-3xl border border-gray-100 shadow-lg overflow-hidden sticky top-20">
 
                             <div class="bg-gradient-to-r from-gray-800 to-gray-600 p-5 text-white">
@@ -60,15 +59,24 @@
                                     </div>
 
                                     @php
-                                        $discountPercent = 15; // Example 15% discount
+                                        $discountPercent = $room->discount; // Example 15% discount
                                         $originalPrice = $room->room_price;
                                         $discountAmount = ($originalPrice * $discountPercent) / 100;
                                         $finalPrice = $originalPrice - $discountAmount;
                                     @endphp
 
                                     <div class="flex justify-between items-center">
-                                        <span class="text-gray-500">Price / Night</span>
-                                        <span class="font-bold text-green-600 text-lg">
+                                        <span class="text-gray-500">Total Night</span>
+                                        <span id="totalNights" class="font-bold  text-green-600 text-lg">
+                                           0
+                                        </span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-500">Price</span>
+                                        <span
+                                            id="totalPrice"
+                                            data-price="{{ $finalPrice }}"
+                                            class="font-bold text-green-600 text-lg">
                                             Rs. {{ number_format($finalPrice) }}
                                         </span>
                                     </div>
@@ -99,7 +107,7 @@
                                     <label class="block text-sm font-medium text-gray-700 mb-2">
                                         Full Name
                                     </label>
-                                    <input type="text" name="guest_name" value="{{ $userName }}"
+                                    <input type="text" name="guest_name" value="{{ $userName ?? ''}}"
                                         placeholder="Enter your full name"
                                         class="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition">
 
@@ -126,7 +134,7 @@
                                     <label class="block text-sm font-medium text-gray-700 mb-2">
                                         Phone Number
                                     </label>
-                                    <input type="text" name="phone" value="{{ old('phone') }}"
+                                    <input type="text" name="phone" value="{{ $userPhone ?? ''}}"
                                         placeholder="+977 98XXXXXXXX"
                                         class="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition">
 
@@ -139,7 +147,7 @@
                                     <label class="block text-sm font-medium text-gray-700 mb-2">
                                         Citizen ID
                                     </label>
-                                    <input type="text" name="citizen_id" value="{{ old('citizen_id') }}"
+                                    <input type="text" name="citizen_id" value="{{ $userCitizenId ?? ''}}"
                                         placeholder="Citizen Number"
                                         class="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition">
 
@@ -152,7 +160,7 @@
                                     <label class="block text-sm font-medium text-gray-700 mb-2">
                                         Address
                                     </label>
-                                    <input type="text" name="address" value="{{ old('address') }}"
+                                    <input type="text" name="address" value="{{ $userAddress ?? ''}}"
                                         placeholder="Your address"
                                         class="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition">
 
@@ -169,7 +177,7 @@
                             <h2 class="text-2xl font-bold text-gray-800 mb-6">
                                 Stay Information
                             </h2>
-
+                            <div class="mt-6 p-4 bg-gray-100 rounded-xl">
                             <div class="grid md:grid-cols-2 gap-5">
 
                                 <div>
@@ -240,4 +248,37 @@
         </div>
 
     </div>
+    <script>
+const checkIn = document.querySelector('input[name="check_in"]');
+const checkOut = document.querySelector('input[name="check_out"]');
+
+const totalPrice = document.getElementById('totalPrice');
+const totalNights = document.getElementById('totalNights');
+
+const roomPrice = Number(totalPrice.dataset.price);
+
+function calculateTotal() {
+
+    if (!checkIn.value || !checkOut.value) return;
+
+    const inDate = new Date(checkIn.value);
+    const outDate = new Date(checkOut.value);
+
+    const diff = Math.ceil((outDate - inDate) / (1000 * 60 * 60 * 24));
+
+    if (diff > 0) {
+        totalNights.textContent = diff;
+
+        const finalPrice = diff * roomPrice;
+
+        totalPrice.textContent = "Rs. " + finalPrice.toLocaleString();
+    } else {
+        totalNights.textContent = 0;
+        totalPrice.textContent = "Rs. 0";
+    }
+}
+
+checkIn.addEventListener('change', calculateTotal);
+checkOut.addEventListener('change', calculateTotal);
+</script>
 @endsection

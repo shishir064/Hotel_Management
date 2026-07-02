@@ -41,6 +41,7 @@ class BillController extends Controller
                 'status' => $request->status,
                 'sub_total' => $request->subtotal,
                 'vat' => $request->vat,
+                'items' => $request->items,
                 'payment_method' => $request->payment_method,
                 'check_in_date' => $request->check_in,
                 'check_out_date' => $request->check_out

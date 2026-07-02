@@ -38,81 +38,72 @@
             Available Hotels
         </h1>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
 
             @forelse ($hotels as $hotel)
-                <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition h-full">
+                <div
+                    class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 flex flex-col h-full">
 
-                    <div class="md:flex h-full">
+                    <!-- Hotel Image -->
+                    <div class="relative">
+                        <img src="{{ asset('storage/' . $hotel->cover_image) }}" alt="{{ $hotel->hotel_name }}"
+                            class="w-full h-56 object-cover">
 
-                        <!-- Hotel Image -->
-                        <div class="md:w-1/2">
-                            <img src="{{ asset('storage/' . $hotel->cover_image) }}" alt="{{ $hotel->hotel_name }}"
-                                class="w-full h-full md:h-full object-cover">
-                            {{-- <img
-                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTc9APxkj0xClmrU3PpMZglHQkx446nQPG6lA&s"
-                            alt=""
-                            class="w-full h-64 md:h-full object-cover"> --}}
+                        <span
+                            class="absolute top-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-sm font-semibold text-yellow-600 shadow">
+                            ⭐ {{ $hotel->star_rating }}
+                        </span>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="p-5 flex flex-col flex-1">
+
+                        <!-- Name -->
+                        <h2 class="text-xl font-bold text-gray-800">
+                            {{ $hotel->hotel_name }}
+                        </h2>
+
+                        <!-- Location -->
+                        <div class="flex items-center text-gray-500 mt-2">
+                            <span class="material-symbols-outlined text-base mr-1">
+                                location_on
+                            </span>
+                            <span>
+                                {{ $hotel->city }}, {{ $hotel->country }}
+                            </span>
                         </div>
 
-                        <!-- Hotel Details -->
-                        <div class="p-5 flex flex-col flex-1">
+                        <!-- Address -->
+                        <p class="text-sm text-gray-400 mt-1">
+                            {{ $hotel->address }}
+                        </p>
 
-                            <div class="flex justify-between items-start gap-3">
-                                <div class="flex-1">
-                                    <h2 class="text-2xl font-bold leading-tight">
-                                        {{ $hotel->hotel_name }}
-                                    </h2>
+                        <!-- Description -->
+                        <p class="text-gray-600 text-sm mt-4 line-clamp-3 flex-grow">
+                            {{ $hotel->description }}
+                        </p>
 
-                                    <p class="text-gray-600 mt-1 flex items-center">
-                                        <span class="material-symbols-outlined">
-                                            location_on
-                                        </span>  
-                                        <span>
-                                            {{ $hotel->city }}, {{ $hotel->country }}
-                                        </span>
-                                    </p>
-                                </div>
+                        <!-- Price & Button -->
+                        <div class="border-t mt-6 pt-4 flex justify-between items-end">
 
-                                <span class="shrink-0 bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
-                                    ⭐ {{ $hotel->star_rating }}
-                                </span>
+                            <div>
+                                <p class="text-xs text-gray-500">
+                                    Starting from
+                                </p>
+
+                                <h3 class="text-2xl font-bold text-green-600">
+                                    {{ number_format($hotel->rooms->min('room_price')) }}
+                                </h3>
+
+                                <p class="text-xs text-gray-500">
+                                    per night
+                                </p>
                             </div>
 
-                            <p class="text-gray-500 mt-2">
-                                {{ $hotel->address }}
-                                {{-- Kathmandu, nepal --}}
-                            </p>
-
-                            <p class="mt-4 text-gray-700 line-clamp-3 min-h-18">
-                                {{ $hotel->description }}
-                                {{-- Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis reprehenderit, veniam ipsam esse architecto magnam? --}}
-                            </p>
-
-                            <div class="mt-auto pt-5 flex justify-between items-end">
-
-                                <div>
-                                    <p class="text-sm text-gray-500">
-                                        Starting from
-                                    </p>
-
-                                    <h3 class="text-2xl font-bold text-green-600">
-                                        {{-- Rs. {{ number_format($hotel->price_per_night) }} --}}
-                                        Rs. 4000
-                                    </h3>
-
-                                    <p class="text-sm text-gray-500">
-                                        per night
-                                    </p>
-                                </div>
-
-                                <a href="{{ route('hotel.availability', $hotel->id) }}"
-                                    class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700">
-                                    See Availability
-                                    {{-- {{ route('hotel.show', $hotel->slug) }} --}}
-                                </a>
-
-                            </div>
+                            <a href="{{ route('hotel.availability', $hotel->id) }}"
+                                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition">
+                                See Availability
+                            </a>
 
                         </div>
 
@@ -127,7 +118,6 @@
                     @endif
                 </div>
             @endforelse
-
         </div>
         <div class="mt-4 ">
             {{ $hotels->links() }}

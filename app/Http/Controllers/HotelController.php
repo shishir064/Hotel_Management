@@ -148,7 +148,6 @@ class HotelController extends Controller
         // dd($facilities);
         $hotel = Hotel::findorfail($id);
         $rooms = $hotel->rooms()->get();
-
         return view('pages.hotelAvailability', compact('hotel', 'facilities', 'rooms'));
     }
 

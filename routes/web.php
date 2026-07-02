@@ -10,6 +10,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\HotelFacilitiesController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RoomAmenitiesController;
 use App\Http\Controllers\RoomBookingController;
@@ -104,6 +105,19 @@ Route::controller(RoomBookingController::class)->group(function () {
     Route::get('/rooms/booking/{id}', 'index')->name('rooms.booking');
     Route::post('/rooms/booking', 'store')->name('bookings.store');
     Route::delete('/delete/booking/{id}', 'delete')->name('delete');
+});
+
+// //users booking
+// Route::get('/my-bookings/{booking}', [ReservationController::class, 'show'])
+//     ->middleware('auth')
+//     ->name('booking.show');
+
+    // Route::get('/my-bookings', [ReservationController::class, 'myBookings'])
+    //     ->name('booking.my');
+Route::controller(ReservationController::class)->group(function () {
+    Route::middleware('auth')->get('/my-bookings/{booking}', 'show')->name('booking.show');
+    Route::get('/my-bookings', 'myBookings')->name('booking.my');
+    Route::delete('/delete/booking/{id}', 'delete')->name('booking.cancel');
 });
 
 //Room Reserve
