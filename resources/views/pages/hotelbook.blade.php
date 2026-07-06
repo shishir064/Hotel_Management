@@ -7,7 +7,7 @@
 
             <!-- Hero Header -->
             <div class="mb-10">
-                <div class="bg-gradient-to-r from-gray-800 to-gray-600 rounded-3xl p-8 text-white shadow-lg">
+                <div class="bg-linear-to-r from-gray-800 to-gray-600 rounded-3xl p-8 text-white shadow-lg">
                     <h1 class="text-4xl font-bold">
                         Reserve Your Stay
                     </h1>
@@ -34,7 +34,7 @@
                     <div class="lg:col-span-1">
                         <div class="bg-white rounded-3xl border border-gray-100 shadow-lg overflow-hidden sticky top-20">
 
-                            <div class="bg-gradient-to-r from-gray-800 to-gray-600 p-5 text-white">
+                            <div class="bg-linear-to-r from-gray-800 to-gray-600 p-5 text-white">
                                 <h2 class="text-xl font-semibold">
                                     Room Details
                                 </h2>
@@ -226,7 +226,7 @@
                             <div class="flex flex-col md:flex-row gap-4 mt-10">
 
                                 <button type="submit"
-                                    class="flex-1 bg-gradient-to-r from-gray-800 to-gray-600 text-white py-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200">
+                                    class="flex-1 bg-linear-to-r from-gray-800 to-gray-600 text-white py-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200">
                                     Confirm Booking
                                 </button>
 

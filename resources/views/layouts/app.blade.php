@@ -56,6 +56,21 @@
 </head>
 
 <body>
+    @if(session('success'))
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: "{{ session('success') }}",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true
+    });
+});
+</script>
+@endif
 
     <!-- Navbar -->
     <header class="sticky top-0 z-50 left-0 w-full  bg-white/80 glass-nav">

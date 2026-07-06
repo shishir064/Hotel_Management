@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bill;
 use App\Models\Guest;
+use App\Models\Hotel;
 use App\Models\RoomBooking;
 use App\Models\RoomCategory;
 use App\Models\Rooms;
@@ -27,19 +28,23 @@ class DashboardController extends Controller
     // }
     public function index()
 {
-    $hotel = Auth::user()->hotels;
 
-    if (!$hotel) {
-        return view('pages.dashboard', [
-            'roomBookings' => collect(),
-            'totalRevenue' => 0,
-            'totalGuests' => 0,
-            'totalBookings' => 0,
-            'hotel_name' => null,
-            'rooms' => 0,
-        ]);
-    }
+    $user = Auth::user();
 
+
+    $hotel=Hotel::find(1);
+    // if (!$hotel) {
+    //     return view('pages.dashboard', [
+    //         'roomBookings' => collect(),
+    //         'totalRevenue' => 0,
+    //         'totalGuests' => 0,
+    //         'totalBookings' => 0,
+    //         'hotel_name' => null,
+    //         'rooms' => 0,
+    //     ]);
+    // }
+
+    return $hotel;
     $rooms = $hotel->rooms()->count();
     $hotel_name = $hotel->hotel_name;
     $totalRevenue = Bill::whereHas('room', function ($query) use ($hotel) {
@@ -49,7 +54,7 @@ class DashboardController extends Controller
     $roomBookings = RoomBooking::with('user')->whereHas('room', function ($query) use ($hotel) {
             $query->where('hotel_id', $hotel->id);
         })->where('status', 'confirmed')->get();
-    $roomBookings = RoomBooking::with('user')->get();
+    // $roomBookings = RoomBooking::with('user')->get();
 
     // Total bookings count
     $totalBookings = $roomBookings->count();

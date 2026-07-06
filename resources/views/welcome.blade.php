@@ -5,7 +5,7 @@
     <section class="relative h-screen flex items-center justify-center overflow-hidden">
     <div class="absolute inset-0">
         <img
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwMjjzfQVXXAGeDeXoaX49lygj3xgbRrB8DIx4qryQvqiRBcmpTFBeOcH87m-8XSAA4sRJJUXdlijtQDsObXKv7ITCRLf3h_qPAA6BsAhOfePAiLlhtdIBzTJrgcHONCOSlQzkevPDceCcpXHMQTEZPEi4UVI6aBMqOw2iKWE7B2A_SVT8m4_L659r-ImGgYLW8-zTHojezk5F7JkAEivm1ekTdFuUF7T3xqQZB-B6YNfxCqgqraMEB7DowjojTjqRMwICHP0Xdxsw"
+            src="{{ asset('images/kathmandu.jpg') }}"
             class="w-full h-full object-cover"
             alt=""
         >
@@ -32,12 +32,12 @@
                 </span>
 
                 <h2 class="text-4xl">
-                    Collections by Design
+                    Collections Of Destinations
                 </h2>
             </div>
 
             <a href="#" class="border-b border-black text-black">
-                Browse All Collections
+                Browse All Destinations
             </a>
         </div>
 
@@ -46,7 +46,7 @@
             <!-- Large -->
             <div class="relative overflow-hidden group h-162">
 
-                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSCS1aqB5MsTG-9SlgeTvtJ2xSxO1c8VjaMSVPIc2xb34HT3JsQ28qWUgc0fds9Unk9piqk3IKsLw_FkegsbLPPTvVXZ2rG5Xlc-OYKG0yAqNwu44eC6o_chmv2155fGfIOEPAo9DJoUwgDPN7gFSB_KaAoEjUNQFtDOPNt-qPtHJ8qxNwAJXh7_TURH_P7AaDQtVjFCXsdkSBx6IsfQnsXhPqY5r8nAl6hmcMUIW5o-DYps_6XHQucWfp865jps5ou5UNjm2ZzkFX"
+                <img src="{{ asset('images/pokhara.jpg') }}"
                     class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="">
 
                 <div class="absolute inset-0 bg-linear-to-t from-black/70 to-transparent flex flex-col justify-end p-10">
@@ -66,7 +66,7 @@
 
                 <div class="relative overflow-hidden group aspect-video">
 
-                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCl0SBMaJwZfa9NT3Ls23o05183iPx0yUfFwxEHIn797tVMN1KK01Yugs8-03gl2WwGyiLkIwVVNNd9kYEplpjHjkhiGKopDVUOQ5qtaHuxmudtEuL5n9y6e5oUWpYzhblM3dQTzYz3OCZt4TxFfL6wjJrkw8u5rGDHKdRnkRacnOBCSQR832QAK-rtEsrqNaBPE3tLnWYeNDeBZFC9xJe5D_lqY7WtPtJLm3zShC_tXDRhHoqesVJ7_7XGS4LntheGpoizH62JdfPT"
+                    <img src="{{ asset('images/lumbiniphoto.jpg') }}"
                         class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="">
 
                     <div
@@ -84,7 +84,7 @@
 
                 <div class="relative overflow-hidden group aspect-video">
 
-                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSq0B7Dukd7R4haGiysfYs9z26SnScQFNj90eguvbcHdUG0eOqp-X3xe5dzHzoONXOuNhtynjYt7DQa3UTRiH0qod5a1HKqpM4ft5jBCQuLFf-iFZ5Ed_5EdT0yreG16MAqmDylQ2gzfO7iC9a4FiB1g1skYGhxDfZrRqb-gE5TGaPA3F7lklvA2vSOis20qz-wNEhtIidMJE3Tv7OKeW_A73SKG4evGO8XWluMq7xX1a8laXpjLXe_w3do7b6YNG8uvS9o4LlpQZM"
+                    <img src="{{ asset('images/chitwan.jpg') }}"
                         class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="">
 
                     <div

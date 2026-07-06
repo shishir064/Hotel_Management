@@ -24,14 +24,16 @@ class BillController extends Controller
             'user_id' => 'required',
             'room_id' => 'required',
             'total' => 'required',
-            'status' => 'required',
-            'subtotal' => 'required',
+            // 'status' => 'required',
+            // 'subtotal' => 'required',
             'vat' => 'required',
             'payment_method' => 'required',
             'check_in' => 'required',
             'check_out' => 'required', 
         ]);
-        // dd($validated);
+        // if ( $validated){
+        //     $status = 
+        // }
         Bill::create(
             [
                 'room_booking_id' => $request->bill_id,
@@ -47,6 +49,10 @@ class BillController extends Controller
                 'check_out_date' => $request->check_out
             ]
         );
+        Bill::where('id', $request->bill_id)
+        ->update([
+                'status' => 'Paid',
+        ]);
         Rooms::where('id', $request->room_id)
         ->update([
                 'room_status' => 'available',

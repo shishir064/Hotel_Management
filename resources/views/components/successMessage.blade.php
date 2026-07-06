@@ -1,5 +1,15 @@
-<div class="bg-green-100 rounded ">
-    @if (session('success'))
-        <h1 class="text-green-800 p-6">{{ session('success') }}</h1>
-    @endif
-</div>
+@if(session('success'))
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: @json(session('success')),
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+    });
+});
+</script>
+@endif
