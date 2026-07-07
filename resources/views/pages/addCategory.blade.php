@@ -6,7 +6,7 @@
     <form action="{{ route('category') }}" method="POST">
        <x-successMessage></x-successMessage>
         <div>
-            <h1 class="text-4xl md:text-[40px] outfit">Add Category</h1>
+            <h1 class="text-4xl md:text-[40px] outfit">Add Room Type</h1>
             <p class="text-sm md:text-base text-gray-500/90 mt-2 max-w-174">Fill in the details carefully.</p>
         </div>
 
@@ -17,7 +17,7 @@
                 class="py-2 px-2 rounded border border-gray-300 text-gray-500 max-w-42">
         </div>
         <div class="mb-8">
-            <button class="bg-primary text-white px-8 py-2 rounded mt-8 cursor-pointer">Add Category</button>
+            <button class="bg-primary text-white px-8 py-2 rounded mt-8 cursor-pointer">Add Room Type</button>
         </div>
     </form>
 
@@ -26,7 +26,7 @@
             <thead>
                 <tr class="bg-gray-200">
                     <th class="border px-4 py-2">SN</th>
-                    <th class="border px-4 py-2">Category</th>
+                    <th class="border px-4 py-2">Type</th>
                     <th class="border px-4 py-2">Action</th>
                 </tr>
             </thead>

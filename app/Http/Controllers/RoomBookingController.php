@@ -13,6 +13,7 @@ class RoomBookingController extends Controller
 {
     public function index($id)
     {
+        
         $room = Rooms::findorfail($id);
         return view('pages.roomBooking', compact('room'));
     }
@@ -33,6 +34,7 @@ class RoomBookingController extends Controller
             'phone' => 'required',
             'address' => 'required',
             'citizen_id' => 'required|string|max:6',
+            'booked_date' => 'required',
             'check_in' => 'required|date|after_or_equal:today',
             'check_out' => 'required|date|after:check_in',
             'adults' => 'required|integer|min:1',

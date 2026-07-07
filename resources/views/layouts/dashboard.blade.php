@@ -72,13 +72,22 @@
                 <span class="material-symbols-outlined">dashboard</span>
                 <span>Overview</span>
             </a>
-
-
             <!-- Hotel Dropdown -->
             <div x-data="{ open: false }">
+                @hasanyrole('super-admin')
+                <button @click="open=!open"
+                    class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-gray-700 transition">
 
+                    <div class="flex items-center gap-4">
+                        <span class="material-symbols-outlined">hotel</span>
+                        <span>Add Hotel</span>
+                    </div>
+
+                    <span class="material-symbols-outlined text-sm" :class="open ? 'rotate-180' : ''">
+                        expand_more
+                    </span>
+                </button>
                 <div x-show="open" x-transition class="ml-12 mt-2 space-y-1">
-                    @role('super admin')
                         <a href="{{ route('add_hotel') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
                             Add Hotel
                         </a>
@@ -87,6 +96,8 @@
                         </a>
                     @endrole
                 </div>
+
+            </div>
             </div>
 
             <!-- Room Dropdown -->
@@ -118,7 +129,7 @@
                         </a>
                     @endhasanyrole
 
-                    @role('super admin')
+                    @role('super-admin')
                         <a href="{{ route('add_category') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
                             Room Types
                         </a>
@@ -139,20 +150,20 @@
                 </div>
             </div>
             <div x-data="{ open: false }">
-                <button @click="open=!open"
-                    class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-gray-700 transition">
+                @role('admin')
+                    <button @click="open=!open"
+                        class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-gray-700 transition">
 
-                    <div class="flex items-center gap-4">
-                        <span class="material-symbols-outlined">calendar_month</span>
-                        <span>Bookings</span>
-                    </div>
+                        <div class="flex items-center gap-4">
+                            <span class="material-symbols-outlined">calendar_month</span>
+                            <span>Bookings</span>
+                        </div>
 
-                    <span class="material-symbols-outlined text-sm" :class="open ? 'rotate-180' : ''">
-                        expand_more
-                    </span>
-                </button>
-                <div x-show="open" x-transition class="ml-12 mt-2 space-y-1">
-                    @role('admin')
+                        <span class="material-symbols-outlined text-sm" :class="open ? 'rotate-180' : ''">
+                            expand_more
+                        </span>
+                    </button>
+                    <div x-show="open" x-transition class="ml-12 mt-2 space-y-1">
                         <!-- Bookings -->
                         <a href="{{ route('booking.index') }}"
                             class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-700 transition">
@@ -173,7 +184,7 @@
 
 
             <!-- Users -->
-            @role('super admin')
+            @role('super-admin')
                 <a href="{{ route('user.list') }}"
                     class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-700 transition">
                     <span class="material-symbols-outlined">group</span>

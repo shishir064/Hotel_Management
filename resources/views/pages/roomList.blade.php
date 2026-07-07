@@ -43,7 +43,7 @@
 
                             <!-- Room Type -->
                             <td class="px-6 py-4 text-gray-700">
-                                {{ $room->roomCategory?->category_name ?? 'N/A' }}
+                                {{ $room->room_type ?? 'N/A' }}
                             </td>
                             <td class="px-6 py-4 text-gray-700">
                                 {{ $room->discount }}

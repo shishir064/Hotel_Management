@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('room_room_amenity', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('room_id')->constrained()->onDelete('cascade');
-            $table->foreignId('room_amenity_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
+        Schema::table('hotels', function (Blueprint $table) {
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('room_main_facility');
+        Schema::table('hotels', function (Blueprint $table) {
+             $table->dropForeign(['user_id']);
+        });
     }
 };

@@ -11,7 +11,7 @@ class Rooms extends Model
     protected $fillable = [
         'room_no',
         'hotel_id',
-        'room_type',
+        'category_id',
         'room_status',
         'room_price',
         'room_main_facility',
@@ -32,7 +32,7 @@ class Rooms extends Model
 
     public function roomCategory()
     {
-        return $this->belongsTo(RoomCategory::class, 'room_type');
+        return $this->belongsTo(RoomCategory::class, 'category_id');
     }
 
     public function amenities()

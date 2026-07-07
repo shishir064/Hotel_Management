@@ -95,7 +95,7 @@
 
                             <tr>
                                 <td colspan="7" class="text-center py-10 text-gray-500">
-                                    No rooms available.
+                                    No Bookings available.
                                 </td>
                             </tr>
                         @endforelse

@@ -418,9 +418,9 @@
                         </div>
 
                         <div class="bg-red-50 p-4 rounded-xl">
-                            <h3 class="text-sm text-gray-500">Occupied Rooms</h3>
+                            <h3 class="text-sm text-gray-500">Pending Rooms</h3>
                             <p class="text-3xl font-bold">
-                                {{ $hotel->rooms->where('room_status', 'occupied')->count() }}
+                                {{ $hotel->rooms->where('room_status', 'pending')->count() }}
                             </p>
                         </div>
 

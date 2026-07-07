@@ -4,8 +4,8 @@
 
 @section('content')
     <div class="w-full mx-auto">
-        
-    <x-errorMessage></x-errorMessage>
+
+        <x-errorMessage></x-errorMessage>
 
         <!-- Header -->
         <div class="mb-8">
@@ -49,13 +49,14 @@
                             Room Type
                         </label>
 
-                        <select name="room_type" value="{{ old('room_type') }}"
+                        <select name="category_id"
                             class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
 
                             <option value="">Select Room Type</option>
 
                             @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">
+                                <option value="{{ $category->id }}"
+                                    {{ old('category_id') == $category->id ? 'selected' : '' }}>
                                     {{ $category->category_name }}
                                 </option>
                             @endforeach

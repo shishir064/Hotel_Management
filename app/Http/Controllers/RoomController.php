@@ -27,18 +27,24 @@ class RoomController extends Controller
         $hotel_id = auth()->user()->hotels->id;
         $validated = $request->validate([
             'room_no' => 'required',
-            'room_type' => 'required',
             'room_price' => 'required',
             'capacity' => 'required',
+            'category_id' => 'required',
+
+            'room_main_facility' => 'required|array',
+            'room_main_facility.*' => 'exists:room_main_facilities,id',
+
+            'room_Amenity' => 'required|array',
+            'room_Amenity.*' => 'exists:room_amenities,id',
 
         ]);
         // dd($validated);
         $room = Rooms::create([
             'hotel_id' => $hotel_id,
             'room_no' => $validated['room_no'],
-            'room_type' => $validated['room_type'],
             'room_price' => $validated['room_price'],
             'capacity' => $validated['capacity'],
+            'category_id' => $validated['category_id'],
         ]);
         $room->mainFacilities()->sync($request->room_main_facility ?? []);
 
@@ -52,7 +58,6 @@ class RoomController extends Controller
             $rooms = Rooms::where('hotel_id', auth()->user()->hotels?->id)->get();
         } else {
             $rooms = Rooms::all();
-            
         }
         return view('pages.roomList', compact('rooms'));
     }
@@ -61,7 +66,7 @@ class RoomController extends Controller
     {
         $room = Rooms::findorfail($id);
         $categories = RoomCategory::all();
-    //  dd($categories->toArray());
+        //  dd($categories->toArray());
         return view('pages.editRoom', compact('room', 'categories'));
     }
 

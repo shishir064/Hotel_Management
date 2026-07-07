@@ -67,7 +67,7 @@
                                 </td>
 
                                 <td class="px-6 py-4 text-gray-700">
-                                    {{ $room->roomCategory?->category_name ?? 'N/A' }}
+                                    {{ $room->room_type ?? 'N/A' }}
                                 </td>
 
                                 <td class="px-6 py-4 text-gray-700">
@@ -99,7 +99,7 @@
 
                             <tr>
                                 <td colspan="7" class="text-center py-10 text-gray-500">
-                                    No rooms available.
+                                    No Bookings available.
                                 </td>
                             </tr>
                         @endforelse

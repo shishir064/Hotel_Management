@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\RoomCategory;
 use App\Models\Rooms;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +24,8 @@ class BookingApiController extends Controller
     // }
     public function index()
     {
-        return view('pages.roomBooking');
+        $categories = RoomCategory::all();
+        return view('pages.roomBooking', compact('categories'));
     }
 
     public function show()

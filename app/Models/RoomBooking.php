@@ -13,6 +13,7 @@ class RoomBooking extends Model
         'guest_name',
         'email',
         'phone',
+        'booked_date',
         'check_in',
         'check_out',
         'adults',
