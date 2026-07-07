@@ -6,9 +6,11 @@
     <form action="{{ route('store.hotel.facilities') }}" method="POST">
         @csrf
         <x-successMessage></x-successMessage>
+        <x-errorMessage></x-errorMessage>
         <div>
             <h1 class="text-4xl md:text-[40px] outfit">Add Hotel Facilities</h1>
             <p class="text-sm md:text-base text-gray-500/90 mt-2 max-w-174">Fill in the details carefully.</p>
+
         </div>
 
 

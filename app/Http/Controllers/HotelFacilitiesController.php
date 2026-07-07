@@ -19,15 +19,22 @@ class HotelFacilitiesController extends Controller
     public function store(Request $request)
 {
     $request->validate([
-        'hotel_id' => 'required|exists:hotels,id',
-        'facilities' => 'required|array'
+        'name' => 'required',
     ]);
+    HotelFacility::create([
+        'name' => $request->name,
+    ]);
+    return redirect()->route('show.hotel.facilities')->with('success', 'Facility added successfully');
+    // $request->validate([
+    //     'hotel_id' => 'required|exists:hotels,id',
+    //     'facilities' => 'required|array'
+    // ]);
 
-    $hotel = Hotel::findOrFail($request->hotel_id);
-    //  dd($request->all());
-    $hotel->facilities()->sync($request->facilities);
+    // $hotel = Hotel::findOrFail($request->hotel_id);
+    // //  dd($request->all());
+    // $hotel->facilities()->sync($request->facilities);
 
-    return redirect()->route('show.hotel.profile', $hotel->id)->with('success', 'Facilities saved successfully');
+    // return redirect()->route('show.hotel.profile', $hotel->id)->with('success', 'Facilities saved successfully');
 }
 
 
