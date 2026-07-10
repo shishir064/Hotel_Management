@@ -142,7 +142,7 @@
                                 <div class="px-5 py-3 border-r border-gray-300 space-y-1.5">
                                     <div class="flex items-center gap-2">
                                         <label class="text-xs font-semibold text-gray-600 whitespace-nowrap w-16">Booked Date:</label>
-                                        <input type="date" id="invDate" class="field-input" value="{{ now()->format('Y-m-d') }}">
+                                        <input type="date" id="invDate" class="field-input" value="">
                                     </div>
                                     <div class="flex items-center gap-2">
                                         <label class="text-xs font-semibold text-gray-600 whitespace-nowrap w-16">Room No:</label>

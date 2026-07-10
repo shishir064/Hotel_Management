@@ -26,6 +26,7 @@ return new class extends Migration
         $table->string('email');
         $table->string('phone');
 
+        $table->date('booked_date')->nullable();
         $table->date('check_in');
         $table->date('check_out');
 

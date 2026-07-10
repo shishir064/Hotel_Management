@@ -115,8 +115,8 @@ Route::controller(RoomBookingController::class)->group(function () {
     // Route::get('/my-bookings', [ReservationController::class, 'myBookings'])
     //     ->name('booking.my');
 Route::controller(ReservationController::class)->group(function () {
-    Route::middleware('auth')->get('/my-bookings/{booking}', 'show')->name('booking.show');
     Route::get('/my-bookings', 'myBookings')->name('booking.my');
+    Route::middleware('auth')->get('/my-bookings/{booking}', 'show')->name('booking.show');
     Route::delete('/delete/booking/{id}', 'delete')->name('booking.cancel');
 });
 
@@ -147,7 +147,8 @@ Route::controller(HotelController::class)->group(function () {
 
 //Hotel Facilities
 Route::get('/hotel/facilities', [HotelFacilitiesController::class, 'index'])->name('show.hotel.facilities');
-Route::post('/hotel/facilities', [HotelFacilitiesController::class, 'store'])->name('store.hotel.facilities');
+Route::post('/hotel/facilities', [HotelFacilitiesController::class, 'create'])->name('store.hotel.facilities');
+Route::post('/hotel/facilities/select', [HotelFacilitiesController::class, 'store'])->name('select.hotel.facilities');
 Route::delete('/hotel/facilities/delete/{id}', [HotelFacilitiesController::class, 'delete'])->name('delete.hotel.facilities');
 Route::get('/hotel/facilities/select/show/{id}', [HotelFacilitiesController::class, 'selectFacilities'])->name('show.hotel.facilities.select');
 
@@ -188,6 +189,7 @@ Route::controller(AvailableRoomsController::class)->group(function () {
 
 Route::controller(AvailableBookingController::class)->group(function () {
     Route::get('/available/booking', 'index')->name('booking.available');
+    Route::delete('/canclebooking/{id}', 'delete')->name('cancle.booking');
 });
 
 Route::controller(BookingHistoryController::class)->group(function () {

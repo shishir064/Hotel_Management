@@ -17,7 +17,7 @@
             </p>
         </div>
 
-        <form action="{{ route('store.hotel.facilities') }}" method="POST">
+        <form action="{{ route('select.hotel.facilities') }}" method="POST">
             @csrf
             <input type="hidden" name="hotel_id" value="{{ $hotel->id }}">
             <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">

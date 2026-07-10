@@ -8,7 +8,29 @@
     <!-- Main Content -->
     <div class=" mt-8">
 
+        <x-successMessage></x-successMessage>
+        <x-errorMessage></x-errorMessage>
+        <div class="relative w-full h-40 md:h-76 rounded-2xl overflow-hidden shadow-xl">
 
+            <!-- Cover Image -->
+            <img src="{{ asset('storage/' . $hotel->cover_image) }}" alt="{{ $hotel->hotel_name }}"
+                class="w-full h-full object-cover">
+
+            <!-- Gradient Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+
+            <!-- Hotel Information -->
+            <div class="absolute bottom-0 left-0 w-full p-8">
+                <h1 class="text-4xl md:text-5xl font-bold text-white">
+                    {{ $hotel->hotel_name }}
+                </h1>
+
+                <p class="mt-2 text-gray-200 text-lg">
+                    {{ $hotel->city }}, {{ $hotel->country }}
+                </p>
+            </div>
+
+        </div>
         <!-- Left Side -->
         <div class=" ">
             <div x-data="{ tab: 'about' }" class="bg-white rounded-2xl shadow">
@@ -224,8 +246,8 @@
                                                 @foreach ($hotel->images as $image)
                                                     <div class="relative group">
 
-                                                        <img src="{{ asset('storage/' . $image->image) }}" alt="Hotel Image"
-                                                            class="w-full h-52 object-cover rounded-xl">
+                                                        <img src="{{ asset('storage/' . $image->image) }}"
+                                                            alt="Hotel Image" class="w-full h-52 object-cover rounded-xl">
 
                                                         <div
                                                             class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition rounded-xl flex items-center justify-center">
@@ -310,79 +332,80 @@
 
 
 
-                     <!-- Header -->
-        <div class="mb-8">
-            <h1 class="text-3xl font-bold text-gray-800">
-                Hotel Facilities
-            </h1>
-            <p class="text-gray-500 mt-2">
-                Choose the facilities available in your hotel.
-            </p>
+                    <!-- Header -->
+                    <div class="mb-8">
+                        <h1 class="text-3xl font-bold text-gray-800">
+                            Hotel Facilities
+                        </h1>
+                        <p class="text-gray-500 mt-2">
+                            Choose the facilities available in your hotel.
+                        </p>
 
-            
-        </div>
 
-        <form action="{{ route('store.hotel.facilities') }}" method="POST">
-            @csrf
-            <input type="hidden" name="hotel_id" value="{{ $hotel->id }}">
-            <div class="bg-white rounded-2xl  p-6 ">
-                <div class="flex justify-between items-center mb-4">
+                    </div>
 
-                    <h2 class="text-lg font-semibold mb-5 text-gray-700">
-                        Available Facilities
-                    </h2>
-                    {{-- <button class=" px-4 py-2 bg-black text-white rounded"> Add Facilities</button> --}}
-                </div>
+                    <form action="{{ route('select.hotel.facilities') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="hotel_id" value="{{ $hotel->id }}">
+                        <div class="bg-white rounded-2xl  p-6 ">
+                            <div class="flex justify-between items-center mb-4">
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    @foreach ($facilities as $facility)
-                        <label for="facility{{ $facility->id }}" class="group cursor-pointer">
-                            <input type="checkbox" name="facilities[]" value="{{ $facility->id }}"
-                                id="facility{{ $facility->id }}" class="peer hidden">
+                                <h2 class="text-lg font-semibold mb-5 text-gray-700">
+                                    Available Facilities
+                                </h2>
+                                {{-- <button class=" px-4 py-2 bg-black text-white rounded"> Add Facilities</button> --}}
+                            </div>
 
-                            <div
-                                class="border-2 border-gray-200 rounded-xl p-4 transition-all duration-300
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                @foreach ($facilities as $facility)
+                                    <label for="facility{{ $facility->id }}" class="group cursor-pointer">
+                                        <input type="checkbox" name="facilities[]" value="{{ $facility->id }}"
+                                            id="facility{{ $facility->id }}" class="peer hidden"
+                                            {{ $hotel->facilities->contains('id', $facility->id) ? 'checked' : '' }}>
+
+                                        <div
+                                            class="border-2 border-gray-200 rounded-xl p-4 transition-all duration-300
                                    hover:border-primary hover:shadow-md
                                    peer-checked:border-primary
                                    peer-checked:bg-primary/10
                                    peer-checked:shadow-lg">
-                                <div class="flex items-center justify-between">
+                                            <div class="flex items-center justify-between">
 
-                                    <div class="flex items-center gap-3">
-                                        <div
-                                            class="w-12 h-12 rounded-full bg-gray-100
+                                                <div class="flex items-center gap-3">
+                                                    <div
+                                                        class="w-12 h-12 rounded-full bg-gray-100
                                                flex items-center justify-center
                                                peer-checked:bg-primary/20">
-                                            🏨
-                                        </div>
+                                                        🏨
+                                                    </div>
 
-                                        <div>
-                                            <h3 class="font-semibold text-gray-800">
-                                                {{ $facility->name }}
-                                            </h3>
-                                            <p class="text-sm text-gray-500">
-                                                Hotel Facility
-                                            </p>
-                                        </div>
-                                    </div>
+                                                    <div>
+                                                        <h3 class="font-semibold text-gray-800">
+                                                            {{ $facility->name }}
+                                                        </h3>
+                                                        <p class="text-sm text-gray-500">
+                                                            Hotel Facility
+                                                        </p>
+                                                    </div>
+                                                </div>
 
-                                </div>
+                                            </div>
+                                        </div>
+                                    </label>
+                                @endforeach
+
                             </div>
-                        </label>
-                    @endforeach
 
-                </div>
-
-                <div class="mt-8 flex justify-end">
-                    <button type="submit"
-                        class="px-8 py-3 bg-primary text-white rounded-xl
+                            <div class="mt-8 flex justify-end">
+                                <button type="submit"
+                                    class="px-8 py-3 bg-primary text-white rounded-xl
                            shadow-lg hover:scale-105 transition-all duration-300">
-                        Save Facilities
-                    </button>
-                </div>
+                                    Save Facilities
+                                </button>
+                            </div>
 
-            </div>
-        </form>
+                        </div>
+                    </form>
 
                 </div>
 

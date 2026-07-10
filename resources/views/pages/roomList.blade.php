@@ -2,7 +2,7 @@
 
 @section('content')
     <div x-data="{ search: '' }">
-
+<x-successMessage> </x-successMessage>
         <!-- Header -->
         <div class="flex justify-between items-center mb-6">
             <div class="bg-black text-white rounded-full px-3 py-2 text-sm">

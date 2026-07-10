@@ -80,7 +80,7 @@
 
                         <div class="flex items-center gap-4">
                             <span class="material-symbols-outlined">hotel</span>
-                            <span>Add Hotel</span>
+                            <span>Hotels</span>
                         </div>
 
                         <span class="material-symbols-outlined text-sm" :class="open ? 'rotate-180' : ''">
@@ -94,18 +94,13 @@
                         <a href="{{ route('show.hotel.list') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
                             Hotel List
                         </a>
+                        <a href="{{ route('show.hotel.facilities') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
+                            Add Hotel Facilities
+                        </a>
                     @endrole
                 </div>
 
             </div>
-            @hasanyrole('super-admin')
-            <div class="flex items-center ml-4 mt-2 space-y-1">
-                <span class="material-symbols-outlined">hotel</span>
-                <a href="{{ route('show.hotel.facilities') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
-                            Add Hotel Facilities
-                        </a>
-            </div>
-            @endrole
 
             <!-- Room Dropdown -->
             <div x-data="{ open: false }">

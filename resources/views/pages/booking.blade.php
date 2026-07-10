@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="bg-gray-50 min-h-screen py-8">
+        <x-successMessage> </x-successMessage>
         <div class="bg-white rounded-2xl shadow overflow-hidden">
 
             <div class="px-6 py-4 border-b flex justify-between">
@@ -98,11 +99,20 @@
                                     </span>
                                 </td>
 
-                                <td class="px-6 py-4 text-center">
+                                <td class="px-6 py-4 flex text-center ">
                                     <a href="{{ route('billing.show', $book->id) }}"
-                                        class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                                        class="inline-flex items-center px-4 py-2 mr-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
                                         View
                                     </a>
+
+                                    <form action="{{ route('cancle.booking', $book->id)}}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button 
+                                            class="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
+                                            Cancle
+                                        </button>
+                                    </form>
                                 </td>
 
                             </tr>

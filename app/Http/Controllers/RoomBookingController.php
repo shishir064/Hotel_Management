@@ -84,6 +84,7 @@ class RoomBookingController extends Controller
        $booking = RoomBooking::create([
             'room_id' => $validated['room_id'],
             'user_id' => $check,
+            'booked_date' => $validated['booked_date'],
             'check_in' => $validated['check_in'],
             'check_out' => $validated['check_out'],
             'adults' => $validated['adults'],

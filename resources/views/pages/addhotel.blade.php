@@ -108,7 +108,7 @@
 
             <!-- Submit -->
             <button type="submit" class="bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700">
-                Save Hotel
+                Add Hotel
             </button>
 
         </form>

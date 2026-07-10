@@ -16,28 +16,39 @@ class HotelFacilitiesController extends Controller
         return view('pages.hotelFacilities', compact('facilities'));
     }
 
+    public function create(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+        ]);
+        HotelFacility::create([
+            'name' => $request->name,
+        ]);
+        return redirect()->route('show.hotel.facilities')->with('success', 'Facility added successfully');
+        // $request->validate([
+        //     'hotel_id' => 'required|exists:hotels,id',
+        //     'facilities' => 'required|array'
+        // ]);
+
+        // $hotel = Hotel::findOrFail($request->hotel_id);
+        // //  dd($request->all());
+        // $hotel->facilities()->sync($request->facilities);
+
+        // return redirect()->route('show.hotel.profile', $hotel->id)->with('success', 'Facilities saved successfully');
+    }
+
+
     public function store(Request $request)
-{
-    $request->validate([
-        'name' => 'required',
-    ]);
-    HotelFacility::create([
-        'name' => $request->name,
-    ]);
-    return redirect()->route('show.hotel.facilities')->with('success', 'Facility added successfully');
-    // $request->validate([
-    //     'hotel_id' => 'required|exists:hotels,id',
-    //     'facilities' => 'required|array'
-    // ]);
-
-    // $hotel = Hotel::findOrFail($request->hotel_id);
-    // //  dd($request->all());
-    // $hotel->facilities()->sync($request->facilities);
-
-    // return redirect()->route('show.hotel.profile', $hotel->id)->with('success', 'Facilities saved successfully');
-}
-
-
+    {
+       $validated = $request->validate([
+            'hotel_id' => 'required|exists:hotels,id',
+            'facilities' => 'required|array'
+        ]);
+        $hotel = Hotel::findOrFail($request->hotel_id);
+        //  dd($request->all());
+        $hotel->facilities()->sync($request->facilities);
+        return redirect()->back()->with('success', 'Facility added successfully');
+    }
     public function delete($id)
     {
         $facility = HotelFacility::find($id);

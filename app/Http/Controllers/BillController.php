@@ -14,7 +14,8 @@ class BillController extends Controller
     {
         $bill = RoomBooking::findorfail($id);
         $services = RoomServices::all();
-        return view('pages.bill', compact('bill', 'services'));
+        $room_booking = RoomBooking::all();
+        return view('pages.bill', compact('bill', 'services', 'room_booking'));
     }
 
     public function store(Request $request)
