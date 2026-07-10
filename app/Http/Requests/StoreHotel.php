@@ -31,6 +31,7 @@ class StoreHotel extends FormRequest
             'city' => 'required|string',
             'country' => 'required|string',
             'star_rating' => 'required|numeric|between:1,5',
+            'destination_id' => 'required|numeric',
             'cover_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'description' => 'required|string',
         ];

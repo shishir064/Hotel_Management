@@ -7,15 +7,15 @@
         <x-successMessage></x-successMessage>
         <x-errorMessage></x-errorMessage>
         <h2 class="text-xl font-semibold mb-6">Add Featured Destination</h2>
-        <form action="{{ route('store_hotel') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('store_featured_destinations') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <!-- featured destination Name -->
             <div class="mb-4">
                 <label class="block mb-1 font-medium">Featured Destination Name</label>
-                <input type="text" name="destination_name" class="w-full border rounded px-3 py-2"
-                    placeholder="Enter hotel name" value="{{ old('destination_name') }}">
-                @error('destination_name')
+                <input type="text" name="name" class="w-full border rounded px-3 py-2"
+                    placeholder="Enter destination name" value="{{ old('name') }}">
+                @error('name')
                     {{ $message }}
                 @enderror
             </div>
@@ -31,10 +31,10 @@
 
             <!-- Cover_image -->
             <div class="mb-4">
-                <label class="block mb-1 font-medium">Cover_image</label>
-                <input type="file" name="Cover_image" class="w-full border rounded px-3 py-2"
-                    placeholder="Select Cover_image photo" value="{{ old('Cover_image') }}">
-                @error('Cover_image')
+                <label class="block mb-1 font-medium">Destination Cover Image</label>
+                <input type="file" name="cover_image" class="w-full border rounded px-3 py-2"
+                    placeholder="Select Cover_image photo" value="{{ old('cover_image') }}">
+                @error('cover_image')
                     {{ $message }}
                 @enderror
             </div>
@@ -42,8 +42,8 @@
             <!-- Description -->
             <div class="mb-4">
                 <label class="block mb-1 font-medium">Description</label>
-                <input type="text" name="Description" class="w-full border rounded px-3 py-2" placeholder="Enter Description" value="{{ old('Description') }}">
-                @error('Description')
+                <input type="text" name="description" class="w-full border rounded px-3 py-2" placeholder="Enter Description" value="{{ old('description') }}">
+                @error('description')
                     {{ $message }}
                 @enderror
             </div>

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('city');
             $table->string('cover_image');
             $table->boolean('status')->default(true);
-            $table->boolean('is_feature')->default(false);
+            $table->boolean('is_feature')->default(true);
             $table->text('description')->nullable();
             $table->timestamps();
         });

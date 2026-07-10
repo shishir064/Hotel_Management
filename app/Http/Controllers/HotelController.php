@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreHotel;
+use App\Models\FeaturedDestinations;
 use App\Models\Hotel;
 use App\Models\HotelFacility;
 use App\Models\Rooms;
@@ -15,15 +16,15 @@ class HotelController extends Controller
 {
     public function index()
     {
-        $hotels = Hotel::all();
-        return view('pages.addhotel', compact('hotels'));
+        $destinations = FeaturedDestinations::all();
+        return view('pages.addhotel', compact('destinations'));
     }
 
 
     public function store(StoreHotel $request)
     {
-        // dd($request);
         $validated = $request->validated();
+        // dd($validated);
 
         if ($request->hasFile('cover_image')) {
             $path = $request->file('cover_image')->store('images', 'public');

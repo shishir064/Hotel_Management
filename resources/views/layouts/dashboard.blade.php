@@ -184,6 +184,33 @@
                 </div>
             </div>
 
+            <div x-data="{ open: false }">
+                @hasanyrole('super-admin')
+                    <button @click="open=!open"
+                        class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-gray-700 transition">
+
+                        <div class="flex items-center gap-4">
+                            <span class="material-symbols-outlined">hotel</span>
+                            <span>Destination Feed</span>
+                        </div>
+
+                        <span class="material-symbols-outlined text-sm" :class="open ? 'rotate-180' : ''">
+                            expand_more
+                        </span>
+                    </button>
+                    <div x-show="open" x-transition class="ml-12 mt-2 space-y-1">
+                        <a href="{{ route('add_featured_destinations') }}"
+                            class="flex items-center gap-4 px-3 py-2 rounded-lg hover:bg-gray-700 transition">
+                            <span>Add Destinations</span>
+                        </a>
+                        <a href="{{ route('show.featured.destinations') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
+                            Destination List
+                        </a>
+                    @endrole
+                </div>
+
+            </div>
+
 
             <!-- Users -->
             @role('super-admin')
@@ -192,6 +219,7 @@
                     <span class="material-symbols-outlined">group</span>
                     <span>Users</span>
                 </a>
+
 
                 <!-- Roles -->
                 <a href="{{ route('add_role') }}"

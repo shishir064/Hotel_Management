@@ -18,6 +18,7 @@ class Hotel extends Model
         'city',
         'country',
         'star_rating',
+        'destination_id',
         'cover_image',
         'user_id',
     ];
@@ -41,5 +42,9 @@ class Hotel extends Model
 
     public function rooms(){
         return $this->hasMany(Rooms::class);
+    }
+
+    public function destinations(){
+        return $this->belongsTo(FeaturedDestinations::class, 'destination_id');
     }
 }

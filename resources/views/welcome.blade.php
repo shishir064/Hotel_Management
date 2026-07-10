@@ -20,7 +20,7 @@
     </div>
 </section>
 
-    <x-hotelfeed></x-hotelfeed>
+    <x-hotelfeed  :featuredDestinations="$destinations"></x-hotelfeed>
 
     <!-- Collections -->
     <section class="py-24 max-w-7xl mx-auto px-6 lg:px-20">

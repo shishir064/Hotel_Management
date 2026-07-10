@@ -7,6 +7,9 @@ use App\Http\Controllers\AvailableRoomsController;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\BookingHistoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DestinationExploreController;
+use App\Http\Controllers\FeaturedDestinationsController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\HotelFacilitiesController;
 use App\Http\Controllers\ProfileController;
@@ -21,11 +24,11 @@ use App\Http\Controllers\RoomServicesController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPrfileController;
+use App\Models\FeaturedDestination;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [HomeController::class , 'index'])->name('home');
+
 
 Route::get('/hotel/feed', function () {
     return view('pages.index');
@@ -211,6 +214,19 @@ Route::controller(RoomServicesController::class)->group(function () {
     Route::delete('/delete/room-services/{id}', 'destroy')->name('delete_service');
 });
 
+//Featured Destainations
+
+Route::controller(FeaturedDestinationsController::class)->group(function () {
+    Route::get('/add-featured-destinations', 'index')->name('add_featured_destinations');
+    Route::get('/show-featured-destinations', 'show')->name('show.featured.destinations');
+    Route::post('/add-featured-destinations', 'store')->name('store_featured_destinations');
+    Route::delete('/delete/featured-destinations/{id}', 'destroy')->name('delete_featured_destinations');
+});
+
+
+Route::controller(DestinationExploreController::class)->group(function () {
+    Route::get('/destination-explore/{id}', 'index')->name('destination.explore');
+});
 
 
 //About us
