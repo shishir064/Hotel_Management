@@ -167,14 +167,33 @@
                     </button>
                     <div x-show="open" x-transition class="ml-12 mt-2 space-y-1">
                         <!-- Bookings -->
+                        <a href="{{ route('bookings.index') }}"
+                            class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-700 transition">
+                            <span>All Booking </span>
+                        </a>
                         <a href="{{ route('booking.index') }}"
                             class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-700 transition">
-                            <span>Add New Booking </span>
+                            <span>New Booking </span>
                         </a>
 
-                        <a href="{{ route('booking.available') }}"
+                        <a href="{{ route('bookings.index', ['status' => 'confirmed']) }}"
                             class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-700 transition">
-                            <span>Booking</span>
+                            <span>Confirmed Booking</span>
+                        </a>
+                        <a href="{{ route('bookings.index', ['status' => 'checked_in']) }}"
+                            class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-700 transition">
+                            <span>Checked In</span>
+                        </a>
+                        <a href="{{ route('bookings.index', [
+                            'status' => 'checked_out',
+                            'payment_status' => 'unpaid',
+                        ]) }}"
+                            class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-700 transition">
+                            <span>Checked Out</span>
+                        </a>
+                        <a href="{{ route('bookings.index', ['status' => 'cancelled']) }}"
+                            class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-700 transition">
+                            <span>Cancelled Booking</span>
                         </a>
                         <a href="{{ route('booking.history') }}"
                             class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-700 transition">
@@ -183,6 +202,13 @@
                     @endrole
                 </div>
             </div>
+
+            @hasanyrole('admin')
+                <div class="flex items-center gap-4 px-4 py-3">
+                    <span class="material-symbols-outlined">hotel</span>
+                    <span>Bills</span>
+                </div>
+            @endhasanyrole
 
             <div x-data="{ open: false }">
                 @hasanyrole('super-admin')
@@ -203,7 +229,8 @@
                             class="flex items-center gap-4 px-3 py-2 rounded-lg hover:bg-gray-700 transition">
                             <span>Add Destinations</span>
                         </a>
-                        <a href="{{ route('show.featured.destinations') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-700">
+                        <a href="{{ route('show.featured.destinations') }}"
+                            class="block px-3 py-2 rounded-lg hover:bg-gray-700">
                             Destination List
                         </a>
                     @endrole

@@ -9,20 +9,32 @@ use Illuminate\Support\Facades\Auth;
 
 class AvailableBookingController extends Controller
 {
-    public function index()
-    {
-        $hotel = Auth::user()->hotels;
 
-        $roomIds = Rooms::where('hotel_id', $hotel->id)->pluck('id');
-        $bookings = RoomBooking::where('status', 'pending')
-            ->whereIn('room_id', $roomIds)
-            ->latest()
-            ->get();
+public function index(Request $request)
+{
+    $hotel = Auth::user()->hotels;
 
-        // dd($bookings);
+    $roomIds = Rooms::where('hotel_id', $hotel->id)->pluck('id');
 
-        return view('pages.booking', compact('bookings'));
-    }
+    $status = $request->query('status');
+
+    $bookings = RoomBooking::whereIn('room_id', $roomIds)
+        ->when($status, function ($query) use ($status) {
+            $query->where('status', $status); // or booking_status
+        })
+        ->latest()
+        ->get();
+
+    $pageTitle = $status
+        ? ucfirst(str_replace('_', ' ', $status)) . ' Bookings'
+        : 'All Bookings';
+
+    return view('pages.admin.bookings.index', compact(
+        'bookings',
+        'status',
+        'pageTitle'
+    ));
+}
 
     public function delete($id)
     {

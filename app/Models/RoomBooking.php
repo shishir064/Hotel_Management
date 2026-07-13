@@ -20,6 +20,7 @@ class RoomBooking extends Model
         'children',
         'total_price',
         'status',
+        'payment_status',
         'user_id'
         
     ];

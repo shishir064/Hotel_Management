@@ -9,7 +9,7 @@ class Bill extends Model
     protected $table = 'bill';
 
     protected $fillable = [
-        'room_booking_id',
+        'booking_id',
         'user_id',
         'room_id',
         'total',

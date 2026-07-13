@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AvailableBookingController;
 use App\Http\Controllers\AvailableRoomsController;
 use App\Http\Controllers\BillController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\BookingHistoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DestinationExploreController;
@@ -105,7 +106,7 @@ Route::controller(RoomMainFacilitiesController::class)->group(function () {
 
 //Room Bookings
 Route::controller(RoomBookingController::class)->group(function () {
-    Route::get('/rooms/booking/{id}', 'index')->name('rooms.booking');
+    Route::get('/rooms/booking', 'index')->name('rooms.booking');
     Route::post('/rooms/booking', 'store')->name('bookings.store');
     Route::delete('/delete/booking/{id}', 'delete')->name('delete');
 });
@@ -190,8 +191,10 @@ Route::controller(AvailableRoomsController::class)->group(function () {
     Route::get('/available/room/{status?}', 'index')->name('room.available');
 });
 
+//comform booking
 Route::controller(AvailableBookingController::class)->group(function () {
-    Route::get('/available/booking', 'index')->name('booking.available');
+    Route::get('/confirm/booking/list', 'index')->name('comfirm.booking.list');
+    Route::get('/admin/bookings', 'index')->name('bookings.index');
     Route::delete('/canclebooking/{id}', 'delete')->name('cancle.booking');
 });
 
@@ -226,6 +229,26 @@ Route::controller(FeaturedDestinationsController::class)->group(function () {
 
 Route::controller(DestinationExploreController::class)->group(function () {
     Route::get('/destination-explore/{id}', 'index')->name('destination.explore');
+});
+
+//booking controller
+Route::prefix('bookings')->middleware('auth')->group(function () {
+
+    Route::get('/', [BookingController::class, 'index'])
+        ->name('bookings.index');
+
+
+    Route::patch('/{booking}/confirm', [BookingController::class, 'confirm'])
+        ->name('bookings.confirm');
+
+    Route::patch('/{booking}/check-inn', [BookingController::class, 'checkIn'])
+        ->name('bookingss.checkinn');
+
+    Route::patch('/{booking}/check-out', [BookingController::class, 'checkOut'])
+        ->name('bookings.checkout');
+
+    Route::patch('/{booking}/cancel', [BookingController::class, 'cancel'])
+        ->name('bookings.cancel');
 });
 
 

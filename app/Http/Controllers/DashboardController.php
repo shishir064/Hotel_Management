@@ -77,6 +77,7 @@ class DashboardController extends Controller
 
 public function index()
 {
+    
     $user = Auth::user();
     $hotel = Hotel::find($user->hotel_id);
 

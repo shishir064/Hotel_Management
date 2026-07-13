@@ -58,7 +58,7 @@ class HotelController extends Controller
     {
         $hotel = Hotel::find($id);
         $hotel->update($request->all());
-        return redirect()->route('add_hotel')->with('success', 'Hotel updated successfully');
+        return redirect()->route('show.hotel.list')->with('success', 'Hotel updated successfully');
     }
 
     public function delete($id)

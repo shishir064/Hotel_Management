@@ -38,7 +38,6 @@ class RoomController extends Controller
             'room_Amenity.*' => 'exists:room_amenities,id',
 
         ]);
-        // dd($validated);
         $room = Rooms::create([
             'hotel_id' => $hotel_id,
             'room_no' => $validated['room_no'],

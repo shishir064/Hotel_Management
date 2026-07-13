@@ -142,7 +142,7 @@
                                 <div class="px-5 py-3 border-r border-gray-300 space-y-1.5">
                                     <div class="flex items-center gap-2">
                                         <label class="text-xs font-semibold text-gray-600 whitespace-nowrap w-16">Booked Date:</label>
-                                        <input type="date" id="invDate" class="field-input" value="">
+                                        <input type="date" id="invDate" class="field-input" value="{{ $bill->booked_date }}">
                                     </div>
                                     <div class="flex items-center gap-2">
                                         <label class="text-xs font-semibold text-gray-600 whitespace-nowrap w-16">Room No:</label>
@@ -150,11 +150,11 @@
                                     </div>
                                     <div class="flex items-center gap-2">
                                         <label class="text-xs font-semibold text-gray-600 whitespace-nowrap w-16">Check In:</label>
-                                        <input type="date" id="checkIn" class="field-input" name="check_in">
+                                        <input type="date" id="checkIn" class="field-input" name="check_in" value="{{ $bill->check_in }}">
                                     </div>
                                     <div class="flex items-center gap-2">
                                         <label class="text-xs font-semibold text-gray-600 whitespace-nowrap w-16">Check Out:</label>
-                                        <input type="date" id="checkOut" class="field-input" name="check_out">
+                                        <input type="date" id="checkOut" class="field-input" name="check_out" value="{{ $bill->check_out }}">
                                     </div>
                                 </div>
 

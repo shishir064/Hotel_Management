@@ -25,43 +25,43 @@ class BillController extends Controller
             'user_id' => 'required',
             'room_id' => 'required',
             'total' => 'required',
-            // 'status' => 'required',
-            // 'subtotal' => 'required',
             'vat' => 'required',
             'payment_method' => 'required',
             'check_in' => 'required',
-            'check_out' => 'required', 
+            'check_out' => 'required',
         ]);
-        // if ( $validated){
-        //     $status = 
-        // }
         Bill::create(
             [
-                'room_booking_id' => $request->bill_id,
+                'booking_id' => $request->bill_id,
                 'user_id' => $request->user_id,
                 'room_id' => $request->room_id,
                 'total' => $request->total,
                 'status' => $request->status,
                 'sub_total' => $request->subtotal,
                 'vat' => $request->vat,
-                'items' => $request->items,
+                'items' => json_encode($request->items),
                 'payment_method' => $request->payment_method,
                 'check_in_date' => $request->check_in,
                 'check_out_date' => $request->check_out
             ]
         );
+
         Bill::where('id', $request->bill_id)
-        ->update([
+            ->update([
                 'status' => 'Paid',
-        ]);
+            ]);
         Rooms::where('id', $request->room_id)
-        ->update([
+            ->update([
                 'room_status' => 'available',
             ]);
-        RoomBooking::where('id', $request->bill_id)
-        ->update([
-                'status' => 'confirmed',
-        ]);
-        return redirect()->route('booking.available')->with('success', 'Bill updated successfully');
+
+        RoomBooking::where('room_id', $request->room_id)
+            ->latest('id')
+            ->first()
+            ?->update([
+                'payment_status' => 'Paid',
+            ]);
+
+        return redirect()->route('bookings.index')->with('success', 'Bill updated successfully');
     }
 }

@@ -33,6 +33,7 @@ class RoomReserveController extends Controller
             'phone' => 'required',
             'address' => 'required',
             'citizen_id' => 'required|string|max:6',
+            'booked_date' => 'required',
             'check_in' => 'required|date|after_or_equal:today',
             'check_out' => 'required|date|after:check_in',
             'adults' => 'required|integer|min:1',

@@ -3,14 +3,10 @@
 @section('content')
     <h1 class="text-4xl p-4">Book Room</h1>
     <div class="p-6  bg-white shadow rounded-lg ">
-        <x-errorMessage></x-errorMessage>
-        @if (session('success'))
-            <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
-                {{ session('success') }}
-            </div>
-        @endif
-        <x-successMessage></x-successMessage>
         <form action="{{ route('bookings.store') }}" method="POST">
+            <x-successMessage></x-successMessage>
+           
+            <x-errorMessage></x-errorMessage>
             @csrf
             @if (isset($room))
                 <h2 class="text-2xl font-bold mb-6">
