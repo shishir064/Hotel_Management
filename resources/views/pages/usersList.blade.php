@@ -36,9 +36,9 @@
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
 
                 <h3 class="text-2xl">
-                    Mrs/Mr
                     <span class="font-bold">
-                        {{ $users->first()?->name ?? 'No Users Found' }}
+                        {{-- {{ $users->first()?->name ?? 'No Users Found' }} --}}
+                        {{Auth::user()->name ?? ' No Users Found'}}
                     </span>
                 </h3>
 
