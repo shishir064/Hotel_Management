@@ -67,11 +67,21 @@
         <nav class="flex-1 overflow-y-auto px-4 py-6 space-y-2">
 
             <!-- Dashboard -->
+            @if (auth()->user()->hasRole('super-admin'))
+            <a href="{{ route('superadmin.dashboard') }}"
+                class="flex items-center gap-4 px-4 py-3 rounded-xl  font-semibold hover:bg-gray-700 hover:text-white transition">
+                <span class="material-symbols-outlined">dashboard</span>
+                <span>Overview</span>
+            </a>
+                
+            @else
+                
             <a href="{{ route('dashboard') }}"
                 class="flex items-center gap-4 px-4 py-3 rounded-xl  font-semibold hover:bg-gray-700 hover:text-white transition">
                 <span class="material-symbols-outlined">dashboard</span>
                 <span>Overview</span>
             </a>
+            @endif
             <!-- Hotel Dropdown -->
             <div x-data="{ open: false }">
                 @hasanyrole('super-admin')
@@ -279,6 +289,9 @@
         <!-- Bento Grid: Key Metrics -->
         @yield('content')
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+@stack('scripts')
 </body>
 
 </html>

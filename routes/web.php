@@ -23,6 +23,7 @@ use App\Http\Controllers\RoomMainFacilitiesController;
 use App\Http\Controllers\RoomReserveController;
 use App\Http\Controllers\RoomServicesController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SuperAdminDashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPrfileController;
 use App\Models\FeaturedDestination;
@@ -75,12 +76,19 @@ Route::middleware(['auth', 'role:super-admin'])->controller(UserController::clas
 
 
 //dashboard routes
-Route::middleware(['auth', 'role:super-admin|admin'])->controller(DashboardController::class)->group(function () {
+Route::middleware(['auth', 'role:admin'])->controller(DashboardController::class)->group(function () {
     Route::get('/dashboard', 'index')->name('dashboard');
+    
+});
+Route::middleware(['auth', 'role:super-admin'])->controller(DashboardController::class)->group(function () {
     Route::get('/add-category', 'showCategoryForm')->name('add_category');
     Route::delete('/delete/{id}/room_type', 'delete')->name('delete_room_type');
     Route::post('/category', 'Category')->name('category');
 });
+
+Route::middleware(['auth','role:super-admin'])
+    ->get('/superadmin/dashboard', [SuperAdminDashboardController::class,'index'])
+    ->name('superadmin.dashboard');
 
 //rooms
 Route::middleware(['auth', 'role:admin'])->controller(RoomController::class)->group(function () {
