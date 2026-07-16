@@ -38,7 +38,7 @@
                 <h3 class="text-2xl">
                     <span class="font-bold">
                         {{-- {{ $users->first()?->name ?? 'No Users Found' }} --}}
-                        {{Auth::user()->name ?? ' No Users Found'}}
+                        {{ Auth::user()->name ?? ' No Users Found' }}
                     </span>
                 </h3>
 
@@ -46,16 +46,33 @@
                 <form action="{{ url()->current() }}" method="GET" class="flex gap-2">
                     {{-- <span> --}}
                     <div x-data="{ open: false }" class="relative inline-block">
-                        <!-- Trigger Button -->
                         <button @click.prevent="open = !open" class="px-4 py-2 bg-blue-600 text-white rounded">
                             Filter
                         </button>
-
-                        <!-- Dropdown Panel -->
+                        
                         <div x-show="open" @click.outside="open = false"
-                            class="absolute left-0 mt-2 w-48 bg-white border rounded shadow-lg">
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Show Admin List</a>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Show User List</a>
+                        class="absolute left-0 mt-2 w-48 bg-white border rounded shadow-lg z-10">
+                        
+                            <a href="{{ route('user.list') }}" class="block px-4 py-2 hover:bg-gray-100 ">
+                                All Users
+                            </a>
+
+                            <a href="{{ route('user.list', ['role' => 'admin']) }}"
+                                class="block px-4 py-2 hover:bg-gray-100">
+                                Hotel Admins
+                            </a>
+
+                            <a href="{{ route('user.list', ['role' => 'guest']) }}"
+                                class="block px-4 py-2 hover:bg-gray-100">
+                                Customers
+                            </a>
+
+                            <a href="{{ route('user.list', ['role' => 'super-admin']) }}"
+                                class="block px-4 py-2 hover:bg-gray-100">
+                                Super Admins
+                            </a>
+
+                            
                         </div>
                     </div>
                     {{-- </span> --}}
@@ -79,8 +96,11 @@
                 <thead>
                     <tr class="bg-gray-200">
                         <th class="border p-3">SN</th>
-                        <th class="border p-3">Username</th>
+                        <th class="border p-3">Name</th>
                         <th class="border p-3">Email</th>
+                        <th class="border p-3">Role</th>
+                        <th class="border p-3">Hotel</th>
+                        <th class="border p-3">Status</th>
                         <th class="border p-3 no-print">Action</th>
                     </tr>
                 </thead>
@@ -91,7 +111,7 @@
                         <tr class="hover:bg-gray-100">
 
                             <td class="border p-3">
-                                {{ $users->firstItem() + $loop->index }}
+                                {{ $loop->iteration }}
                             </td>
 
                             <td class="border p-3">
@@ -100,6 +120,21 @@
 
                             <td class="border p-3">
                                 {{ $user->email }}
+                            </td>
+                            <td class="border p-3">
+                                {{ $user->roles->first()?->name ?? '-' }}
+                            </td>
+                            <td class="border p-3">
+                                {{ $user->hotels?->hotel_name }}
+                            </td>
+                            <td class="border p-3">
+                                @if (is_null($user->hotels?->is_active))
+                                    <span>-</span>
+                                @elseif($user->hotels->is_active)
+                                    <span class="text-green-600">Active</span>
+                                @else
+                                    <span class="text-red-600">Inactive</span>
+                                @endif
                             </td>
 
                             <td class="border p-3 text-center no-print">

@@ -58,9 +58,6 @@
                     <label class="block mb-1 font-medium">City</label>
                     <input type="text" name="city" class="w-full border rounded px-3 py-2 " placeholder="Enter City"
                         value="{{ old('city') }}">
-                    @error('city')
-                        {{ $message }}
-                    @enderror
                 </div>
 
                 <div>
@@ -68,9 +65,6 @@
                     <input type="text" name="country" class="w-full border rounded px-3 py-2" placeholder="Enter Country"
                         value="{{ old('country') }}">
                 </div>
-                @error('country')
-                    {{ $message }}
-                @enderror
             </div>
 
             <!-- Star Rating -->
