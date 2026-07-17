@@ -34,13 +34,13 @@ class AuthController extends Controller
             $request->session()->regenerate();
             $user = Auth::user();
             if ($user->hasRole('super-admin')) {
-                return redirect()->route('superadmin.dashboard');
+                return redirect()->route('superadmin.dashboard')->with('success', 'Login successfully');
             }
             elseif ($user->hasRole('admin')) {
-                return redirect()->route('dashboard');
+                return redirect()->route('dashboard')->with('success', 'Login successfully');
             }
             else{
-                return redirect()->route('show.hotel'); 
+                return redirect()->route('show.hotel')->with('success', 'Login successfully'); 
             }
         }
 

@@ -3,6 +3,7 @@
 @section('content')
 
     <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter mb-10">
+        <x-successMessage></x-successMessage>
         <!-- Occupancy -->
         <div class="glass-card p-6 shadow-sm flex flex-col justify-between">
             <div class="flex flex-col h-full">

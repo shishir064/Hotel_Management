@@ -29,7 +29,7 @@ class RoomBookingController extends Controller
         $validated = $request->validate([
             'guest_name'   => 'required|string|max:255',
             'room_id'      => 'required|exists:rooms,id',
-            'email'        => 'required|email',
+            'email'        => 'required|email|unique:users,email',
             'phone'        => 'required',
             'address'      => 'required',
             'citizen_id'   => 'required|string|max:6',
@@ -39,22 +39,21 @@ class RoomBookingController extends Controller
             'adults'       => 'required|integer|min:1',
             'children'     => 'nullable|integer|min:0',
         ]);
-        // return $validated;
-
         $room = Rooms::findOrFail($validated['room_id']);
 
-        // Check room availability
-        $exists = RoomBooking::where('room_id', $room->id)
-            ->where('status', '!=', 'cancelled')
+        $isBooked = RoomBooking::where('room_id', $room->id)
+            ->whereNotIn('status', ['cancelled', 'checked_out']) // Ignore cancelled and completed bookings
             ->where(function ($query) use ($validated) {
-                $query->whereBetween('check_in', [$validated['check_in'], $validated['check_out']])
-                    ->orWhereBetween('check_out', [$validated['check_in'], $validated['check_out']]);
+                $query->where('check_in', '<', $validated['check_out'])
+                    ->where('check_out', '>', $validated['check_in']);
             })
             ->exists();
-        // dd($exists);
-
-        if (!$exists) {
-            return back()->with('error', 'Room is not available for the selected dates.');
+        if ($isBooked) {
+            return back()
+                ->withInput()
+                ->withErrors([
+                    'room_id' => 'This room is already booked for the selected dates.'
+                ]);
         }
 
         // Calculate total price
@@ -94,7 +93,6 @@ class RoomBookingController extends Controller
             'status'         => 'confirmed',
             'payment_status' => 'Pending',
         ]);
-        // dd($booking);
 
         // Update room status
         $room->update([

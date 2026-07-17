@@ -69,4 +69,13 @@ class BookingController extends Controller
 
         return redirect()->route('bookings.index')->with('success', 'Guest checked out successfully.');
     }
+
+    public function cancel(RoomBooking $booking)
+    {
+        $booking->update([
+            'status' => 'cancelled',
+        ]);
+
+        return back()->with('success', 'Booking cancelled successfully.');
+    }
 }

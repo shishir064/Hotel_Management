@@ -135,7 +135,7 @@
                 <div>
                     <label class="block mb-2">Check In</label>
                     <input type="date" name="check_in" value="{{ old('check_in') }}"
-                        class="w-full border rounded px-3 py-2" required>
+                        class="w-full border rounded  px-3 py-2" required>
 
                     @error('check_in')
                         <small class="text-red-500">{{ $message }}</small>

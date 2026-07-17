@@ -26,101 +26,100 @@ class DashboardController extends Controller
 
     //     // return view('pages.dashboard', compact('roomBookings', 'totalRevenue', 'guests', 'hotel_name', 'rooms'));
     // }
-//     public function index()
-// {
+    //     public function index()
+    // {
 
-//     $user = Auth::user();
+    //     $user = Auth::user();
 
 
-//     $hotel=Hotel::find(1);
-//     // if (!$hotel) {
-//     //     return view('pages.dashboard', [
-//     //         'roomBookings' => collect(),
-//     //         'totalRevenue' => 0,
-//     //         'totalGuests' => 0,
-//     //         'totalBookings' => 0,
-//     //         'hotel_name' => null,
-//     //         'rooms' => 0,
-//     //     ]);
-//     // }
+    //     $hotel=Hotel::find(1);
+    //     // if (!$hotel) {
+    //     //     return view('pages.dashboard', [
+    //     //         'roomBookings' => collect(),
+    //     //         'totalRevenue' => 0,
+    //     //         'totalGuests' => 0,
+    //     //         'totalBookings' => 0,
+    //     //         'hotel_name' => null,
+    //     //         'rooms' => 0,
+    //     //     ]);
+    //     // }
 
-//     return $hotel;
-//     $rooms = $hotel->rooms()->count();
-//     $hotel_name = $hotel->hotel_name;
-//     $totalRevenue = Bill::whereHas('room', function ($query) use ($hotel) {
-//     $query->where('hotel_id', $hotel->id);
-//     })->sum('total');
-//     // Bookings only for this hotel
-//     $roomBookings = RoomBooking::with('user')->whereHas('room', function ($query) use ($hotel) {
-//             $query->where('hotel_id', $hotel->id);
-//         })->where('status', 'confirmed')->get();
-//     // $roomBookings = RoomBooking::with('user')->get();
+    //     return $hotel;
+    //     $rooms = $hotel->rooms()->count();
+    //     $hotel_name = $hotel->hotel_name;
+    //     $totalRevenue = Bill::whereHas('room', function ($query) use ($hotel) {
+    //     $query->where('hotel_id', $hotel->id);
+    //     })->sum('total');
+    //     // Bookings only for this hotel
+    //     $roomBookings = RoomBooking::with('user')->whereHas('room', function ($query) use ($hotel) {
+    //             $query->where('hotel_id', $hotel->id);
+    //         })->where('status', 'confirmed')->get();
+    //     // $roomBookings = RoomBooking::with('user')->get();
 
-//     // Total bookings count
-//     $totalBookings = $roomBookings->count();
+    //     // Total bookings count
+    //     $totalBookings = $roomBookings->count();
 
-//     // Total guests (unique guests)
-//     $totalGuests = $roomBookings->pluck('user_id')->unique()->count();
+    //     // Total guests (unique guests)
+    //     $totalGuests = $roomBookings->pluck('user_id')->unique()->count();
 
-    
 
-//     return view( 'pages.dashboard', compact(
-//             'roomBookings',
-//             'totalRevenue',
-//             'totalGuests',
-//             'totalBookings',
-//             'hotel_name',
-//             'rooms'
-//         )
-//     );
-// }
 
-public function index()
-{
-    
-    $user = Auth::user();
-    $hotel = Hotel::find($user->hotel_id);
+    //     return view( 'pages.dashboard', compact(
+    //             'roomBookings',
+    //             'totalRevenue',
+    //             'totalGuests',
+    //             'totalBookings',
+    //             'hotel_name',
+    //             'rooms'
+    //         )
+    //     );
+    // }
 
-    if (!$hotel) {
+    public function index()
+    {
+
+        $user = Auth::user();
+        $hotel = $user->hotels;
+        // Count rooms
+        $rooms = $hotel->rooms()->count();
+        // Confirmed bookings for this hotel
+      $roomBookings = RoomBooking::with(['user', 'room'])
+    ->whereIn('status', [
+        'pending',
+        'confirmed',
+        'checked_in',
+        'checked_out',
+        'cancelled',
+    ])
+    ->whereHas('room', function ($query) use ($hotel) {
+        $query->where('hotel_id', $hotel->id);
+    })
+    ->latest()
+    ->get();
+
+        // Dashboard statistics
+        $roomIds = Rooms::where('hotel_id', $hotel->id)->pluck('id');
+
+        $totalBookings = RoomBooking::whereIn('room_id', $roomIds)->count();
+
+        $totalGuests = RoomBooking::whereIn('room_id', $roomIds)
+            ->distinct('user_id')
+            ->count('user_id');
+
+        $totalRevenue = Bill::whereHas('room', function ($query) use ($hotel) {
+            $query->where('hotel_id', $hotel->id);
+        })
+            ->sum('total');
+
         return view('pages.dashboard', [
-            'roomBookings'  => collect(),
-            'totalRevenue'  => 0,
-            'totalGuests'   => 0,
-            'totalBookings' => 0,
-            'hotel_name'    => null,
-            'rooms'         => 0,
+            'roomBookings'  => $roomBookings,
+            'totalRevenue'  => $totalRevenue,
+            'totalGuests'   => $totalGuests,
+            'totalBookings' => $totalBookings,
+            'hotel_name'    => $hotel->hotel_name,
+            'rooms'         => $rooms,
         ]);
     }
-
-    // Count rooms
-    $rooms = $hotel->rooms()->count();
-
-    // Confirmed bookings for this hotel
-    $roomBookings = RoomBooking::with('user')
-        ->where('status', 'confirmed')
-        ->whereHas('room', function ($query) use ($hotel) {
-            $query->where('hotel_id', $hotel->id);
-        })
-        ->get();
-
-    // Dashboard statistics
-    $totalBookings = $roomBookings->count();
-    $totalGuests = $roomBookings->unique('user_id')->count();
-
-    $totalRevenue = Bill::whereHas('room', function ($query) use ($hotel) {
-            $query->where('hotel_id', $hotel->id);
-        })
-        ->sum('total');
-
-    return view('pages.dashboard', [
-        'roomBookings'  => $roomBookings,
-        'totalRevenue'  => $totalRevenue,
-        'totalGuests'   => $totalGuests,
-        'totalBookings' => $totalBookings,
-        'hotel_name'    => $hotel->hotel_name,
-        'rooms'         => $rooms,
-    ]);
-}
 
     public function showCategoryForm()
     {

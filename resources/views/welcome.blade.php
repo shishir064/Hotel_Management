@@ -2,7 +2,9 @@
 @section('title', 'Quick Stay')
 @section('content')
     <!-- Hero -->
+    
     <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <x-successMessage></x-successMessage>
     <div class="absolute inset-0">
         <img
             src="{{ asset('images/kathmandu.jpg') }}"

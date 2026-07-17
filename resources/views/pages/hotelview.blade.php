@@ -4,6 +4,7 @@
 
 @section('content')
     <div class="max-w-7xl mx-auto px-4 py-8  pb-20">
+        <x-successMessage></x-successMessage>
         <div class="bg-white p-4 rounded-lg  shadow mb-8">
             <form action="{{ route('search.hotel') }}" method="POST">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4">

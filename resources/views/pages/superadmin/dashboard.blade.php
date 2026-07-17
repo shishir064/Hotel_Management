@@ -4,6 +4,7 @@
 
 
     <!-- Header -->
+    <x-successMessage></x-successMessage>
 
     <div class="mb-8">
         <h1 class="text-3xl font-bold text-gray-800">
