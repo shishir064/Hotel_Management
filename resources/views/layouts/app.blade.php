@@ -7,9 +7,7 @@
     <title>@yield('title')</title>
 
     <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&family=Hanken+Grotesk:wght@400;500;600&display=swap"
-        rel="stylesheet">
+
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     
     <!-- Material Icons -->
@@ -25,13 +23,6 @@
             background: #f7f9fb;
             color: #191c1e;
             overflow-x: hidden;
-        }
-
-        h1,
-        h2,
-        h3,
-        h4 {
-            font-family: 'Libre Caslon Text', serif;
         }
 
         .glass-nav {
@@ -55,7 +46,7 @@
     </style>
 </head>
 
-<body>
+<body class="font-hanken">
     <x-successMessage></x-successMessage>
     @if(session('success'))
 <script>

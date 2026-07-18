@@ -7,16 +7,17 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>@yield('title')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link
-        href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&amp;family=Hanken+Grotesk:wght@400;500;600&amp;display=swap"
-        rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-        rel="stylesheet" />
+    
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
     <style>
+        body {
+            font-family: 'Hanken Grotesk', sans-serif;
+            background: #f7f9fb;
+            color: #191c1e;
+            overflow-x: hidden;
+        }
         .glass-card {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(12px);
@@ -227,7 +228,7 @@
 
                         <div class="flex items-center gap-4">
                             <span class="material-symbols-outlined">hotel</span>
-                            <span>Destination Feed</span>
+                            <span>Feeds</span>
                         </div>
 
                         <span class="material-symbols-outlined text-sm" :class="open ? 'rotate-180' : ''">
@@ -239,12 +240,20 @@
                             class="flex items-center gap-4 px-3 py-2 rounded-lg hover:bg-gray-700 transition">
                             <span>Add Destinations</span>
                         </a>
+                        <a href="{{ route('trending-destinations.create') }}"
+                            class="flex items-center gap-4 px-3 py-2 rounded-lg hover:bg-gray-700 transition">
+                            <span>Add Trending Destinations</span>
+                        </a>
                         <a href="{{ route('show.featured.destinations') }}"
                             class="block px-3 py-2 rounded-lg hover:bg-gray-700">
                             Destination List
                         </a>
-                    @endrole
-                </div>
+                        <a href="{{ route('trending-destinations.index') }}"
+                            class="block px-3 py-2 rounded-lg hover:bg-gray-700">
+                           Trending Destination List
+                        </a>
+                    </div>
+                @endrole
 
             </div>
 

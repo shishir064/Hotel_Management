@@ -24,6 +24,7 @@ use App\Http\Controllers\RoomReserveController;
 use App\Http\Controllers\RoomServicesController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SuperAdminDashboardController;
+use App\Http\Controllers\TrendingDestinationsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPrfileController;
 use App\Models\FeaturedDestination;
@@ -240,6 +241,10 @@ Route::controller(FeaturedDestinationsController::class)->group(function () {
     Route::post('/add-featured-destinations', 'store')->name('store_featured_destinations');
     Route::delete('/delete/featured-destinations/{id}', 'destroy')->name('delete_featured_destinations');
 });
+
+//Trending Destainations
+
+Route::middleware(['auth', 'role:super-admin'])->resource('trending-destinations', TrendingDestinationsController::class);
 
 
 Route::controller(DestinationExploreController::class)->group(function () {

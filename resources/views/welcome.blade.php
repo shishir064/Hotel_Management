@@ -2,40 +2,36 @@
 @section('title', 'Quick Stay')
 @section('content')
     <!-- Hero -->
-    
+
     <section class="relative h-screen flex items-center justify-center overflow-hidden">
         <x-successMessage></x-successMessage>
-    <div class="absolute inset-0">
-        <img
-            src="{{ asset('images/kathmandu.jpg') }}"
-            class="w-full h-full object-cover"
-            alt=""
-        >
+        <div class="absolute inset-0">
+            <img src="{{ asset('images/kathmandu.jpg') }}" class="w-full h-full object-cover" alt="">
 
-        <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/10 to-black/20"></div>
-    </div>
+            <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/10 to-black/20"></div>
+        </div>
 
-    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-20 text-center text-white">
-        <h1 class="text-5xl md:text-7xl leading-tight max-w-4xl mx-auto mb-12 ">
-            Discover Your Perfect Gateway Destination
-        </h1>
-    </div>
-</section>
+        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-20 text-center text-white">
+            <h1 class="text-5xl md:text-7xl leading-tight max-w-4xl mx-auto mb-12 ">
+                Discover Your Perfect Gateway Destination
+            </h1>
+        </div>
+    </section>
 
-    <x-hotelfeed  :featuredDestinations="$destinations"></x-hotelfeed>
+    <x-hotelfeed :featuredDestinations="$destinations"></x-hotelfeed>
 
     <!-- Collections -->
     <section class="py-24 max-w-7xl mx-auto px-6 lg:px-20">
 
         <div class="flex items-end justify-between mb-14">
             <div>
-                <span class="uppercase tracking-[4px] text-gray-500 text-sm block mb-4">
-                    Curated Selections
-                </span>
 
-                <h2 class="text-4xl">
-                    Collections Of Destinations
+                <h2 class="text-4xl pb-3">
+                    Trending destinations
                 </h2>
+                <span class=" text-gray-500 text-md block mb-4">
+                    Most popular choices for travelers from Nepal
+                </span>
             </div>
 
             <a href="#" class="border-b border-black text-black">
@@ -45,64 +41,28 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-            <!-- Large -->
-            <div class="relative overflow-hidden group h-162">
-
-                <img src="{{ asset('images/pokhara.jpg') }}"
-                    class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="">
-
-                <div class="absolute inset-0 bg-linear-to-t from-black/70 to-transparent flex flex-col justify-end p-10">
-
-                    <h3 class="text-3xl text-white mb-2">
-                        Coastal Retreats
-                    </h3>
-
-                    <p class="text-white/80">
-                        Sovereign solitude by the water's edge.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Right -->
-            <div class="grid gap-6">
-
+            @foreach ($trendingDestinations as $trendingDestination)
                 <div class="relative overflow-hidden group aspect-video">
-
-                    <img src="{{ asset('images/lumbiniphoto.jpg') }}"
-                        class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="">
+                    <img src="{{ asset('storage/' . $trendingDestination->cover_image)}}"
+                    alt="{{$trendingDestination->name}}"
+                        class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="Pokhara">
 
                     <div
                         class="absolute inset-0 bg-linear-to-t from-black/70 to-transparent flex flex-col justify-end p-8">
 
-                        <h3 class="text-2xl text-white mb-2">
-                            Urban Sanctuaries
+                        <h3 class="text-3xl text-white mb-2 flex items-center gap-2">
+                            {{ $trendingDestination->name }}
+                            <img class="w-6 h-6 rounded-full" src="{{ asset('images/Npflag.jpg') }}" alt="Nepal Flag">
                         </h3>
 
                         <p class="text-white/80">
-                            High-altitude calm in the heart of the city.
+                           {{ $trendingDestination->description }}
                         </p>
                     </div>
+
                 </div>
+            @endforeach
 
-                <div class="relative overflow-hidden group aspect-video">
-
-                    <img src="{{ asset('images/chitwan.jpg') }}"
-                        class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="">
-
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-8">
-
-                        <h3 class="text-2xl text-white mb-2">
-                            Alpine Hideaways
-                        </h3>
-
-                        <p class="text-white/80">
-                            Warm hearths amidst the frozen peaks.
-                        </p>
-                    </div>
-                </div>
-
-            </div>
         </div>
     </section>
 

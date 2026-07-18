@@ -25,13 +25,6 @@
             overflow-x: hidden;
         }
 
-        h1,
-        h2,
-        h3,
-        h4 {
-            font-family: 'Libre Caslon Text', serif;
-        }
-
         .glass-nav {
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);

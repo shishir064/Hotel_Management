@@ -17,6 +17,12 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
     <style>
+        body {
+            font-family: 'Hanken Grotesk', sans-serif;
+            background: #f7f9fb;
+            color: #191c1e;
+            overflow-x: hidden;
+        }
         .glass-card {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(12px);

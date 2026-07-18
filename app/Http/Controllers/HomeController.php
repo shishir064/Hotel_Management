@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\FeaturedDestinations;
+use App\Models\TrendingDestinations;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,6 +15,8 @@ class HomeController extends Controller
         ->where('status', true)
         ->get();
 
-    return view('welcome', compact('destinations'));
+    $trendingDestinations = TrendingDestinations::latest()->get();
+
+    return view('welcome', compact('destinations', 'trendingDestinations'));
 }
 }

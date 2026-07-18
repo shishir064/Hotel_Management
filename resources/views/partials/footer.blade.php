@@ -3,7 +3,7 @@
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
 
             <div>
-                <h2 class="text-2xl mb-6">
+                <h2 class="text-2xl mb-6 ">
                     QuickStay
                 </h2>
 

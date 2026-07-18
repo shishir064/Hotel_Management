@@ -15,6 +15,8 @@
         "vite": "^8.0.0"
     },
     "dependencies": {
+        "@fontsource/hanken-grotesk": "^5.2.8",
+        "@fontsource/libre-caslon-text": "^5.2.7",
         "alpinejs": "^3.15.12",
         "chart.js": "^4.5.1",
         "sweetalert2": "^11.26.25"

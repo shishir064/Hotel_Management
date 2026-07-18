@@ -1,4 +1,8 @@
 @import 'tailwindcss';
+@import "@fontsource/hanken-grotesk/400.css";
+@import "@fontsource/hanken-grotesk/500.css";
+@import "@fontsource/hanken-grotesk/600.css";
+
 @plugin "daisyui";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
@@ -7,6 +11,8 @@
 @source '../**/*.js';
 
 @theme {
+    --font-hanken: "Hanken Grotesk", sans-serif;
+
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 

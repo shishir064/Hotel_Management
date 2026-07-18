@@ -82,7 +82,7 @@ class BillController extends Controller
         Bill::create(
         [
             'booking_id' => $request->bill_id,
-            'user_id' => $request->user_id,
+            'user_id' => $request   ->user_id,
             'room_id' => $request->room_id,
             'total' => $request->total,
             'status' => 'Paid',
