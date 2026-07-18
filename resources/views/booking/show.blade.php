@@ -6,7 +6,7 @@
         <div class="bg-white rounded-3xl shadow-lg overflow-hidden">
 
             <!-- Header -->
-            <form action="{{ route('bill.store') }}" method="POST">
+            <form action="{{ route('user.bill.store') }}" method="POST">
                 @csrf
                 <div class="bg-gradient-to-r from-gray-800 to-gray-600 text-white p-8">
 
@@ -35,7 +35,7 @@
                     @else
                         bg-blue-500 @endif
                 ">
-                            {{ ucfirst($booking->status) }}
+                            {{ ucfirst($booking->payment_status) }}
                         </span>
 
                     </div>
@@ -92,6 +92,7 @@
                         <div class="grid md:grid-cols-2 gap-6">
 
                             <div>
+                                <input type="text" name="status" hidden value="{{ $booking->status }}">
                                 <input type="text" name="user_id" hidden value="{{ $booking->user_id }}">
                                 <input type="text" name="bill_id" hidden value="{{ $booking->id }}">
                                 <input type="text" name="room_id" hidden value="{{ $booking->room_id }}">
@@ -253,7 +254,7 @@
                             <div class="flex justify-between text-xl font-bold text-green-600">
                                 <span>Total Amount</span>
                                 <span>Rs. <input class="border-none" type="text" name="total" id="total_amount"
-                                        value="{{ number_format($booking->total_price) }}" readonly></span>
+                                        value="{{ $booking->total_price }}" readonly></span>
                             </div>
 
                         </div>

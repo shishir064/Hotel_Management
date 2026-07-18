@@ -28,18 +28,18 @@
 
                         </div>
 
-                        <span
-                            class="px-4 py-1 rounded-full text-sm font-semibold
-
-                    @if ($booking->status == 'confirmed') bg-green-100 text-green-700
-                    @elseif($booking->status == 'pending')
-                        bg-yellow-100 text-yellow-700
-                    @elseif($booking->status == 'cancelled')
-                        bg-red-100 text-red-700
-                    @else
-                        bg-blue-100 text-blue-700 @endif
-                ">
-                            {{ ucfirst($booking->status) }}
+                        <span @class([
+                            'px-4 py-1 rounded-full text-sm font-semibold flex items-center',
+                            'bg-green-100 text-green-700' => $booking->status === 'confirmed',
+                            'bg-yellow-100 text-yellow-700' => $booking->status === 'pending',
+                            'bg-red-100 text-red-700' => $booking->status === 'cancelled',
+                            'bg-blue-100 text-blue-700' => !in_array($booking->status, [
+                                'confirmed',
+                                'pending',
+                                'cancelled',
+                            ]),
+                        ])>
+                            {{ ucfirst($booking->payment_status) }}
                         </span>
 
                     </div>
@@ -85,7 +85,7 @@
                         </a>
 
                         @if ($booking->status == 'pending')
-                            <form action="" method="POST">
+                            <form action="{{ route('user.bill.cancle', $booking->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
 
@@ -117,7 +117,7 @@
                     Looks like you haven't booked any rooms.
                 </p>
 
-                <a href="{{ route('home') }}" class="inline-block mt-6 bg-blue-600 text-white px-6 py-3 rounded-xl">
+                <a href="{{ route('search.hotel') }}" class="inline-block mt-6 bg-blue-600 text-white px-6 py-3 rounded-xl">
                     Book a Room
                 </a>
 

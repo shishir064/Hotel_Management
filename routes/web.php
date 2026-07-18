@@ -220,6 +220,8 @@ Route::controller(BookingHistoryController::class)->group(function () {
 Route::controller(BillController::class)->group(function () {
     Route::get('/bill/{id}', 'index')->name('billing.show');
     Route::post('/bill', 'store')->name('bill.store');
+    Route::post('/user/bill', 'userstore')->name('user.bill.store');
+    Route::delete('/user/cancle/bill/{id}', 'cancle')->name('user.bill.cancle');
 });
 
 

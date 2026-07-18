@@ -91,8 +91,9 @@ class RoomReserveController extends Controller
             'children' => $validated['children'] ?? 0,
             'total_price' => $totalPrice,
             'status' => 'pending',
+            'payment_status' => 'Pending',
         ]);
 
-        return redirect()->route('show.hotel');
+        return redirect()->route('booking.my')->with('success', 'Room reserved successfully');
     }
 }
