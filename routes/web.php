@@ -24,6 +24,8 @@ use App\Http\Controllers\RoomReserveController;
 use App\Http\Controllers\RoomServicesController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SuperAdminDashboardController;
+use App\Http\Controllers\TrendingController;
+use App\Http\Controllers\TrendingDestinationExploreController;
 use App\Http\Controllers\TrendingDestinationsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPrfileController;
@@ -242,14 +244,22 @@ Route::controller(FeaturedDestinationsController::class)->group(function () {
     Route::delete('/delete/featured-destinations/{id}', 'destroy')->name('delete_featured_destinations');
 });
 
-//Trending Destainations
-
-Route::middleware(['auth', 'role:super-admin'])->resource('trending-destinations', TrendingDestinationsController::class);
-
 
 Route::controller(DestinationExploreController::class)->group(function () {
     Route::get('/destination-explore/{id}', 'index')->name('destination.explore');
 });
+
+//Trending Destainations
+
+Route::middleware(['auth', 'role:super-admin'])->resource('trending-destinations', TrendingDestinationsController::class);
+
+Route::controller(TrendingController::class)->group(function () {
+    Route::get('trending-destinations-explore/{id}', 'index')->name('trending.destinations.explore');
+});
+
+Route::get('/trending-destinations-explore', [TrendingDestinationExploreController::class, 'index'])
+    ->name('trending.destinations.explore.index');
+
 
 //booking controller
 Route::prefix('bookings')->middleware('auth')->group(function () {

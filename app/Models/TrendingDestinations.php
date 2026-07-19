@@ -14,4 +14,9 @@ class TrendingDestinations extends Model
         'cover_image',
         'description',
     ];
+
+    public function hotels()
+    {
+        return $this->hasMany(Hotel::class, 'trending_destination_id');
+    }
 }

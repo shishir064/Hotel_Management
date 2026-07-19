@@ -15,7 +15,12 @@ class HomeController extends Controller
         ->where('status', true)
         ->get();
 
-    $trendingDestinations = TrendingDestinations::latest()->get();
+    $trendingDestinations = TrendingDestinations::latest()->limit(3)->get();
+
+    // $trendingDestinations = TrendingDestinations::where('status', 1)
+    //     ->latest()
+    //     ->take(3)
+    //     ->get();
 
     return view('welcome', compact('destinations', 'trendingDestinations'));
 }

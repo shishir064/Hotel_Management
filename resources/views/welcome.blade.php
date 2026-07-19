@@ -34,36 +34,48 @@
                 </span>
             </div>
 
-            <a href="#" class="border-b border-black text-black">
+            <a href="{{ route('trending.destinations.explore.index') }}" class="border-b border-black text-black">
                 Browse All Destinations
             </a>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-            @foreach ($trendingDestinations as $trendingDestination)
-                <div class="relative overflow-hidden group aspect-video">
-                    <img src="{{ asset('storage/' . $trendingDestination->cover_image)}}"
-                    alt="{{$trendingDestination->name}}"
-                        class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="Pokhara">
+    @foreach ($trendingDestinations as $trendingDestination)
 
-                    <div
-                        class="absolute inset-0 bg-linear-to-t from-black/70 to-transparent flex flex-col justify-end p-8">
+        <a href="{{ route('trending.destinations.explore', $trendingDestination->id) }}"
+            class="group relative overflow-hidden rounded-xl aspect-video block">
 
-                        <h3 class="text-3xl text-white mb-2 flex items-center gap-2">
-                            {{ $trendingDestination->name }}
-                            <img class="w-6 h-6 rounded-full" src="{{ asset('images/Npflag.jpg') }}" alt="Nepal Flag">
-                        </h3>
+            <!-- Image -->
+            <img src="{{ asset('storage/' . $trendingDestination->cover_image) }}"
+                alt="{{ $trendingDestination->name }}"
+                class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
 
-                        <p class="text-white/80">
-                           {{ $trendingDestination->description }}
-                        </p>
-                    </div>
+            <!-- Overlay -->
+            <div
+                class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-8 flex items-end">
 
+                <div class="max-w-xl">
+                    <h3 class="text-3xl font-semibold text-white mb-2 flex items-center gap-2">
+                        {{ $trendingDestination->name }}
+
+                        <img class="w-6 h-6 rounded-full object-cover"
+                            src="{{ asset('images/Npflag.jpg') }}"
+                            alt="Nepal Flag">
+                    </h3>
+
+                    <p class="text-white/80">
+                        {{ Str::limit($trendingDestination->description, 100) }}
+                    </p>
                 </div>
-            @endforeach
 
-        </div>
+            </div>
+
+        </a>
+
+    @endforeach
+
+</div>
     </section>
 
     <!-- Newsletter -->
@@ -82,7 +94,7 @@
 
             <div class="flex flex-col sm:flex-row gap-4">
 
-                <input type="email" class="flex-1 border-b border-gray-300 py-4 outline-none text-lg"
+                <input type="email" class="flex-1 border-b p-3   border-gray-300 py-4 outline-none text-lg"
                     placeholder="Email Address">
 
                 <button class="bg-black text-white px-12 py-4 hover:opacity-90">

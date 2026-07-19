@@ -47,4 +47,8 @@ class Hotel extends Model
     public function destinations(){
         return $this->belongsTo(FeaturedDestinations::class, 'destination_id');
     }
+
+    public function trendingDestination(){
+        return $this->belongsTo(TrendingDestinations::class, 'trending_destination_id');
+    }
 }
