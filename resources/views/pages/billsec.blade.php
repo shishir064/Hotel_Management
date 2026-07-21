@@ -139,20 +139,20 @@
                     <div class="px-5 py-3 border-r border-gray-300 space-y-1.5">
                         <div class="flex items-center gap-2">
                             <label class="text-xs font-semibold text-gray-600 whitespace-nowrap w-16">Booked Date:</label>
-                            <input type="date" id="invDate" class="field-input" value="{{ $bill->booking_date }}">
+                            <input type="date" id="invDate" class="field-input" value="{{ $bill->booking_date }}" readonly>
                         </div>
                         <div class="flex items-center gap-2">
                             <label class="text-xs font-semibold text-gray-600 whitespace-nowrap w-16">Room No:</label>
-                            <input type="text" id="roomNo" value="{{ $bill->room->room_no }}" class="field-input">
+                            <input type="text" id="roomNo" value="{{ $bill->room->room_no }}" class="field-input" readonly>
                         </div>
                         <div class="flex items-center gap-2">
                             <label class="text-xs font-semibold text-gray-600 whitespace-nowrap w-16">Check In:</label>
-                            <input type="date" id="checkIn" class="field-input" value="{{ $bill->check_in_date }}"
+                            <input type="date" id="checkIn" class="field-input" value="{{ $bill->check_in_date }}" readonly
                                 name="check_in">
                         </div>
                         <div class="flex items-center gap-2">
                             <label class="text-xs font-semibold text-gray-600 whitespace-nowrap w-16">Check Out:</label>
-                            <input type="date" id="checkOut" class="field-input" value="{{ $bill->check_out_date }}"
+                            <input type="date" id="checkOut" class="field-input" value="{{ $bill->check_out_date }}" readonly
                                 name="check_out">
                         </div>
                     </div>
@@ -160,15 +160,15 @@
                     <div class="px-5 py-3 space-y-1.5">
                         <div class="flex items-center gap-2">
                             <label class="text-xs font-semibold text-gray-600 whitespace-nowrap w-20">Guest Name:</label>
-                            <input type="text" id="guestName" value="{{ $bill->user->name }}" class="field-input">
+                            <input type="text" id="guestName" value="{{ $bill->user->name }}" class="field-input" readonly>
                         </div>
                         <div class="flex items-center gap-2">
                             <label class="text-xs font-semibold text-gray-600 whitespace-nowrap w-20">Address:</label>
-                            <input type="text" id="guestAddress" class="field-input" value="{{ $bill->user->address }}">
+                            <input type="text" id="guestAddress" class="field-input" value="{{ $bill->user->address }}" readonly>
                         </div>
                         <div class="flex items-center gap-2 mt-1">
                             <label class="text-xs font-semibold text-gray-600 whitespace-nowrap w-20">Tel:</label>
-                            <input type="text" id="guestTel" class="field-input" value="{{ $bill->user->phone }}">
+                            <input type="text" id="guestTel" class="field-input" value="{{ $bill->user->phone }}" readonly>
                         </div>
                     </div>
 
@@ -210,10 +210,10 @@
                                 <input class="cell-input qty text-center" value="1">
                             </td>
                             <td class="border border-gray-200 px-1.5 py-0.5">
-                                <input class="cell-input rate text-right" value="{{ $bill->room->room_price }}">
+                                <input class="cell-input rate text-right" value="{{ $bill->room->room_price }}" readonly>
                             </td>
                             <td class="border border-gray-200 px-1.5 py-0.5">
-                                <input class="cell-input amount text-right" readonly value="{{ $bill->room->room_price }}">
+                                <input class="cell-input amount text-right" readonly value="{{ $bill->room->room_price }}" readonly>
                             </td>
                         </tr>
                         @foreach ($services as $service)
@@ -294,7 +294,7 @@
                                 Amount Due</td>
                             <td class="border border-green-200 px-2 py-1.5">
                                 <input id="due" class="sum-input font-bold text-green-800" readonly
-                                    placeholder="0.00" value="{{ $bill->total }}" name="total">
+                                    placeholder="0.00" value="{{ $bill->total }}" name="total" readonly>
                             </td>
                         </tr>
                     </table>

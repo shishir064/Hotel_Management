@@ -18,6 +18,8 @@ class BillController extends Controller
         return view('pages.bill', compact('bill', 'services', 'room_booking'));
     }
 
+    
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -27,6 +29,7 @@ class BillController extends Controller
             'total' => 'required',
             'vat' => 'required',
             'payment_method' => 'required',
+            'booking_date' => 'required',
             'check_in' => 'required',
             'check_out' => 'required',
         ]);
@@ -41,6 +44,7 @@ class BillController extends Controller
                 'vat' => $request->vat,
                 'items' => json_encode($request->items),
                 'payment_method' => $request->payment_method,
+                'booking_date' => $request->booking_date,
                 'check_in_date' => $request->check_in,
                 'check_out_date' => $request->check_out
             ]
@@ -64,6 +68,20 @@ class BillController extends Controller
 
         return redirect()->route('bookings.index')->with('success', 'Bill updated successfully');
     }
+
+   public function show($id)
+{
+    $bill = Bill::with([
+        'user',
+        'room.hotel',
+        'booking',
+    ])->findOrFail($id);
+
+    $services = RoomServices::whereIn('id', json_decode($bill->items, true))->get();
+
+
+    return view('pages.billsec', compact('bill', 'services'));
+}
 
     public function userstore(Request $request)
     {

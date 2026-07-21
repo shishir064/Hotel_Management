@@ -134,7 +134,7 @@
                                         </a>
                                     @endif  
                                     @if ($book->payment_status == 'Paid')
-                                        <a href="{{ route('billing.show', $book->id) }}"
+                                        <a href="{{ route('admin.billing.show', $book->id) }}"
                                             class="bg-blue-600 text-white px-3 py-2 rounded">
                                             View
                                         </a>

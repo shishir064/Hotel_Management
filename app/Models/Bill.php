@@ -18,6 +18,7 @@ class Bill extends Model
         'vat',
         'items',
         'payment_method',
+        'booking_date',
         'check_in_date',
         'check_out_date',
     ];
