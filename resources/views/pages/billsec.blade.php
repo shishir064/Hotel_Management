@@ -250,7 +250,7 @@
                             <td
                                 class="border border-gray-200 px-2 py-1 text-xs font-semibold text-gray-600 whitespace-nowrap">
                                 Subtotal</td>
-                            <td class="border border-gray-200 px-2 py-1 min-w-[110px]">
+                            <td class="border border-gray-200 px-2 py-1 min-w-27">
                                 <input id="subtotal" class="sum-input" name="subtotal" value="{{ $bill->sub_total }}"
                                     readonly placeholder="0.0su0">
                             </td>

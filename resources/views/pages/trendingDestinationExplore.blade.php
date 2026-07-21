@@ -10,14 +10,14 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
             @foreach ($trendingDestinations as $destination)
-                <div class="relative overflow-hidden rounded-2xl h-[420px] group shadow-lg">
+                <div class="relative overflow-hidden rounded-2xl h-105 group shadow-lg">
                     <!-- Image -->
                     <img src="{{ asset('storage/' . $destination->cover_image) }}" alt="{{ $destination->name }}"
                         class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
 
                     <!-- Overlay -->
                     <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-8 flex items-end justify-between">
+                        class="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent p-8 flex items-end justify-between">
 
                         <!-- Left Content -->
                         <div class="max-w-[70%]">

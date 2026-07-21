@@ -8,7 +8,7 @@
         <div class="absolute inset-0">
             <img src="{{ asset('images/kathmandu.jpg') }}" class="w-full h-full object-cover" alt="">
 
-            <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/10 to-black/20"></div>
+            <div class="absolute inset-0 bg-linear-to-b from-black/80 via-black/10 to-black/20"></div>
         </div>
 
         <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-20 text-center text-white">
@@ -53,7 +53,7 @@
 
             <!-- Overlay -->
             <div
-                class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-8 flex items-end">
+                class="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent p-8 flex items-end">
 
                 <div class="max-w-xl">
                     <h3 class="text-3xl font-semibold text-white mb-2 flex items-center gap-2">
