@@ -39,7 +39,7 @@
                                 'cancelled',
                             ]),
                         ])>
-                            {{ ucfirst($booking->payment_status) }}
+                            {{ ucfirst($booking->status) }}
                         </span>
 
                     </div>
@@ -78,11 +78,14 @@
                     </div>
 
                     <div class="mt-6 flex justify-end gap-3">
+                        
 
-                        <a href="{{ route('booking.show', $booking->id) }}"
-                            class="px-5 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700">
-                            View Details
-                        </a>
+                       @if($booking->payment_status == 'Paid')
+                            <a href="{{ route('booking.show', $booking->id) }}"
+                                class="px-5 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700">
+                                Invoice
+                            </a>
+                       @endif
 
                         @if ($booking->status == 'pending')
                             <form action="{{ route('user.bill.cancle', $booking->id) }}" method="POST">

@@ -216,7 +216,7 @@
                                 <input class="cell-input amount text-right" readonly value="{{ $bill->room->room_price }}" readonly>
                             </td>
                         </tr>
-                        @foreach ($services as $service)
+                        @foreach ($services ?? [] as $service)
                             <tr>
                                 <td class="border  border-gray-200 px-1.5 py-0.5">
                                    <span class="cell-input"> {{ $service->name }}</span>

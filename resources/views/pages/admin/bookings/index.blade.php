@@ -152,7 +152,7 @@
                                             @csrf
                                             @method('PATCH')
 
-                                            <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-lg">
+                                            <button type="submit" class="px-3 py-2 bg-green-600 text-white rounded-lg">
                                                 Check In
                                             </button>
                                         </form>

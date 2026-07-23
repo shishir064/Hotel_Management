@@ -192,109 +192,6 @@
                 </div>
 
                 <div class="overflow-x-auto">
-
-                    {{-- <table class="w-full">
-
-                        <thead class="bg-gray-100">
-                            <tr class="text-left">
-                                <th class="p-4">Room Type</th>
-                                <th class="p-4">Guests</th>
-                                <th class="p-4">Benefits</th>
-                                <th class="p-4">Price</th>
-                                <th class="p-4">Availability</th>
-                                <th class="p-4"></th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-
-                            @forelse($rooms as $room)
-
-                                <tr class="border-t hover:bg-gray-50">
-
-                                    <td class="p-4">
-                                        <div>
-                                            <h3 class="font-semibold">
-                                                {{ $room->room_type }}
-                                            </h3>
-
-                                            <p class="text-sm text-gray-500">
-                                                Room {{ $room->room_number }}
-                                            </p>
-                                        </div>
-                                    </td>
-
-                                    <td class="p-4">
-                                        {{ $room->capacity }} Adults
-                                    </td>
-
-                                    <td class="p-4">
-                                        <ul class="text-sm text-green-600 space-y-1">
-                                            <li>✓ Free WiFi</li>
-                                            <li>✓ Free Cancellation</li>
-                                            <li>✓ Breakfast Included</li>
-                                        </ul>
-                                    </td>
-
-                                    <td class="p-4">
-                                        <div>
-                                            <p class="text-2xl font-bold">
-                                                NPR {{ number_format($room->price) }}
-                                            </p>
-
-                                            <p class="text-sm text-gray-500">
-                                                Includes taxes and charges
-                                            </p>
-                                        </div>
-                                    </td>
-
-                                    <td class="p-4">
-                                        @if ($room->status === 'available')
-                                            <span class="text-green-600 font-medium">
-                                                Available
-                                            </span>
-                                        @else
-                                            <span class="text-red-600 font-medium">
-                                                Sold Out
-                                            </span>
-                                        @endif
-                                    </td>
-
-                                    <td class="p-4">
-
-                                        @if ($room->status === 'available')
-
-                                            <a href="{{ route('booking.create', [
-                                                    'room' => $room->id,
-                                                    'check_in' => request('check_in'),
-                                                    'check_out' => request('check_out')
-                                                ]) }}"
-                                                class="bg-blue-700 hover:bg-blue-800 text-white px-5 py-2 rounded-lg inline-block">
-
-                                                Reserve
-
-                                            </a>
-
-                                        @endif
-
-                                    </td>
-
-                                </tr>
-
-                            @empty
-
-                                <tr>
-                                    <td colspan="6" class="text-center py-10 text-gray-500">
-                                        No rooms available for selected dates.
-                                    </td>
-                                </tr>
-
-                            @endforelse
-
-                        </tbody>
-
-                    </table> --}}
-
                     <div class="bg-white rounded-xl shadow-lg overflow-hidden">
 
                         <!-- Header -->
@@ -438,7 +335,7 @@
                                         </p>
                                     @else
                                         <span class="bg-red-100 text-red-700 px-4 py-2 rounded-lg text-center font-medium">
-                                            Sold Out
+                                            Occupied
                                         </span>
                                     @endif
 

@@ -4,12 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\RoomBooking;
 use App\Models\Rooms;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use PhpParser\Node\Expr\Assign;
 
 class RoomReserveController extends Controller
 {
@@ -85,12 +82,13 @@ class RoomReserveController extends Controller
         RoomBooking::create([
             'room_id' => $validated['room_id'],
             'user_id' => $user->id,
+            'booked_date' => $validated['booked_date'],
             'check_in' => $validated['check_in'],
             'check_out' => $validated['check_out'],
             'adults' => $validated['adults'],
             'children' => $validated['children'] ?? 0,
             'total_price' => $totalPrice,
-            'status' => 'pending',
+            'status' => 'confirmed',
             'payment_status' => 'Pending',
         ]);
 

@@ -35,7 +35,7 @@
                     @else
                         bg-blue-500 @endif
                 ">
-                            {{ ucfirst($booking->payment_status) }}
+                            {{ ucfirst($booking->status) }}
                         </span>
 
                     </div>
@@ -222,21 +222,6 @@
                                 <span>Room Price / Night</span>
                                 <span>Rs. {{ number_format($booking->room->room_price) }}</span>
                             </div>
-
-                            <div class="flex justify-between">
-                                <span>Discount</span>
-                                <span><input type="text" name="discount" id="discount" value="{{ $booking->room->discount }}" class="w-10 text-right border-none outline-none bg-transparent p-0 focus:ring-0"> %</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span>VAT</span>
-
-                                <div class="flex items-center">
-                                    <input type="text" name="vat" id="vat" value="13"
-                                        class="w-10 text-right border-none outline-none bg-transparent p-0 focus:ring-0">
-                                    <span>%</span>
-                                </div>
-                            </div>
-
                             <div class="flex justify-between">
                                 <span>Total Nights</span>
                                 <span>
@@ -258,22 +243,6 @@
                             </div>
 
                         </div>
-                        <div class="flex justify-between mt-3">
-
-                            <span>Payment Method</span>
-
-                            <span class="font-semibold">
-                                <select name="payment_method" id="" class="p-2">
-                                    <option>Select Payment Method</option>
-                                    <option>Cash</option>
-                                    <option>Card</option>
-                                    <option>eSewa</option>
-                                    <option>Khalti</option>
-                                    <option>Bank Transfer</option>
-                                </select>
-                            </span>
-
-                        </div>
 
                     </div>
 
@@ -286,30 +255,6 @@
                             Back
 
                         </a>
-                        @if ($booking->payment_status != 'Paid')
-                        @endif
-
-                        {{-- @if ($booking->status == 'pending')
-                            <form action="{{ route('booking.cancel', $booking->id) }}" method="POST">
-
-                                @csrf
-                                @method('DELETE')
-
-                                <button onclick="return confirm('Cancel this booking?')"
-                                    class="px-6 py-3 rounded-xl bg-red-600 text-white hover:bg-red-700">
-
-                                    Cancel Booking
-
-                                </button>
-
-                            </form>
-                        @endif --}}
-                        <button type="submit"
-                            class="px-6 py-3 rounded-xl bg-green-600 hover:bg-green-700 text-white font-semibold">
-
-                            💳 Pay Now
-
-                        </button>
                     </div>
 
                 </div>

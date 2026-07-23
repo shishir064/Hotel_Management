@@ -18,7 +18,7 @@ class BillController extends Controller
         return view('pages.bill', compact('bill', 'services', 'room_booking'));
     }
 
-    
+
 
     public function store(Request $request)
     {
@@ -69,23 +69,23 @@ class BillController extends Controller
         return redirect()->route('bookings.index')->with('success', 'Bill updated successfully');
     }
 
-   public function show($id)
-{
-    $bill = Bill::with([
-        'user',
-        'room.hotel',
-        'booking',
-    ])->findOrFail($id);
+    public function show($id)
+    {
+        $bill = Bill::with([
+            'user',
+            'room.hotel',
+            'booking',
+        ])->findOrFail($id);
 
-    $services = RoomServices::whereIn('id', json_decode($bill->items, true))->get();
+        $services = RoomServices::whereIn('id', json_decode($bill->items, true))->get();
 
 
-    return view('pages.billsec', compact('bill', 'services'));
-}
+        return view('pages.billsec', compact('bill', 'services'));
+    }
 
     public function userstore(Request $request)
     {
-    $validated = $request->validate([
+        $validated = $request->validate([
             'bill_id' => 'required',
             'user_id' => 'required',
             'room_id' => 'required',
@@ -98,18 +98,19 @@ class BillController extends Controller
         ]);
 
         Bill::create(
-        [
-            'booking_id' => $request->bill_id,
-            'user_id' => $request   ->user_id,
-            'room_id' => $request->room_id,
-            'total' => $request->total,
-            'status' => 'Paid',
-            'vat' => $request->vat,
-            'payment_method' => $request->payment_method,
-            'check_in_date' => $request->check_in,
-            'check_out_date' => $request->check_out
-            
-        ]);
+            [
+                'booking_id' => $request->bill_id,
+                'user_id' => $request->user_id,
+                'room_id' => $request->room_id,
+                'total' => $request->total,
+                'status' => 'Paid',
+                'vat' => $request->vat,
+                'payment_method' => $request->payment_method,
+                'check_in_date' => $request->check_in,
+                'check_out_date' => $request->check_out
+
+            ]
+        );
         Rooms::where('id', $request->room_id)
             ->update([
                 'room_status' => 'available',
@@ -124,12 +125,12 @@ class BillController extends Controller
             ]);
 
         return redirect()->route('booking.my')->with('success', 'Payment done successfully');
-
     }
 
 
 
-    public function cancle($id){
+    public function cancle($id)
+    {
         $bill = roomBooking::findorfail($id);
         $bill->delete();
         return redirect()->route('booking.my')->with('success', 'Bill deleted successfully');
