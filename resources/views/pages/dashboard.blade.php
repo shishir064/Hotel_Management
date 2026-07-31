@@ -14,13 +14,18 @@
                     </span>
 
                     <span class="material-symbols-outlined text-secondary">
-                        person
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                        </svg>
+
                     </span>
                 </div>
 
                 <p class="font-headline-lg text-headline-lg mt-auto">
                     {{-- {{ $guests->count() }} --}}
-                    {{$totalGuests }}
+                    {{ $totalGuests }}
                 </p>
 
             </div>
@@ -35,7 +40,7 @@
                 </div>
             </div>
             {{-- <p class="font-headline-lg text-headline-lg mt-4">{{ $rooms  }}</p> --}}
-            <p class="font-headline-lg text-headline-lg mt-4">{{ $rooms  }}</p>
+            <p class="font-headline-lg text-headline-lg mt-4">{{ $rooms }}</p>
 
         </div>
         <!-- Arrivals -->
@@ -57,7 +62,13 @@
                 <div class="flex justify-between items-start">
                     <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Total
                         Revenue</span>
-                    <span class="material-symbols-outlined text-secondary" data-icon="currency_rupee">currency_rupee</span>
+                    <span class="material-symbols-outlined text-secondary" data-icon="currency_rupee"><svg
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15 8.25H9m6 3H9m3 6-3-3h1.5a3 3 0 1 0 0-6M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                    </span>
                 </div>
             </div>
             {{-- <p class="font-label-sm text-label-sm text-on-surface-variant mt-4">Rs. {{ number_format($totalRevenue, 2) }} --}}
@@ -101,12 +112,14 @@
                                 <div class="flex items-center gap-3">
                                     <div
                                         class="w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center font-label-md">
-                                       {{ $roomBooking->guest?->initials ?? 'N' }}</div>
-                                    <span class="font-body-md font-semibold"> {{ $roomBooking->user?->name ?? 'No User' }}</span>
+                                        {{ $roomBooking->guest?->initials ?? 'N' }}</div>
+                                    <span class="font-body-md font-semibold">
+                                        {{ $roomBooking->user?->name ?? 'No User' }}</span>
                                 </div>
                             </td>
-                            <td class="px-8 py-5 font-body-md text-on-surface-variant">{{ $roomBooking->room?->roomCategory?->category_name }}</td>
-                            <td class="px-8 py-5 font-body-md">{{ $roomBooking->check_in  }}</td>
+                            <td class="px-8 py-5 font-body-md text-on-surface-variant">
+                                {{ $roomBooking->room?->roomCategory?->category_name }}</td>
+                            <td class="px-8 py-5 font-body-md">{{ $roomBooking->check_in }}</td>
                             <td class="px-8 py-5 font-body-md">{{ $roomBooking->check_out }}</td>
                             <td class="px-8 py-5">
                                 <span
