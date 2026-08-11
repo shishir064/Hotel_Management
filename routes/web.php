@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutUsController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AvailableBookingController;
 use App\Http\Controllers\AvailableRoomsController;
@@ -29,6 +30,7 @@ use App\Http\Controllers\TrendingDestinationExploreController;
 use App\Http\Controllers\TrendingDestinationsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPrfileController;
+use App\Http\Controllers\WebSettingController;
 use App\Models\FeaturedDestination;
 use Illuminate\Support\Facades\Route;
 
@@ -80,7 +82,7 @@ Route::middleware(['auth', 'role:super-admin'])->controller(UserController::clas
 
 //dashboard routes
 Route::middleware(['auth', 'role:admin'])->controller(DashboardController::class)->group(function () {
-    Route::get('/dashboard', 'index')->name('dashboard');
+    Route::get('/dashboard', 'index')->name('admin.dashboard');
     
 });
 Route::middleware(['auth', 'role:super-admin'])->controller(DashboardController::class)->group(function () {
@@ -193,6 +195,7 @@ Route::middleware('auth')->controller(UserPrfileController::class)->group(functi
     Route::get('/user/profile/edit/{id}', 'edit')->name('edit.user.profile');
     Route::get('/user/profile/setting', 'showSetting')->name('user.security');
 });
+
 //setting 
 
 Route::middleware('auth')->controller(SettingController::class)->group(function () {
@@ -202,12 +205,20 @@ Route::middleware('auth')->controller(SettingController::class)->group(function 
     Route::post('/logout', 'destory')->name('logout')->middleware('auth');
 });
 
+//web settings
+
+Route::middleware('auth')->controller(WebSettingController::class)->group(function () {
+    Route::get('/web/settings', 'edit')->name('web.settings');
+    Route::put('/web/settings', 'update')->name('web.settings.update');
+});
+
+//Available Rooms
 Route::controller(AvailableRoomsController::class)->group(function () {
     Route::get('/available/room', 'index')->name('room.available');
     Route::get('/available/room/{status?}', 'index')->name('room.available');
 });
 
-//comform booking
+//comfirm booking
 Route::controller(AvailableBookingController::class)->group(function () {
     Route::get('/confirm/booking/list', 'index')->name('comfirm.booking.list');
     Route::get('/admin/bookings', 'index')->name('bookings.index');

@@ -24,7 +24,6 @@
                 </div>
 
                 <p class="font-headline-lg text-headline-lg mt-auto">
-                    {{-- {{ $guests->count() }} --}}
                     {{ $totalGuests }}
                 </p>
 
@@ -39,8 +38,8 @@
                     <span class="material-symbols-outlined text-secondary" data-icon="person">bed</span>
                 </div>
             </div>
-            {{-- <p class="font-headline-lg text-headline-lg mt-4">{{ $rooms  }}</p> --}}
-            <p class="font-headline-lg text-headline-lg mt-4">{{ $rooms }}</p>
+            <p class="font-headline-lg text-headline-lg mt-4">{{ $totalRooms  }}</p>
+            <p class="font-headline-lg text-headline-lg mt-4"></p>
 
         </div>
         <!-- Arrivals -->
@@ -52,7 +51,6 @@
                     <span class="material-symbols-outlined text-secondary" data-icon="person">bed</span>
                 </div>
             </div>
-            {{-- <p class="font-headline-lg text-headline-lg mt-4">{{ $roomBookings->count() }}</p> --}}
             <p class="font-headline-lg text-headline-lg mt-4">{{ $totalBookings }}</p>
 
         </div>
@@ -71,7 +69,6 @@
                     </span>
                 </div>
             </div>
-            {{-- <p class="font-label-sm text-label-sm text-on-surface-variant mt-4">Rs. {{ number_format($totalRevenue, 2) }} --}}
             <p class="font-label-sm text-label-sm text-on-surface-variant mt-4">Rs. {{ number_format($totalRevenue, 2) }}
             </p>
         </div>

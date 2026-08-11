@@ -37,7 +37,7 @@ class AuthController extends Controller
                 return redirect()->route('superadmin.dashboard')->with('success', 'Login successfully');
             }
             elseif ($user->hasRole('admin')) {
-                return redirect()->route('dashboard')->with('success', 'Login successfully');
+                return redirect()->route('admin.dashboard')->with('success', 'Login successfully');
             }
             else{
                 return redirect()->route('show.hotel')->with('success', 'Login successfully'); 
